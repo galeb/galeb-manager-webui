@@ -19,7 +19,7 @@ angular.module('auth', []).factory(
                     + credentials.password)
           } : {};
 
-          $http.get('http://localhost:8000/account/1', {
+          $http.get(baseUrl + '/account/1', {
             headers : headers
           }).success(function(data) {
             if (data.name) {
