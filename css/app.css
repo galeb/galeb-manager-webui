@@ -1,0 +1,13 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.add-server-button{
+	margin-bottom: 5px;
+}
+
+.ng-invalid.ng-dirty {
+	border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+	border-color: #78FA89;
+}
