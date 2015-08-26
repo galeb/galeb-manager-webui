@@ -1,5 +1,7 @@
+var baseUrl = 'http://localhost:8000';
+
 angular
-		.module('hello', [ 'ngRoute', 'ui.bootstrap', 'angular-hal', 'auth', 'home', 'api', 'navigation' ])
+		.module('galeb-webui', [ 'ngRoute', 'ui.bootstrap', 'angular-hal', 'auth', 'home', 'api', 'navigation' ])
 		.config(
 
 				function($routeProvider, $httpProvider, $locationProvider) {
@@ -10,10 +12,25 @@ angular
 						templateUrl : 'home.html',
 						controller : 'home'
 					}).when('/environment', {
-						templateUrl : 'environment.html',
+						templateUrl : 'templates/environment.html',
 						controller : 'ApiController'
-					}).when('/target', {
-						templateUrl : 'target.html',
+					}).when('/targettype', {
+						templateUrl : 'templates/targettype.html',
+						controller : 'ApiController'
+					}).when('/ruletype', {
+						templateUrl : 'templates/ruletype.html',
+						controller : 'ApiController'
+					}).when('/backendpool', {
+						templateUrl : 'templates/backendpool.html',
+						controller : 'ApiController'
+					}).when('/backend', {
+						templateUrl : 'templates/backend.html',
+						controller : 'ApiController'
+					}).when('/project', {
+						templateUrl : 'templates/project.html',
+						controller : 'ApiController'
+					}).when('/account', {
+						templateUrl : 'templates/account.html',
 						controller : 'ApiController'
 					}).when('/login', {
 						templateUrl : 'login.html',
