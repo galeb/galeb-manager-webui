@@ -49,6 +49,9 @@ angular.module('api', [])
             })
         });
     })
+    .controller('RoleController',function($scope, $http, halClient){
+        $scope.roles = ['ROLE_USER', 'ROLE_ADMIN'];
+    })
     .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location) {
 
 		$scope.api = angular.copy(api);
@@ -56,7 +59,7 @@ angular.module('api', [])
 
 		$scope.save = function () {
 			if ($scope.api.id != null) {
-				$http.put(apiUrl + '/' + $scope.api.id, $scope.api).then(function () {
+				$http.patch(apiUrl + '/' + $scope.api.id, $scope.api).then(function () {
 				});
 			} else {
 				$http.post(apiUrl, $scope.api).then(function () {
