@@ -1,6 +1,6 @@
 angular.module('api', [])
     .controller('ProjectController',function($scope, $http, halClient){
-        halClient.$get('http://localhost:8000/project').then(function (resource) {
+        halClient.$get(baseUrl + '/project').then(function (resource) {
             return resource.$get('project');
         }).then(function(project) {
             $scope.projects = project;
@@ -10,7 +10,7 @@ angular.module('api', [])
         });
     })
     .controller('EnvironmentController',function($scope, $http, halClient){
-        halClient.$get('http://localhost:8000/environment').then(function (resource) {
+        halClient.$get(baseUrl + '/environment').then(function (resource) {
             return resource.$get('environment');
         }).then(function(environment) {
             $scope.environments = environment;
@@ -20,7 +20,7 @@ angular.module('api', [])
         });
     })
     .controller('TargetTypeController',function($scope, $http, halClient){
-        halClient.$get('http://localhost:8000/targettype').then(function (resource) {
+        halClient.$get(baseUrl + '/targettype').then(function (resource) {
             return resource.$get('targettype');
         }).then(function(targettype) {
             $scope.targettypes = targettype;
@@ -29,10 +29,30 @@ angular.module('api', [])
             })
         });
     })
+    .controller('TeamController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/team').then(function (resource) {
+            return resource.$get('team');
+        }).then(function(team) {
+            $scope.teams = team;
+            team.forEach(function (data) {
+                data['selfLink'] = data.$href('self');
+            })
+        });
+    })
+    .controller('BackendPoolController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/target/search/findByTargetTypeName?name=BackendPool').then(function (resource) {
+            return resource.$get('target');
+        }).then(function(target) {
+            $scope.backendpools = target;
+            target.forEach(function (data) {
+                data['selfLink'] = data.$href('self');
+            })
+        });
+    })
     .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location) {
 
 		$scope.api = angular.copy(api);
-        var apiUrl = 'http://localhost:8000' + $location.path();
+        var apiUrl = baseUrl + '/' + angular.element(document.querySelector('#apiPath'))[0]['value'];
 
 		$scope.save = function () {
 			if ($scope.api.id != null) {
@@ -54,29 +74,46 @@ angular.module('api', [])
 	.controller('ApiController', function($scope, $http, $modal, $location, halClient) {
 		var self = this;
 		$scope.api = {};
-        var baseUrl = 'http://localhost:8000';
-        var pathUrl = $location.path();
-        var apiUrl = baseUrl + pathUrl;
+
+        $scope.extractInfo = function () {
+            $scope.apiPath = angular.element(document.querySelector('#apiPath'))[0]['value'];
+            $scope.apiType = angular.element(document.querySelector('#apiType'))[0]['value'];
+            $scope.apiExcludeLinks = angular.element(document.querySelector('#apiExcludeLinks'))[0]['value'].split("-");
+        };
 
 		$scope.list = function () {
             $scope.apis = {};
-            halClient.$get(apiUrl).then(function (resource) {
-                return resource.$get(pathUrl.replace('/',''));
+            $scope.extractInfo();
+            var apiURL = baseUrl + '/' + $scope.apiPath;
+
+            if ($scope.apiType === 'BackendPool' || $scope.apiType === 'Backend') {
+                apiURL = apiURL + '/search/findByTargetTypeName?name=' + $scope.apiType;
+            }
+            halClient.$get(apiURL).then(function (resource) {
+                return resource.$get($scope.apiPath);
             }).then(function(api) {
                 $scope.apis = api;
                 api.forEach(function (item) {
                     angular.forEach(item.$links(), function (element, index) {
-                        if (index !== 'self') {
-                            if (index.slice(-1) !== 's') {
-                                $http.get(element.href).success(function (data, status) {
-                                    if (status !== 404) {
-                                        var tmpObj = {'name': data.name, 'href': data._links.self.href};
-                                        item[index + 'Obj'] = tmpObj;
-                                        item[index] = data._links.self.href;
-                                        tmpObj = {};
-                                    }
-                                });
-                            }
+                        if ($scope.apiExcludeLinks.indexOf(index) === -1) {
+                            $http.get(element.href).success(function (data) {
+                                if (data._embedded) {
+                                    var tmpArr = [];
+                                    var tmpArrLinks = [];
+                                    angular.forEach(data._embedded[index.substr(0, index.length-1)], function(embd) {
+                                        tmpObj = {'name': embd.name, 'href': embd._links.self.href};
+                                        tmpArr.push(tmpObj);
+                                        tmpArrLinks.push(embd._links.self.href);
+                                    });
+                                    item[index + 'Obj'] = tmpArr;
+                                    item[index] = tmpArrLinks;
+                                } else {
+                                    tmpObj = {'name': data.name, 'href': data._links.self.href};
+                                    item[index + 'Obj'] = tmpObj;
+                                    item[index] = data._links.self.href;
+                                    tmpObj = {};
+                                }
+                            });
                         }
                     });
                 });
