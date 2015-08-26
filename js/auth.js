@@ -19,14 +19,10 @@ angular.module('auth', []).factory(
                     + credentials.password)
           } : {};
 
-          $http.get(baseUrl + '/account/1', {
+          $http.get(baseUrl + auth.loginPath, {
             headers : headers
-          }).success(function(data) {
-            if (data.name) {
-              auth.authenticated = true;
-            } else {
-              auth.authenticated = false;
-            }
+        }).success(function(data) {
+            auth.authenticated = true;
             $location.path(auth.homePath);
             callback && callback(auth.authenticated);
           }).error(function() {
@@ -39,7 +35,7 @@ angular.module('auth', []).factory(
         clear : function() {
             auth.authenticated = false;
             $location.path(auth.loginPath);
-            $http.post(auth.logoutPath, {});
+            $http.get(baseUrl + auth.logoutPath);
         },
 
         init : function(homePath, loginPath, logoutPath) {
