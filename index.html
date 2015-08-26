@@ -12,12 +12,17 @@
 </style>
 </head>
 
-<body ng-app="hello" ng-cloak class="ng-cloak">
+<body ng-app="galeb-webui" ng-cloak class="ng-cloak">
 	<div ng-controller="navigation" class="container">
 		<ul class="nav nav-pills" role="tablist">
 			<li ng-class="{active:tab('home')}"><a href="/">home</a></li>
 			<li ng-show="authenticated()" ng-class="{active:tab('environment')}"><a href="/environment">environment</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('target')}"><a href="/target">target</a></li>
+			<li ng-show="authenticated()" ng-class="{active:tab('targettype')}"><a href="/targettype">targettype</a></li>
+			<li ng-show="authenticated()" ng-class="{active:tab('ruletype')}"><a href="/ruletype">ruletype</a></li>
+			<li ng-show="authenticated()" ng-class="{active:tab('backendpool')}"><a href="/backendpool">backendpool</a></li>
+			<li ng-show="authenticated()" ng-class="{active:tab('backend')}"><a href="/backend">backend</a></li>
+			<li ng-show="authenticated()" ng-class="{active:tab('project')}"><a href="/project">project</a></li>
+			<li ng-show="authenticated()" ng-class="{active:tab('account')}"><a href="/account">account</a></li>
 			<li ng-show="!authenticated()"><a href="/login">login</a></li>
 			<li ng-show="authenticated()"><a href="" ng-click="logout()">logout</a></li>
 		</ul>
