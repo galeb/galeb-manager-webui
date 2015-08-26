@@ -32,6 +32,9 @@ angular
 					}).when('/project', {
 						templateUrl : 'templates/project.html',
 						controller : 'ApiController'
+					}).when('/team', {
+						templateUrl : 'templates/team.html',
+						controller : 'ApiController'
 					}).when('/account', {
 						templateUrl : 'templates/account.html',
 						controller : 'ApiController'
