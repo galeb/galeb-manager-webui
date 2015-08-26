@@ -20,6 +20,9 @@ angular
 					}).when('/ruletype', {
 						templateUrl : 'templates/ruletype.html',
 						controller : 'ApiController'
+					}).when('/virtualhost', {
+						templateUrl : 'templates/virtualhost.html',
+						controller : 'ApiController'
 					}).when('/backendpool', {
 						templateUrl : 'templates/backendpool.html',
 						controller : 'ApiController'
