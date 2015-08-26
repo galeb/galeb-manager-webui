@@ -1,4 +1,14 @@
 angular.module('api', [])
+    .controller('VirtualHostController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/virtualhost').then(function (resource) {
+            return resource.$get('virtualhost');
+        }).then(function(virtualhost) {
+            $scope.virtualhosts = virtualhost;
+            virtualhost.forEach(function (data) {
+                data['selfLink'] = data.$href('self');
+            })
+        });
+    })
     .controller('ProjectController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/project').then(function (resource) {
             return resource.$get('project');
@@ -25,6 +35,16 @@ angular.module('api', [])
         }).then(function(targettype) {
             $scope.targettypes = targettype;
             targettype.forEach(function (data) {
+                data['selfLink'] = data.$href('self');
+            })
+        });
+    })
+    .controller('RuleTypeController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/ruletype').then(function (resource) {
+            return resource.$get('ruletype');
+        }).then(function(ruletype) {
+            $scope.ruletypes = ruletype;
+            ruletype.forEach(function (data) {
                 data['selfLink'] = data.$href('self');
             })
         });

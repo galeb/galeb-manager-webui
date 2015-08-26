@@ -23,6 +23,9 @@ angular
 					}).when('/virtualhost', {
 						templateUrl : 'templates/virtualhost.html',
 						controller : 'ApiController'
+					}).when('/rule', {
+						templateUrl : 'templates/rule.html',
+						controller : 'ApiController'
 					}).when('/backendpool', {
 						templateUrl : 'templates/backendpool.html',
 						controller : 'ApiController'
