@@ -23,7 +23,7 @@
 		</thead>
 		<tr ng-repeat="api in apis">
 		    <td>{{api.name}}</td>
-		    <td><span ng-repeat="team in api.teamsObj">{{team.name}} </span></td>
+		    <td><span ng-repeat="team in api.teamsObj">{{team.name}}, </span></td>
 		    <td>
 				<button type="button" ng-click="apiModal(api)" class="btn btn-default btn-sm btn-edit" title="Edit">
     			   <span class="glyphicon glyphicon-pencil"></span>
