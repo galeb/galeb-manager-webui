@@ -49,6 +49,16 @@ angular.module('api', [])
             })
         });
     })
+    .controller('BalanceTypeController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/balancepolicytype').then(function (resource) {
+            return resource.$get('balancepolicytype');
+        }).then(function(balancepolicytype) {
+            $scope.balancepolicytypes = balancepolicytype;
+            balancepolicytype.forEach(function (data) {
+                data['selfLink'] = data.$href('self');
+            })
+        });
+    })
     .controller('TeamController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/team').then(function (resource) {
             return resource.$get('team');
