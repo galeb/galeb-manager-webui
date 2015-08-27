@@ -95,15 +95,15 @@ angular.module('api', [])
     .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location) {
 
 		$scope.api = angular.copy(api);
-        var apiUrl = baseUrl + '/' + angular.element(document.querySelector('#apiPath'))[0]['value'];
+        var apiURL = baseUrl + '/' + angular.element(document.querySelector('#apiPath'))[0]['value'];
 
 		$scope.save = function () {
 			if ($scope.api.id != null) {
-				$http.patch(apiUrl + '/' + $scope.api.id, $scope.api).then(function () {
+				$http.patch(apiURL + '/' + $scope.api.id, $scope.api).then(function () {
 				});
 			} else {
-				$http.post(apiUrl, $scope.api).then(function () {
-				});
+				$http.post(apiURL, $scope.api).then(function(response) {
+                });
 			}
 
 			$modalInstance.close($scope.api);
@@ -166,9 +166,11 @@ angular.module('api', [])
 		};
 
 		$scope.remove = function (api) {
+            $scope.extractInfo();
+            var apiURL = baseUrl + '/' + $scope.apiPath;
 			var confirm = window.confirm('Are you sure to delete ' + api.name + '?');
 			if (confirm) {
-				$http.delete(apiUrl + '/' + api.id).then(function () {
+				$http.delete(apiURL + '/' + api.id).then(function () {
 					$scope.list();
 				});
 			}
@@ -193,9 +195,11 @@ angular.module('api', [])
 		        }
 		    });
 
-			modalInstance.result.then(function (data) {
+            modalInstance.result.then(function (result) {
+                $scope.api = {};
                 $scope.list();
-			});
+            });
+
 		};
 
 		$scope.list();
