@@ -23,6 +23,9 @@ angular
 					}).when('/balancetype', {
 						templateUrl : 'templates/balancetype.html',
 						controller : 'ApiController'
+					}).when('/balancepolicy', {
+						templateUrl : 'templates/balancepolicy.html',
+						controller : 'ApiController'
 					}).when('/virtualhost', {
 						templateUrl : 'templates/virtualhost.html',
 						controller : 'ApiController'
