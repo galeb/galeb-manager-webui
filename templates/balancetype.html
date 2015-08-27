@@ -1,0 +1,56 @@
+<div ng-controller="ApiController">
+	<input id="apiPath" name="apiPath" value="balancepolicytype" class="hidden"/>
+	<input id="apiType" name="apiType" value="" class="hidden"/>
+	<input id="apiExcludeLinks" name="apiExcludeLinks" value="self-balancePolicies" class="hidden"/>
+	<div class="pull-right">
+		<button type="button" class="btn btn-success add-api-button" ng-click="apiModal()">
+			Add BalanceType
+		</button>
+	</div>
+	<div class="clearfix"></div>
+
+	<div class="alert alert-info" role="alert" ng-hide="apis && apis.length > 0">
+		There are no balancepolicytype yet.
+	</div>
+
+	<table class="table table-hover" ng-show="apis && apis.length > 0">
+		<thead>
+			<tr>
+			    <th>Name</th>
+			    <th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="api in apis">
+		    <td>{{api.name}}</td>
+		    <td>
+				<button type="button" ng-click="apiModal(api)" class="btn btn-default btn-sm btn-edit" title="Edit">
+    			   <span class="glyphicon glyphicon-pencil"></span>
+    			</button>
+    			<button type="button" ng-click="remove(api)" class="btn btn-sm btn-danger" title="Delete">
+    			   <span class="glyphicon glyphicon-trash"></span>
+    		   </button>
+			</td>
+		</tr>
+	</table>
+
+	<script type="text/ng-template" id="apiModalForm.html">
+		<div class="modal-header">
+			<h3 class="modal-title">BalanceType</h3>
+		</div>
+		<form name="apiForm" ng-submit="apiForm.$valid && save()" novalidate class="form-horizontal">
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="name">Name</label>
+					<div class="col-md-5">
+						<input id="id" name="id" ng-model="api.id" value="{{api.id}}" class="hidden"/>
+						<input id="name" name="name" ng-model="api.name" type="text" class="form-control input-md" required>
+					</div>
+                </div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
+				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+			</div>
+		</form>
+	</script>
+</div>
