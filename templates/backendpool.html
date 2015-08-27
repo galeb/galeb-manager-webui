@@ -19,6 +19,7 @@
 			    <th>Name</th>
 				<th>Project</th>
 			    <th>Type</th>
+				<th>BalancePolicy</th>
 				<th>Environment</th>
 			    <th>&nbsp;</th>
 			</tr>
@@ -27,6 +28,7 @@
 		    <td>{{api.name}}</td>
 			<td>{{api.projectObj.name}}</td>
 		    <td>{{api.targetTypeObj.name}}</td>
+			<td>{{api.balancePolicyObj.name}}</td>
 			<td>{{api.environmentObj.name}}</td>
 		    <td>
 				<button type="button" ng-click="apiModal(api)" class="btn btn-default btn-sm btn-edit" title="Edit">
@@ -80,6 +82,34 @@
 							<option value="">Select one environment</option>
 							<option ng-repeat="environment in environments" ng-selected="{{environment.selfLink==api.environment}}" value="{{environment.selfLink}}">{{environment.name}}</option>
 						</select>
+					</div>
+				</div>
+
+				<hr>
+
+				<div class="form-group" ng-controller="BalancePolicyController">
+					<label class="col-md-4 control-label" for="balancePolicy">BalancePolicy</label>
+					<div class="col-md-5">
+						<select name="balancePolicy" ng-model="api.balancePolicy" class="form-control input-md" required>
+							<option value="">Select one type</option>
+							<option ng-repeat="balancepolicy in balancepolicies" ng-selected="{{balancepolicy.selfLink==api.balancePolicy}}" value="{{balancepolicy.selfLink}}">{{balancepolicy.name}}</option>
+						</select>
+					</div>
+				</div>
+
+				<hr>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="properties.hcPath">HealthChecker Path</label>
+					<div class="col-md-5">
+						<input id="properties.hcPath" name="properties.hcPath" ng-model="api.properties.hcPath" type="text" class="form-control input-md">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="properties.hcExpectedReturn">HealthChecker Return</label>
+					<div class="col-md-5">
+						<input id="properties.hcExpectedReturn" name="properties.hcExpectedReturn" ng-model="api.properties.hcExpectedReturn" type="text" class="form-control input-md">
 					</div>
 				</div>
 			</div>
