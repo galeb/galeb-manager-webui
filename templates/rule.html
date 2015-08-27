@@ -56,20 +56,20 @@
 					</div>
 				</div>
 
-                <div class="form-group" ng-show="!api.id">
+                <div class="form-group" ng-hide="api.ruleDefault || api.id">
 					<label class="col-md-4 control-label" for="globalRule">&nbsp;</label>
 					<div class="col-md-5">
 						<label>
-							<input type="checkbox" ng-model="api.globalRule" name="globalRule"> Global rule?
+							<input type="checkbox" ng-model="api.globalRule" ng-disabled="api.ruleDefault" name="globalRule"> Global rule?
 						</label>
 						<span id="helpBlock" class="help-block">Be careful when you select this option this rule will be global and visible to all.</span>
 					</div>
 				</div>
 
-				<div class="form-group" ng-controller="VirtualHostController">
+				<div class="form-group" ng-controller="VirtualHostController" ng-hide="api.globalRule">
 					<label class="col-md-4 control-label" for="parent">Parent</label>
 					<div class="col-md-5">
-						<select name="parent" ng-model="api.parent" ng-disabled="api.globalRule" class="form-control input-md">
+						<select name="parent" ng-model="api.parent" class="form-control input-md" ng-required="!api.globalRule">
 							<option value="">Select one parent</option>
 							<option ng-repeat="virtualhost in virtualhosts" ng-selected="{{virtualhost.selfLink==api.parent}}" value="{{virtualhost.selfLink}}">{{virtualhost.name}}</option>
 						</select>
@@ -95,6 +95,33 @@
 						</select>
 					</div>
 				</div>
+
+				<hr>
+
+				<div class="form-group" ng-hide="api.globalRule">
+					<label class="col-md-4 control-label" for="ruleOrder">&nbsp;</label>
+					<div class="col-md-5">
+						<label>
+							<input type="checkbox" ng-model="api.ruleDefault" name="ruleDefault" ng-checked="api.ruleDefault"> Rule default?
+						</label>
+						<span id="helpBlock" class="help-block">When you select this option this rule will be default to this virtualhost and will the first in the match list.</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="properties.match">Rule Match</label>
+					<div class="col-md-5">
+						<input id="properties.match" name="properties.match" ng-model="api.properties.match" type="text" class="form-control input-md" required>
+					</div>
+				</div>
+
+				<div class="form-group" ng-hide="api.globalRule">
+					<label class="col-md-4 control-label" for="ruleOrder">Rule Order</label>
+					<div class="col-md-5">
+						<input id="ruleOrder" name="ruleOrder" ng-model="api.ruleOrder" type="text" class="form-control input-md">
+					</div>
+				</div>
+
 			</div>
 			<div class="modal-footer">
 				<button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
