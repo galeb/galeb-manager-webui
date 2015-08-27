@@ -104,7 +104,7 @@ angular.module('api', [])
 		};
 
 	})
-	.controller('ApiController', function($scope, $http, $modal, $location, halClient) {
+	.controller('ApiController', function($scope, $http, $modal, $location, $q, halClient) {
 		var self = this;
 		$scope.api = {};
 
@@ -117,13 +117,15 @@ angular.module('api', [])
 		$scope.list = function () {
             $scope.apis = {};
             $scope.extractInfo();
-            var apiURL = baseUrl + '/' + $scope.apiPath;
+            var basePath = $scope.apiPath;
+            var type = $scope.apiType;
+            var apiURL = baseUrl + '/' + basePath;
 
-            if ($scope.apiType === 'BackendPool' || $scope.apiType === 'Backend') {
-                apiURL = apiURL + '/search/findByTargetTypeName?name=' + $scope.apiType;
+            if (type === 'BackendPool' || type === 'Backend') {
+                apiURL = apiURL + '/search/findByTargetTypeName?name=' + type;
             }
             halClient.$get(apiURL).then(function (resource) {
-                return resource.$get($scope.apiPath);
+                return resource.$has(basePath) ? resource.$get(basePath) : $q.reject(basePath + ' not found');
             }).then(function(api) {
                 $scope.apis = api;
                 api.forEach(function (item) {
