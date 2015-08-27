@@ -9,8 +9,7 @@ angular
 					$locationProvider.html5Mode(true);
 
 					$routeProvider.when('/', {
-						templateUrl : 'home.html',
-						controller : 'home'
+						templateUrl : 'home.html'
 					}).when('/environment', {
 						templateUrl : 'templates/environment.html',
 						controller : 'ApiController'
