@@ -46,6 +46,9 @@ angular
 					}).when('/account', {
 						templateUrl : 'templates/account.html',
 						controller : 'ApiController'
+					}).when('/provider', {
+						templateUrl : 'templates/provider.html',
+						controller : 'ApiController'
 					}).when('/login', {
 						templateUrl : 'login.html',
 						controller : 'navigation'
