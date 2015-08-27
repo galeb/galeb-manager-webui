@@ -59,9 +59,10 @@
                 <div class="form-group" ng-show="!api.id">
 					<label class="col-md-4 control-label" for="globalRule">&nbsp;</label>
 					<div class="col-md-5">
-						<label tooltip-placement="left" tooltip="Be careful when you select this option this rule will be global and visible to all.">
+						<label>
 							<input type="checkbox" ng-model="api.globalRule" name="globalRule"> Global rule?
 						</label>
+						<span id="helpBlock" class="help-block">Be careful when you select this option this rule will be global and visible to all.</span>
 					</div>
 				</div>
 
