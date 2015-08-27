@@ -92,6 +92,9 @@ angular.module('api', [])
     .controller('RoleController',function($scope, $http, halClient){
         $scope.roles = ['ROLE_USER', 'ROLE_ADMIN'];
     })
+    .controller('DriverController',function($scope, $http, halClient){
+        $scope.drivers = ['GalebV3'];
+    })
     .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location) {
 
 		$scope.api = angular.copy(api);
