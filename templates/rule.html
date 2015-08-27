@@ -24,7 +24,7 @@
 			</tr>
 		</thead>
 		<tr ng-repeat="api in apis">
-		    <td>{{api.name}}</td>
+		    <td>{{api.name}} <span class="label label-warning" ng-hide="api.parentObj">Global rule!</span></td>
 			<td>{{api.parentObj.name}}</td>
             <td>{{api.targetObj.name}}</td>
 		    <td>{{api.ruleTypeObj.name}}</td>
@@ -41,7 +41,10 @@
 
 	<script type="text/ng-template" id="apiModalForm.html">
 		<div class="modal-header">
-			<h3 class="modal-title">Rule</h3>
+			<h3 class="modal-title">
+                Rule
+                <span class="label label-warning" ng-show="{{api.id && !api.parent}}">This is global rule!</span>
+            </h3>
 		</div>
 		<form name="apiForm" ng-submit="apiForm.$valid && save()" novalidate class="form-horizontal">
 			<div class="modal-body">
@@ -53,10 +56,18 @@
 					</div>
 				</div>
 
+                <div class="form-group" ng-show="!api.id">
+					<label class="col-md-4 control-label" for="globalRule">Global Rule</label>
+					<div class="col-md-5">
+                        <input type="checkbox" ng-model="api.globalRule" name="globalRule"
+                            tooltip-placement="right" tooltip="Becareful, when you checked this opntion this rule can viewed and used by everyone.">
+					</div>
+				</div>
+
 				<div class="form-group" ng-controller="VirtualHostController">
 					<label class="col-md-4 control-label" for="parent">Parent</label>
 					<div class="col-md-5">
-						<select name="parent" ng-model="api.parent" class="form-control input-md">
+						<select name="parent" ng-model="api.parent" ng-disabled="api.globalRule" class="form-control input-md">
 							<option value="">Select one parent</option>
 							<option ng-repeat="virtualhost in virtualhosts" ng-selected="{{virtualhost.selfLink==api.parent}}" value="{{virtualhost.selfLink}}">{{virtualhost.name}}</option>
 						</select>
