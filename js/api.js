@@ -89,6 +89,16 @@ angular.module('api', [])
             })
         });
     })
+    .controller('ProviderController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/provider').then(function (resource) {
+            return resource.$get('provider');
+        }).then(function(provider) {
+            $scope.providers = provider;
+            provider.forEach(function (data) {
+                data['selfLink'] = data.$href('self');
+            })
+        });
+    })
     .controller('RoleController',function($scope, $http, halClient){
         $scope.roles = ['ROLE_USER', 'ROLE_ADMIN'];
     })

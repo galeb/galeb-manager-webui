@@ -46,6 +46,9 @@ angular
 					}).when('/account', {
 						templateUrl : 'templates/account.html',
 						controller : 'ApiController'
+					}).when('/farm', {
+						templateUrl : 'templates/farm.html',
+						controller : 'ApiController'
 					}).when('/provider', {
 						templateUrl : 'templates/provider.html',
 						controller : 'ApiController'
