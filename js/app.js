@@ -1,7 +1,7 @@
 var baseUrl = 'http://localhost:8000';
 
 angular
-		.module('galeb-webui', [ 'ngRoute', 'ui.bootstrap', 'angular-hal', 'auth', 'home', 'api', 'navigation' ])
+		.module('galeb-webui', [ 'ngRoute', 'ui.bootstrap', 'angular-hal', 'auth', 'api', 'navigation' ])
 		.config(
 
 				function($routeProvider, $httpProvider, $locationProvider) {
