@@ -21,6 +21,7 @@
 	<table class="table table-hover" ng-show="apis && apis.length > 0">
 		<thead>
 			<tr>
+				<th class="col-md-1">Metrics</th>
 			    <th class="col-md-4">Name</th>
 				<th class="col-md-2">Project</th>
 				<th class="col-md-2">Environment</th>
@@ -28,6 +29,7 @@
 			</tr>
 		</thead>
 		<tr ng-repeat="api in apis">
+		    <td><a href="http://URL-TO-METRICS/?vh={{api.name.replace('.','_')}}" target="_blank"><i class="fa fa-bar-chart fa-fw"></i></a></td>
 			<td>{{api.name}}</td>
 			<td>{{api.projectObj.name}}</td>
 		    <td>{{api.environmentObj.name}}</td>
