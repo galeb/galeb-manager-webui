@@ -1,40 +1,158 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<title>Hello Angular</title>
-<base href="/" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-[ng\:cloak], [ng-cloak], .ng-cloak {
-	display: none !important;
-}
-</style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Galeb Manager</title>
+	<base href="/" />
+
+	<!-- Bootstrap Core CSS -->
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="css/vendor/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/vendor/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/vendor/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<!-- App CSS -->
+	<link href="css/app.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 
 <body ng-app="galeb-webui" ng-cloak class="ng-cloak">
-	<div ng-controller="navigation" class="container">
-		<ul class="nav nav-pills" role="tablist">
-			<li ng-class="{active:tab('home')}"><a href="/">home</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('environment')}"><a href="/environment">environment</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('targettype')}"><a href="/targettype">targettype</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('ruletype')}"><a href="/ruletype">ruletype</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('balancetype')}"><a href="/balancetype">balancetype</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('balancepolicy')}"><a href="/balancepolicy">balancepolicy</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('virtualhost')}"><a href="/virtualhost">virtualhost</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('rule')}"><a href="/rule">rule</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('backendpool')}"><a href="/backendpool">backendpool</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('backend')}"><a href="/backend">backend</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('project')}"><a href="/project">project</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('team')}"><a href="/team">team</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('farm')}"><a href="/farm">farm</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('provider')}"><a href="/provider">provider</a></li>
-			<li ng-show="authenticated()" ng-class="{active:tab('account')}"><a href="/account">account</a></li>
-			<li ng-show="!authenticated()"><a href="/login">login</a></li>
-			<li ng-show="authenticated()"><a href="" ng-click="logout()">logout</a></li>
-		</ul>
-	</div>
-	<div ng-view class="container"></div>
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0" ng-controller="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><img src="img/GalebManager-logo-admin.png" alt="Galeb Manager" /></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right" ng-show="authenticated()">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="/logout" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+						<li ng-show="!authenticated()">
+							<a href="/"><i class="fa fa-home fa-fw"></i> Home</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/virtualhost"><i class="fa fa-magic fa-fw"></i> VirtualHost</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/rule"><i class="fa fa-share-alt fa-fw"></i> Rule</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/backendpool"><i class="fa fa-object-group fa-fw"></i> BackendPool</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/backend"><i class="fa fa-server fa-fw"></i> Backend</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/project"><i class="fa fa-clone fa-fw"></i> Project</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/team"><i class="fa fa-users fa-fw"></i> Team</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/account"><i class="fa fa-user fa-fw"></i> Account</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/farm"><i class="fa fa-sitemap fa-fw"></i> Farm</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/provider"><i class="fa fa-wrench fa-fw"></i> Provider</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/balancepolicy"><i class="fa fa-random fa-fw"></i> BalancePolicy</a>
+						</li>
+						<li ng-show="authenticated()">
+							<a href="/environment"><i class="fa fa-leaf fa-fw"></i> Environment</a>
+						</li>
+						<li ng-show="authenticated()">
+                            <a href="#"><i class="fa fa-tag fa-fw"></i> Types<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/targettype">TargetType</a>
+                                </li>
+                                <li>
+                                    <a href="/ruletype">RuleType</a>
+                                </li>
+								<li>
+                                    <a href="/balancetype">BalanceType</a>
+                                </li>
+                            </ul>
+                        </li>
+						<li ng-show="!authenticated()">
+							<a href="/login">login</a>
+						</li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+			<div ng-view></div>
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/vendor/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/vendor/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/vendor/sb-admin-2.js"></script>
+
 	<script src="js/vendor/angular.min.js" type="text/javascript"></script>
 	<script src="js/vendor/angular-route.min.js" type="text/javascript"></script>
 	<script src="js/vendor/ui-bootstrap-0.13.3.min.js" type="text/javascript"></script>

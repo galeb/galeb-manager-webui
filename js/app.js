@@ -10,7 +10,10 @@ angular
 
 					$routeProvider.when('/', {
 						templateUrl : 'home.html'
-					}).when('/environment', {
+					}).when('/dashboard', {
+						templateUrl : 'templates/dashboard.html'
+					})
+					.when('/environment', {
 						templateUrl : 'templates/environment.html',
 						controller : 'ApiController'
 					}).when('/targettype', {
@@ -63,6 +66,6 @@ angular
 
 			// Initialize auth module with the home page and login/logout path
 			// respectively
-			auth.init('/', '/login', '/logout');
+			auth.init('/dashboard', '/login', '/logout');
 
 		});

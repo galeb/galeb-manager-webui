@@ -105,6 +105,20 @@ angular.module('api', [])
     .controller('DriverController',function($scope, $http, halClient){
         $scope.drivers = ['GalebV3'];
     })
+    .controller('FarmController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/farm').then(function (resource) {
+            return resource.$get('farm');
+        }).then(function(farm) {
+            $scope.farms = farm;
+        });
+    })
+    .controller('AccountController',function($scope, $http, halClient){
+        halClient.$get(baseUrl + '/account').then(function (resource) {
+            return resource.$get('account');
+        }).then(function(account) {
+            $scope.accounts = account;
+        });
+    })
     .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location) {
 
 		$scope.api = angular.copy(api);
