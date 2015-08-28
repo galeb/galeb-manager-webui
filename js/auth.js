@@ -27,6 +27,7 @@ angular.module('auth', []).factory(
             callback && callback(auth.authenticated);
           }).error(function() {
             auth.authenticated = false;
+            $location.path(auth.loginPath);
             callback && callback(false);
           });
 
@@ -34,8 +35,8 @@ angular.module('auth', []).factory(
 
         clear : function() {
             auth.authenticated = false;
-            $location.path(auth.loginPath);
             $http.get(baseUrl + auth.logoutPath);
+            $location.path(auth.loginPath);
         },
 
         init : function(homePath, loginPath, logoutPath) {

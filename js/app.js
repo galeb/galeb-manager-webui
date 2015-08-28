@@ -8,12 +8,10 @@ angular
 
 					$locationProvider.html5Mode(true);
 
-					$routeProvider.when('/', {
-						templateUrl : 'home.html'
-					}).when('/dashboard', {
-						templateUrl : 'templates/dashboard.html'
-					})
-					.when('/environment', {
+					$routeProvider.when('/dashboard', {
+						templateUrl : 'templates/dashboard.html',
+						controller : 'navigation'
+					}).when('/environment', {
 						templateUrl : 'templates/environment.html',
 						controller : 'ApiController'
 					}).when('/targettype', {
@@ -58,7 +56,7 @@ angular
 					}).when('/login', {
 						templateUrl : 'login.html',
 						controller : 'navigation'
-					}).otherwise('/');
+					}).otherwise('/login');
 
 					$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
