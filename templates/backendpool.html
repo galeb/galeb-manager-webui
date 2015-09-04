@@ -112,9 +112,23 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="properties.hcExpectedReturn">HealthChecker Expect Return</label>
+					<label class="col-md-4 control-label" for="properties.hcStatusCode">HealthChecker Status</label>
 					<div class="col-md-5">
-						<input id="properties.hcExpectedReturn" name="properties.hcExpectedReturn" ng-model="api.properties.hcExpectedReturn" type="text" placeholder="WORKING" class="form-control input-md">
+						<input id="properties.hcStatusCode" name="properties.hcStatusCode" ng-model="api.properties.hcStatusCode" type="text" placeholder="200" class="form-control input-md">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="properties.hcHost">HealthChecker Host</label>
+					<div class="col-md-5">
+						<input id="properties.hcHost" name="properties.hcHost" ng-model="api.properties.hcHost" type="text" placeholder="localhost.com" class="form-control input-md">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="properties.hcBody">HealthChecker Body</label>
+					<div class="col-md-5">
+						<input id="properties.hcBody" name="properties.hcBody" ng-model="api.properties.hcBody" type="text" placeholder="WORKING" class="form-control input-md">
 					</div>
 				</div>
 			</div>
