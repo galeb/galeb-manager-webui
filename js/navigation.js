@@ -1,17 +1,22 @@
 angular.module('navigation', ['auth']).controller(
     'navigation',
 
-    function($scope, auth) {
+    function($scope, auth, $window, $location) {
 
         $scope.credentials = {};
 
         $scope.authenticated = function() {
-            return auth.authenticated;
+            if ($window.sessionStorage.getItem('galeb')) {
+                return true;
+            } else {
+                $location.path(auth.loginPath);
+                return false;
+            }
         }
 
         $scope.login = function() {
             auth.authenticate($scope.credentials, function(authenticated) {
-                if (authenticated) {
+                if ($scope.authenticated) {
                     console.log("Login succeeded")
                     $scope.error = false;
                 } else {

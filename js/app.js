@@ -1,8 +1,6 @@
 angular
-		.module('galeb-webui', [ 'ngRoute', 'ui.bootstrap', 'angular-hal', 'auth', 'api', 'navigation' ])
-		.config(
-
-				function($routeProvider, $httpProvider, $locationProvider) {
+		.module('galeb-webui', [ 'ngRoute', 'ngResource','ui.bootstrap', 'angular-hal', 'auth', 'api', 'navigation' ])
+		.config(function($routeProvider, $httpProvider, $locationProvider, $resourceProvider) {
 					$routeProvider.when('/dashboard', {
 						templateUrl : 'templates/dashboard.html',
 						controller : 'navigation'
@@ -52,6 +50,8 @@ angular
 						templateUrl : 'login.html',
 						controller : 'navigation'
 					}).otherwise('/login');
+
+					$resourceProvider.defaults.stripTrailingSlashes = false;
 
 					$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

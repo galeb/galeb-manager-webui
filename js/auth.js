@@ -1,11 +1,9 @@
 angular.module('auth', []).factory(
     'auth',
 
-    function($http, $location) {
+    function($http, $location, $window) {
 
       var auth = {
-
-        authenticated : false,
 
         loginPath : '/login',
         logoutPath : '/logout',
@@ -22,11 +20,11 @@ angular.module('auth', []).factory(
           $http.get(baseUrl + auth.loginPath, {
             headers : headers
         }).success(function(data) {
-            auth.authenticated = true;
+            $window.sessionStorage.setItem('galeb', data);
             $location.path(auth.homePath);
-            callback && callback(auth.authenticated);
+            callback && callback(true);
           }).error(function() {
-            auth.authenticated = false;
+            $window.sessionStorage.removeItem('galeb');
             $location.path(auth.loginPath);
             callback && callback(false);
           });
@@ -34,7 +32,7 @@ angular.module('auth', []).factory(
         },
 
         clear : function() {
-            auth.authenticated = false;
+            $window.sessionStorage.removeItem('galeb');
             $http.get(baseUrl + auth.logoutPath);
             $location.path(auth.loginPath);
         },
