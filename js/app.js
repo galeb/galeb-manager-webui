@@ -3,9 +3,6 @@ angular
 		.config(
 
 				function($routeProvider, $httpProvider, $locationProvider) {
-
-					$locationProvider.html5Mode(true);
-
 					$routeProvider.when('/dashboard', {
 						templateUrl : 'templates/dashboard.html',
 						controller : 'navigation'
