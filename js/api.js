@@ -1,7 +1,7 @@
 angular.module('api', [])
     .controller('VirtualHostController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/virtualhost').then(function (resource) {
-            return resource.$get('virtualhost');
+            return resource.$has('virtualhost') ? resource.$get('virtualhost') : [];
         }).then(function(virtualhost) {
             $scope.virtualhosts = virtualhost;
             virtualhost.forEach(function (data) {
@@ -11,7 +11,7 @@ angular.module('api', [])
     })
     .controller('ProjectController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/project').then(function (resource) {
-            return resource.$get('project');
+            return resource.$has('project') ? resource.$get('project') : [];
         }).then(function(project) {
             $scope.projects = project;
             project.forEach(function (data) {
@@ -21,7 +21,7 @@ angular.module('api', [])
     })
     .controller('EnvironmentController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/environment').then(function (resource) {
-            return resource.$get('environment');
+            return resource.$has('environment') ? resource.$get('environment') : [];
         }).then(function(environment) {
             $scope.environments = environment;
             environment.forEach(function (data) {
@@ -31,7 +31,7 @@ angular.module('api', [])
     })
     .controller('TargetTypeController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/targettype').then(function (resource) {
-            return resource.$get('targettype');
+            return resource.$has('targettype') ? resource.$get('targettype') : [];
         }).then(function(targettype) {
             $scope.targettypes = targettype;
             targettype.forEach(function (data) {
@@ -41,7 +41,7 @@ angular.module('api', [])
     })
     .controller('RuleTypeController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/ruletype').then(function (resource) {
-            return resource.$get('ruletype');
+            return resource.$has('ruletype') ? resource.$get('ruletype') : [];
         }).then(function(ruletype) {
             $scope.ruletypes = ruletype;
             ruletype.forEach(function (data) {
@@ -51,7 +51,7 @@ angular.module('api', [])
     })
     .controller('BalanceTypeController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/balancepolicytype').then(function (resource) {
-            return resource.$get('balancepolicytype');
+            return resource.$has('balancepolicytype') ? resource.$get('balancepolicytype') : [];
         }).then(function(balancepolicytype) {
             $scope.balancepolicytypes = balancepolicytype;
             balancepolicytype.forEach(function (data) {
@@ -61,7 +61,7 @@ angular.module('api', [])
     })
     .controller('BalancePolicyController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/balancepolicy').then(function (resource) {
-            return resource.$get('balancepolicy');
+            return resource.$has('balancepolicy') ? resource.$get('balancepolicy') : [];
         }).then(function(balancepolicy) {
             $scope.balancepolicies = balancepolicy;
             balancepolicy.forEach(function (data) {
@@ -71,7 +71,7 @@ angular.module('api', [])
     })
     .controller('TeamController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/team').then(function (resource) {
-            return resource.$get('team');
+            return resource.$has('team') ? resource.$get('team') : [];
         }).then(function(team) {
             $scope.teams = team;
             team.forEach(function (data) {
@@ -81,7 +81,7 @@ angular.module('api', [])
     })
     .controller('BackendPoolController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/target/search/findByTargetTypeName?name=BackendPool').then(function (resource) {
-            return resource.$get('target');
+            return resource.$has('target') ? resource.$get('target') : [];
         }).then(function(target) {
             $scope.backendpools = target;
             target.forEach(function (data) {
@@ -91,7 +91,7 @@ angular.module('api', [])
     })
     .controller('ProviderController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/provider').then(function (resource) {
-            return resource.$get('provider');
+            return resource.$has('provider') ? resource.$get('provider') : [];
         }).then(function(provider) {
             $scope.providers = provider;
             provider.forEach(function (data) {
@@ -107,14 +107,14 @@ angular.module('api', [])
     })
     .controller('FarmController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/farm').then(function (resource) {
-            return resource.$get('farm');
+            return resource.$has('farm') ? resource.$get('farm') : [];
         }).then(function(farm) {
             $scope.farms = farm;
         });
     })
     .controller('AccountController',function($scope, $http, halClient){
         halClient.$get(baseUrl + '/account').then(function (resource) {
-            return resource.$get('account');
+            return resource.$has('account') ? resource.$get('account') : [];
         }).then(function(account) {
             $scope.accounts = account;
         });
@@ -229,6 +229,6 @@ angular.module('api', [])
 
 		};
 
-		$scope.list();
+        $scope.list();
 
 	});
