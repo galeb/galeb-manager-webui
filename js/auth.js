@@ -23,8 +23,6 @@ angular.module('auth', []).factory(
                 var token = response.headers('x-auth-token');
                 if (token !== '') {
                     $window.localStorage.setItem('galeb', token);
-                    $http.defaults.headers.common['X-Auth-Token'] = token;
-                    $http.defaults.headers.common.Authorization = 'Basic ';
                 } else {
                     $window.localStorage.clear();
                 }
