@@ -141,7 +141,7 @@ angular.module('api', [])
 		};
 
 	})
-	.controller('ApiController', function($scope, $http, $modal, $location, $q, halClient) {
+	.controller('ApiController', function($scope, $http, $modal, $location, $q, halClient, $window) {
 		var self = this;
 		$scope.api = {};
 
@@ -161,6 +161,9 @@ angular.module('api', [])
             if (type === 'BackendPool' || type === 'Backend') {
                 apiURL = apiURL + '/search/findByTargetTypeName?name=' + type;
             }
+
+            $http.defaults.headers.common['X-Auth-Token'] = $window.localStorage.getItem('galeb');
+
             halClient.$get(apiURL).then(function (resource) {
                 return resource.$has(basePath) ? resource.$get(basePath) : $q.reject(basePath + ' not found');
             }).then(function(api) {
