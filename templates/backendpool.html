@@ -6,7 +6,7 @@
 <div class="row" ng-controller="ApiController">
 	<input id="apiPath" name="apiPath" value="target" class="hidden"/>
 	<input id="apiType" name="apiType" value="BackendPool" class="hidden"/>
-	<input id="apiExcludeLinks" name="apiExcludeLinks" value="self-parent-rules" class="hidden"/>
+	<input id="apiExcludeLinks" name="apiExcludeLinks" value="self-parent-rules-parents-children" class="hidden"/>
 	<div class="pull-right">
 		<button type="button" class="btn btn-success add-api-button" ng-click="apiModal()">
 			Add BackendPool
@@ -23,7 +23,6 @@
 			<tr>
 			    <th class="col-md-2">Name</th>
 				<th class="col-md-1">Project</th>
-			    <th class="col-md-1">Type</th>
 				<th class="col-md-2">BalancePolicy</th>
 				<th class="col-md-1">Environment</th>
 			    <th class="col-md-1">&nbsp;</th>
@@ -32,7 +31,6 @@
 		<tr ng-repeat="api in apis">
 		    <td>{{api.name}}</td>
 			<td>{{api.projectObj.name}}</td>
-		    <td>{{api.targetTypeObj.name}}</td>
 			<td>{{api.balancePolicyObj.name}}</td>
 			<td>{{api.environmentObj.name}}</td>
 		    <td>
@@ -57,16 +55,6 @@
 					<div class="col-md-5">
 						<input id="id" name="id" ng-model="api.id" value="{{api.id}}" class="hidden"/>
 						<input id="name" name="name" ng-model="api.name" type="text" class="form-control input-md" required>
-					</div>
-				</div>
-
-				<div class="form-group" ng-controller="TargetTypeController">
-					<label class="col-md-4 control-label" for="Type">Type</label>
-					<div class="col-md-5">
-						<select name="targetype" ng-model="api.targetType" class="form-control input-md" required>
-							<option value="">Select one type</option>
-							<option ng-repeat="targettype in targettypes" ng-selected="{{targettype.selfLink==api.targetType}}" value="{{targettype.selfLink}}">{{targettype.name}}</option>
-						</select>
 					</div>
 				</div>
 
