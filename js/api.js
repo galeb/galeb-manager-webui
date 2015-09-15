@@ -119,19 +119,35 @@ angular.module('api', [])
             $scope.accounts = account;
         });
     })
-    .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location) {
+    .controller('apiModalCtrl', function ($scope, $http, $modalInstance, api, $location, halClient) {
 
 		$scope.api = angular.copy(api);
         var apiURL = baseUrl + '/' + angular.element(document.querySelector('#apiPath'))[0]['value'];
+        var apiType = angular.element(document.querySelector('#apiType'))[0]['value'];
 
 		$scope.save = function () {
-			if ($scope.api.id != null) {
-				$http.patch(apiURL + '/' + $scope.api.id, $scope.api).then(function () {
-				});
-			} else {
-				$http.post(apiURL, $scope.api).then(function(response) {
+            if (apiType === 'BackendPool' || apiType === 'Backend') {
+                halClient.$get(baseUrl + '/targettype/search/findByName?name=' + apiType).then(function (resource) {
+                    return resource.$get('targettype');
+                }).then(function(targettype) {
+                    $scope.api.targetType = targettype[0].$href('self');
+                    if ($scope.api.id != null) {
+                        $http.patch(apiURL + '/' + $scope.api.id, $scope.api).then(function () {
+                        });
+                    } else {
+                        $http.post(apiURL, $scope.api).then(function(response) {
+                        });
+                    }
                 });
-			}
+            } else {
+                if ($scope.api.id != null) {
+                    $http.patch(apiURL + '/' + $scope.api.id, $scope.api).then(function () {
+                    });
+                } else {
+                    $http.post(apiURL, $scope.api).then(function(response) {
+                    });
+                }
+            }
 
 			$modalInstance.close($scope.api);
 		};
