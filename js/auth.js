@@ -23,11 +23,13 @@ angular.module('auth', []).factory(
                 var token = response.headers('x-auth-token');
                 if (token !== '') {
                     $window.localStorage.setItem('galeb', token);
+                    $location.path(auth.homePath);
+                    callback && callback(true);
                 } else {
                     $window.localStorage.clear();
+                    $location.path(auth.loginPath);
+                    callback && callback(false);
                 }
-                $location.path(auth.homePath);
-                callback && callback(true);
             }, function(response) {
                 $window.localStorage.clear();
                 callback && callback(false);
