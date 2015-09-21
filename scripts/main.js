@@ -16,12 +16,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('dashboard', {
 			url: "/",
-            templateUrl: 'templates/dashboard.html',
+            templateUrl: 'templates/pages/dashboard.html',
             controller: 'DashboardController'
 		})
 		.state('virtualhost', {
 			url: "/virtualhost",
-            templateUrl: 'templates/virtualhost.html',
+            templateUrl: 'templates/pages/virtualhost.html',
             controller: 'ManagerController',
             resolve: {
                 apiPath: function() { return 'virtualhost' },
@@ -31,7 +31,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('rule', {
             url: "/rule",
-            templateUrl: 'templates/rule.html',
+            templateUrl: 'templates/pages/rule.html',
             controller: 'ManagerController',
             resolve: {
                 apiPath: function() { return 'rule' },
@@ -41,7 +41,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('backendpool', {
             url: "/backendpool",
-            templateUrl: 'templates/backendpool.html',
+            templateUrl: 'templates/pages/backendpool.html',
             controller: 'ManagerController',
             resolve: {
                 apiPath: function() { return 'target' },
@@ -51,7 +51,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('backend', {
             url: "/backend",
-            templateUrl: 'templates/backend.html',
+            templateUrl: 'templates/pages/backend.html',
             controller: 'ManagerController',
             resolve: {
                 apiPath: function() { return 'target' },
@@ -61,7 +61,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('project', {
             url: "/project",
-            templateUrl: 'templates/project.html',
+            templateUrl: 'templates/pages/project.html',
             controller: 'ManagerController',
             resolve: {
                 apiPath: function() { return 'project' },
@@ -71,7 +71,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('team', {
                     url: "/team",
-                    templateUrl: 'templates/team.html',
+                    templateUrl: 'templates/pages/team.html',
                     controller: 'ManagerController',
                     resolve: {
                         apiPath: function() { return 'team' },
