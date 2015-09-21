@@ -1,0 +1,13 @@
+<div class="form-group" ng-controller="DriverController">
+    <label class="col-sm-2 control-label">Driver</label>
+
+    <div class="col-sm-9">
+        <select name="driver" ng-model="manager.selectedResource.driver"
+                class="form-control input-md" required>
+            <option value="">Select one driver</option>
+            <option ng-repeat="driver in manager.driver"
+                    ng-selected="{{driver==manager.selectedResource.driver}}"
+                    value="{{driver}}">{{driver}}
+        </select>
+    </div>
+</div>

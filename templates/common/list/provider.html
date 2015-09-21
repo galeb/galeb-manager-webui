@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="ProviderController">
+    <label class="col-sm-2 control-label">Provider</label>
+
+    <div class="col-sm-9">
+        <select name="provider" ng-model="manager.selectedResource.provider"
+                class="form-control input-md" required>
+            <option value="">Select one provider</option>
+            <option ng-repeat="provider in manager.provider"
+                    ng-selected="{{provider.selfLink==manager.selectedResource.provider}}"
+                    value="{{provider.selfLink}}">{{provider.name}}
+            </option>
+        </select>
+    </div>
+</div>

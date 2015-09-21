@@ -31,7 +31,7 @@
     "font-awesome": "~4.4.0",
     "ladda-angular": "~1.0.1",
     "ngInfiniteScroll": "~1.2.1",
-    "sweetalert": "~1.1.0",
-    "ngSweetAlert": "~1.1.0"
+    "ngSweetAlert": "angular-sweetalert#~1.1.0",
+    "sweetalert": "~1.1.0"
   }
 }

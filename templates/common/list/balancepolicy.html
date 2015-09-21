@@ -6,7 +6,7 @@
                 class="form-control input-md" required>
             <option value="">Select one balancepolicy</option>
             <option ng-repeat="balancepolicy in manager.balancepolicy"
-                    ng-selected="{{balancepolicy.selfLink==manager.selectedResource.balancepolicy}}"
+                    ng-selected="{{balancepolicy.selfLink==manager.selectedResource.balancePolicy}}"
                     value="{{balancepolicy.selfLink}}">{{balancepolicy.name}}
             </option>
         </select>

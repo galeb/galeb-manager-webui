@@ -80,15 +80,85 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
         .state('account', {
-          url: "/account",
-          templateUrl: 'templates/pages/account.html',
-          controller: 'ManagerController',
-          resolve: {
-              apiPath: function() { return 'account' },
-              apiType: function() { return '' },
-              apiLinks: function() { return 'teams' }
-          }
-      })
+            url: "/account",
+            templateUrl: 'templates/pages/account.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'account' },
+                apiType: function() { return '' },
+                apiLinks: function() { return 'teams' }
+            }
+        })
+        .state('targettype', {
+            url: "/targettype",
+            templateUrl: 'templates/pages/targettype.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'targettype' },
+                apiType: function() { return '' },
+                apiLinks: function() { return '' }
+            }
+        })
+        .state('ruletype', {
+            url: "/ruletype",
+            templateUrl: 'templates/pages/ruletype.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'ruletype' },
+                apiType: function() { return '' },
+                apiLinks: function() { return '' }
+            }
+        })
+        .state('balancetype', {
+            url: "/balancetype",
+            templateUrl: 'templates/pages/balancetype.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'balancepolicytype' },
+                apiType: function() { return '' },
+                apiLinks: function() { return '' }
+            }
+        })
+        .state('environment', {
+            url: "/environment",
+            templateUrl: 'templates/pages/environment.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'environment' },
+                apiType: function() { return '' },
+                apiLinks: function() { return '' }
+            }
+        })
+        .state('balancepolicy', {
+            url: "/balancepolicy",
+            templateUrl: 'templates/pages/balancepolicy.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'balancepolicy' },
+                apiType: function() { return '' },
+                apiLinks: function() { return 'balancePolicyType' }
+            }
+        })
+        .state('provider', {
+            url: "/provider",
+            templateUrl: 'templates/pages/provider.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'provider' },
+                apiType: function() { return '' },
+                apiLinks: function() { return '' }
+            }
+        })
+        .state('farm', {
+            url: "/farm",
+            templateUrl: 'templates/pages/farm.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'farm' },
+                apiType: function() { return '' },
+                apiLinks: function() { return 'provider-environment' }
+            }
+        })
 
 	$urlRouterProvider.otherwise('/');
 });
@@ -176,11 +246,12 @@ app.controller('ManagerController', function ($scope, $modal, ManagerService, $f
     $scope.removeResource = function (resource) {
         SweetAlert.swal({
             title: "Are you sure?",
-            text: "Your will not be able to recover " + resource.name + "!",
+            text: "Your will not be able to recover <b>" + resource.name + "<b>!",
             showCancelButton: true,
             confirmButtonColor: "#e51c23",
             confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: true
+            closeOnConfirm: true,
+            html: true
         }, function(isConfirm) {
             if (isConfirm) {
                 $scope.manager.selectedResource = {};
@@ -202,6 +273,11 @@ app.controller('VirtualHostController', function ($scope, ManagerService) {
 app.controller('RolesController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.roles = ['ROLE_USER', 'ROLE_ADMIN'];
+});
+
+app.controller('DriverController', function ($scope, ManagerService) {
+	$scope.manager = ManagerService;
+    $scope.manager.driver = ['GalebV3'];
 });
 
 app.controller('BackendPoolController', function ($scope, ManagerService) {
@@ -237,6 +313,11 @@ app.controller('RuleTypeController', function ($scope, ManagerService) {
 app.controller('TargetTypeController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('targettype');
+});
+
+app.controller('ProviderController', function ($scope, ManagerService) {
+	$scope.manager = ManagerService;
+    $scope.manager.loadListResources('provider');
 });
 
 app.controller('BalancePolicyController', function ($scope, ManagerService) {
