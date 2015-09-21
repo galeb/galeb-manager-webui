@@ -5920,10 +5920,12 @@ button.close {
   display: none;
   overflow: hidden;
   position: fixed;
-  top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  top: 50%;
+  margin-left: -450px;
+  margin-top: -250px;
   z-index: 1050;
   -webkit-overflow-scrolling: touch;
   outline: 0;
