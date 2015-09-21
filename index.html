@@ -1,119 +1,125 @@
 <!DOCTYPE html >
 <html lang="en"
-      ng-app="galeb-manager-webui" >
-<head >
-    <title >Galeb Manager Webui</title >
+      ng-app="galeb-manager-webui">
+<head>
+    <title>Galeb Manager Webui</title>
     <link href="scripts/libs/bootstrap/dist/css/bootstrap.min.css"
-          rel="stylesheet" >
+          rel="stylesheet">
     <link href="css/paper.css"
-          rel="stylesheet" >
+          rel="stylesheet">
     <link href="scripts/libs/bootstrap-additions/dist/bootstrap-additions.min.css"
-          rel="stylesheet" >
-    <link href="scripts/libs/angularjs-toaster/toaster.min.css"
-          rel="stylesheet" >
+          rel="stylesheet">
+    <link href="scripts/libs/angular-toastr/dist/angular-toastr.min.css"
+          rel="stylesheet">
     <link href="scripts/libs/ladda/dist/ladda-themeless.min.css"
-          rel="stylesheet" >
+          rel="stylesheet">
     <link href="scripts/libs/font-awesome/css/font-awesome.min.css"
-          rel="stylesheet" >
+          rel="stylesheet">
+    <link href="scripts/libs/sweetalert/dist/sweetalert.css"
+          rel="stylesheet">
     <link href="css/main.css"
-          rel="stylesheet" >
-</head >
+          rel="stylesheet">
+</head>
 
-<body >
-<nav class="navbar navbar-inverse navbar-fixed-top" >
-    <div class="container" >
-        <div class="navbar-header" >
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
             <a class="navbar-brand"
                ui-sref="dashboard">
                 <img src="img/GalebManager-logo-admin.png"
-                     alt="Galeb Manager" />
+                     alt="Galeb Manager"/>
             </a>
-        </div >
+        </div>
 
         <div ui-view="search">
         </div>
 
-        <div class="collapse navbar-collapse" >
-            <ul class="nav navbar-nav navbar-right" >
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active">
-                    <a ui-sref="dashboard"><i class="fa fa-home"></i></a >
-                </li >
+                    <a ui-sref="dashboard"><i class="fa fa-home"></i></a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="virtualhost">VirtualHost</a >
-                </li >
+                    <a ui-sref="virtualhost">VirtualHost</a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="rule">Rule</a >
-                </li >
+                    <a ui-sref="rule">Rule</a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="backendpool">BackendPool</a >
-                </li >
+                    <a ui-sref="backendpool">BackendPool</a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="backend">Backend</a >
-                </li >
+                    <a ui-sref="backend">Backend</a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="project">Project</a >
-                </li >
+                    <a ui-sref="project">Project</a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="team">Team</a >
-                </li >
+                    <a ui-sref="team">Team</a>
+                </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="account">Account</a >
-                </li >
+                    <a ui-sref="account">Account</a>
+                </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <i class="fa fa-caret-down"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin
+                        <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ui-sref="farm">Farm</a ></li>
-                        <li><a ui-sref="provider">Provider</a ></li>
+                        <li><a ui-sref="farm">Farm</a></li>
+                        <li><a ui-sref="provider">Provider</a></li>
                         <li class="divider"></li>
-                        <li><a ui-sref="balancepolicy">BalancePolicy</a ></li>
-                        <li><a ui-sref="environment">Environment</a ></li>
+                        <li><a ui-sref="balancepolicy">BalancePolicy</a></li>
+                        <li><a ui-sref="environment">Environment</a></li>
                         <li class="divider"></li>
-                        <li><a ui-sref="ruletype">RuleType</a ></li>
-                        <li><a ui-sref="targettype">TargetType</a ></li>
-                        <li><a ui-sref="balancetype">BalanceType</a ></li>
+                        <li><a ui-sref="ruletype">RuleType</a></li>
+                        <li><a ui-sref="targettype">TargetType</a></li>
+                        <li><a ui-sref="balancetype">BalanceType</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+                            class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ui-sref="logout">Logout</a ></li>
+                        <li><a ui-sref="logout">Logout</a></li>
                     </ul>
                 </li>
-            </ul >
-        </div >
+            </ul>
+        </div>
 
-    </div >
-</nav >
+    </div>
+</nav>
 
-<div class="container main-content" >
+<div class="container main-content">
 
-    <toaster-container></toaster-container >
+    <toaster-container></toaster-container>
 
-    <div class="row" >
+    <div class="row">
 
         <div ui-view>
         </div>
 
-    </div >
-</div >
+    </div>
+</div>
 
 
-<script src="scripts/libs/jquery/dist/jquery.min.js" ></script >
-<script src="scripts/libs/bootstrap/dist/js/bootstrap.min.js" ></script >
-<script src="scripts/libs/angular/angular.min.js" ></script >
-<script src="scripts/libs/angular-resource/angular-resource.min.js" ></script >
-<script src="scripts/libs/angular-spring-data-rest/dist/angular-spring-data-rest.min.js" ></script >
-<script src="scripts/libs/angular-animate/angular-animate.min.js" ></script >
-<script src="scripts/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js" ></script >
-<script src="scripts/libs/spin.js/spin.js" ></script >
-<script src="scripts/libs/angular-spinner/angular-spinner.min.js" ></script >
-<script src="scripts/libs/angular-auto-validate/dist/jcs-auto-validate.min.js" ></script >
-<script src="scripts/libs/ladda/dist/ladda.min.js" ></script >
-<script src="scripts/libs/angular-ladda/dist/angular-ladda.min.js" ></script >
-<script src="scripts/libs/angular-strap/dist/angular-strap.min.js" ></script >
-<script src="scripts/libs/angular-strap/dist/angular-strap.tpl.min.js" ></script >
-<script src="scripts/libs/angularjs-toaster/toaster.min.js" ></script >
-<script src="scripts/libs/angular-ui-router/release/angular-ui-router.min.js" ></script >
-<script src="scripts/main.js" ></script >
-</body >
-</html >
+<script src="scripts/libs/jquery/dist/jquery.min.js"></script>
+<script src="scripts/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="scripts/libs/angular/angular.min.js"></script>
+<script src="scripts/libs/angular-resource/angular-resource.min.js"></script>
+<script src="scripts/libs/angular-spring-data-rest/dist/angular-spring-data-rest.min.js"></script>
+<script src="scripts/libs/angular-animate/angular-animate.min.js"></script>
+<script src="scripts/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+<script src="scripts/libs/spin.js/spin.js"></script>
+<script src="scripts/libs/angular-spinner/angular-spinner.min.js"></script>
+<script src="scripts/libs/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
+<script src="scripts/libs/ladda/dist/ladda.min.js"></script>
+<script src="scripts/libs/angular-ladda/dist/angular-ladda.min.js"></script>
+<script src="scripts/libs/angular-strap/dist/angular-strap.min.js"></script>
+<script src="scripts/libs/angular-strap/dist/angular-strap.tpl.min.js"></script>
+<script src="scripts/libs/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+<script src="scripts/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="scripts/libs/sweetalert/dist/sweetalert.min.js"></script>
+<script src="scripts/libs/ngSweetAlert/SweetAlert.min.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>

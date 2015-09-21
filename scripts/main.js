@@ -7,8 +7,9 @@ var app = angular.module('galeb-manager-webui', [
 	'jcs-autoValidate',
 	'angular-ladda',
 	'mgcrea.ngStrap',
-	'toaster',
-	'ngAnimate'
+	'ngAnimate',
+	'toastr',
+	'oitozero.ngSweetAlert'
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -82,13 +83,17 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/');
 });
 
-app.config(function ($httpProvider, $resourceProvider, laddaProvider, SpringDataRestInterceptorProvider) {
+app.config(function ($httpProvider, $resourceProvider, laddaProvider, SpringDataRestInterceptorProvider, toastrConfig) {
 	$httpProvider.defaults.headers.common['x-auth-token'] = '1971a50a-50f8-41c5-902a-97be2b3baf32';
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 	laddaProvider.setOption({
 		style: 'expand-right'
 	});
 	SpringDataRestInterceptorProvider.apply();
+	angular.extend(toastrConfig, {
+        progressBar: true,
+        timeOut: 2000
+    });
 });
 
 app.factory("ManagerFactory", function ($resource) {
@@ -130,7 +135,7 @@ app.directive('ngReallyClick', [function() {
     }
 }]);
 
-app.controller('ManagerController', function ($scope, $modal, ManagerService, $filter, apiPath, apiType, apiLinks) {
+app.controller('ManagerController', function ($scope, $modal, ManagerService, $filter, apiPath, apiType, apiLinks, SweetAlert) {
 
     modalName = apiType ? $filter('lowercase')(apiType) : apiPath;
     apiLinks = apiLinks ? apiLinks.split("-") : [];
@@ -173,12 +178,23 @@ app.controller('ManagerController', function ($scope, $modal, ManagerService, $f
     };
 
     $scope.removeResource = function (resource) {
-        $scope.manager.selectedResource = {};
+        SweetAlert.swal({
+            title: "Are you sure?",
+            text: "Your will not be able to recover " + resource.name + "!",
+            showCancelButton: true,
+            confirmButtonColor: "#e51c23",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                $scope.manager.selectedResource = {};
 
-        if (resource) {
-            $scope.manager.selectedResource = resource;
-        }
-        $scope.manager.removeResource($scope.manager.selectedResource);
+                if (resource) {
+                    $scope.manager.selectedResource = resource;
+                }
+                $scope.manager.removeResource($scope.manager.selectedResource);
+            }
+        });
     };
 });
 
@@ -227,7 +243,7 @@ app.controller('BalanceTypeController', function ($scope, ManagerService) {
     $scope.manager.loadListResources('balancepolicytype');
 });
 
-app.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, $rootScope, $q, toaster) {
+app.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, $rootScope, $q, toastr) {
 
 	var self = {
 		'getResource': function (id) {
@@ -351,11 +367,11 @@ app.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, 
 			ManagerFactory.update({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
 				self.isSaving = false;
                 self.actionReset();
-				toaster.pop('success', 'Updated', resource.name);
+				toastr.success(resource.name, 'Updated');
 				d.resolve();
 			}, function (error) {
                 self.isSaving = false;
-                toaster.pop('error', 'Something was wrong:', error.status + ' - ' + error.statusText);
+                toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
             });
 			return d.promise;
 		},
@@ -367,12 +383,12 @@ app.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, 
 				var index = self.resources.indexOf(resource);
 				self.resources.splice(index, 1);
 				self.actionReset();
-				toaster.pop('success', 'Deleted', resource.name);
+				toastr.success(resource.name, 'Deleted');
 				d.resolve();
 			}, function (error) {
 			    self.isDeleting = false;
 			    self.selectedResource = null;
-                toaster.pop('error', 'Something was wrong:', error.status + ' - ' + error.statusText);
+                toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
 			});
 			return d.promise;
 		},
@@ -382,12 +398,12 @@ app.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, 
 			ManagerFactory.save({'path': self.apiPath}, resource).$promise.then(function () {
 				self.isSaving = false;
 				self.actionReset();
-				toaster.pop('success', 'Created', resource.name);
+				toastr.success(resource.name, 'Created');
 				d.resolve();
 			}, function (error) {
 			    self.isSaving = false;
                 self.selectedResource = null;
-                toaster.pop('error', 'Something was wrong:', error.status + ' - ' + error.statusText);
+                toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
             });
 			return d.promise;
 		}
