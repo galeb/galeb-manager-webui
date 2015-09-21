@@ -70,21 +70,30 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
         .state('team', {
-                    url: "/team",
-                    templateUrl: 'templates/pages/team.html',
-                    controller: 'ManagerController',
-                    resolve: {
-                        apiPath: function() { return 'team' },
-                        apiType: function() { return '' },
-                        apiLinks: function() { return 'accounts' }
-                    }
-                })
+            url: "/team",
+            templateUrl: 'templates/pages/team.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function() { return 'team' },
+                apiType: function() { return '' },
+                apiLinks: function() { return 'accounts' }
+            }
+        })
+        .state('account', {
+          url: "/account",
+          templateUrl: 'templates/pages/account.html',
+          controller: 'ManagerController',
+          resolve: {
+              apiPath: function() { return 'account' },
+              apiType: function() { return '' },
+              apiLinks: function() { return 'teams' }
+          }
+      })
 
 	$urlRouterProvider.otherwise('/');
 });
 
 app.config(function ($httpProvider, $resourceProvider, laddaProvider, SpringDataRestInterceptorProvider, toastrConfig) {
-	$httpProvider.defaults.headers.common['x-auth-token'] = '1971a50a-50f8-41c5-902a-97be2b3baf32';
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 	laddaProvider.setOption({
 		style: 'expand-right'
@@ -121,19 +130,6 @@ app.directive('ccSpinner', function () {
 	}
 });
 
-app.directive('ngReallyClick', [function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            element.bind('click', function() {
-                var message = attrs.ngReallyMessage;
-                if (message && confirm(message)) {
-                    scope.$apply(attrs.ngReallyClick);
-                }
-            });
-        }
-    }
-}]);
 
 app.controller('ManagerController', function ($scope, $modal, ManagerService, $filter, apiPath, apiType, apiLinks, SweetAlert) {
 
@@ -203,6 +199,11 @@ app.controller('VirtualHostController', function ($scope, ManagerService) {
     $scope.manager.loadListResources('virtualhost');
 });
 
+app.controller('RolesController', function ($scope, ManagerService) {
+	$scope.manager = ManagerService;
+    $scope.manager.roles = ['ROLE_USER', 'ROLE_ADMIN'];
+});
+
 app.controller('BackendPoolController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('target', 'BackendPool');
@@ -236,6 +237,11 @@ app.controller('RuleTypeController', function ($scope, ManagerService) {
 app.controller('TargetTypeController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('targettype');
+});
+
+app.controller('BalancePolicyController', function ($scope, ManagerService) {
+	$scope.manager = ManagerService;
+    $scope.manager.loadListResources('balancepolicy');
 });
 
 app.controller('BalanceTypeController', function ($scope, ManagerService) {

@@ -1,0 +1,13 @@
+<div class="form-group" ng-controller="RolesController">
+    <label class="col-sm-2 control-label">Roles</label>
+
+    <div class="col-sm-9">
+        <select name="roles" ng-model="manager.selectedResource.roles"
+                class="form-control input-md" required multiple>
+            <option ng-repeat="role in manager.roles"
+                    ng-selected="{{manager.selectedResource.roles.indexOf(role) > -1}}"
+                    value="{{role}}">{{role}}
+            </option>
+        </select>
+    </div>
+</div>

@@ -2,12 +2,12 @@
     <label class="col-sm-2 control-label">BalancePolicy</label>
 
     <div class="col-sm-9">
-        <select name="balancepolicy" ng-model="manager.selectedResource.balancepolicy"
+        <select name="balancePolicy" ng-model="manager.selectedResource.balancePolicy"
                 class="form-control input-md" required>
             <option value="">Select one balancepolicy</option>
             <option ng-repeat="balancepolicy in manager.balancepolicy"
                     ng-selected="{{balancepolicy.selfLink==manager.selectedResource.balancepolicy}}"
-                    value="{{balancepolicy.selfLink}}">{{balancetype.name}}
+                    value="{{balancepolicy.selfLink}}">{{balancepolicy.name}}
             </option>
         </select>
     </div>

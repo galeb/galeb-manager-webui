@@ -1,92 +1,52 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Account</h1>
-	</div>
-</div>
-<div class="row" ng-controller="ApiController">
-	<input id="apiPath" name="apiPath" value="account" class="hidden"/>
-	<input id="apiType" name="apiType" value="" class="hidden"/>
-	<input id="apiExcludeLinks" name="apiExcludeLinks" value="self" class="hidden"/>
-	<div class="pull-right">
-		<button type="button" class="btn btn-success add-api-button" ng-click="apiModal()">
-			Add Account
-		</button>
-	</div>
-	<div class="clearfix"></div>
-
-	<div class="alert alert-info" role="alert" ng-hide="apis && apis.length > 0">
-		There are no account yet.
+		<h3 class="page-header">
+			Account
+			<div class="pull-right">
+				<button type="button" class="btn btn-success" ng-click="showManagerModal()">
+					Create
+				</button>
+			</div>
+		</h3>
 	</div>
 
-	<table class="table table-hover" ng-show="apis && apis.length > 0">
+	<table class="table table-hover"
+		   ng-hide="manager.resource.length == 0"
+		   infinite-scroll="loadMore()"
+		   infinite-scroll-immediate-check="false"
+		   infinite-scroll-distance="1">
 		<thead>
-			<tr>
-			    <th class="col-md-3">Name</th>
-                <th class="col-md-2">E-mail</th>
-				<th class="col-md-2">Roles</th>
-                <th class="col-md-2">Teams</th>
-			    <th class="col-md-1">&nbsp;</th>
-			</tr>
+		<tr>
+			<th class="col-05 text-center">#</th>
+			<th class="col-05">Status</th>
+			<th class="col-2">Name</th>
+			<th class="col-2">E-mail</th>
+			<th class="col-2">Roles</th>
+			<th class="col-2">Teams</th>
+			<th class="col-1">&nbsp;</th>
+		</tr>
 		</thead>
-		<tr ng-repeat="api in apis">
-		    <td>{{api.name}}</td>
-            <td>{{api.email}}</td>
-            <td>{{api.roles}}</td>
-		    <td><span ng-repeat="team in api.teamsObj">{{team.name}}, </span></td>
-		    <td>
-				<button type="button" ng-click="apiModal(api)" class="btn btn-default btn-sm btn-edit" title="Edit">
-    			   <span class="fa fa-pencil"></span>
-    			</button>
-    			<button type="button" ng-click="remove(api)" class="btn btn-sm btn-danger" title="Delete">
-    			   <span class="fa fa-trash-o"></span>
-    		   </button>
+		<tr ng-repeat="resource in manager.resources">
+			<td class="text-center">{{resource.id}}</td>
+			<td class="text-center">
+				<ng-include src="'templates/common/status.table.html'"></ng-include>
+			</td>
+		    <td>{{resource.name}}</td>
+            <td>{{resource.email}}</td>
+            <td>{{resource.roles}}</td>
+		    <td><span ng-repeat="team in resource.teamsObj">{{team.name}}, </span></td>
+			<td class="text-center">
+				<ng-include src="'templates/common/buttons.table.html'"></ng-include>
 			</td>
 		</tr>
 	</table>
 
-	<script type="text/ng-template" id="apiModalForm.html">
-		<div class="modal-header">
-			<h3 class="modal-title">Account</h3>
+	<div ng-show="manager.resource.length == 0 && !manager.isLoading">
+		<div class="alert alert-info">
+			<p class="text-center">No results found for search term '{{ search }}'</p>
 		</div>
-		<form name="apiForm" ng-submit="apiForm.$valid && save()" novalidate class="form-horizontal">
-			<div class="modal-body">
-                <div class="form-group">
-					<label class="col-md-4 control-label" for="name">Name</label>
-					<div class="col-md-5">
-						<input id="id" name="id" ng-model="api.id" value="{{api.id}}" class="hidden"/>
-						<input id="name" name="name" ng-model="api.name" type="text" class="form-control input-md" required>
-					</div>
-                </div>
+	</div>
 
-                <div class="form-group" ng-hide="api.id">
-					<label class="col-md-4 control-label" for="email">E-mail</label>
-					<div class="col-md-5">
-						<input id="email" name="email" ng-model="api.email" type="text" class="form-control input-md" required>
-					</div>
-                </div>
-
-                <div class="form-group" ng-controller="RoleController">
-					<label class="col-md-4 control-label" for="roles">Roles</label>
-					<div class="col-md-5">
-						<select name="roles" ng-model="api.roles" class="form-control input-md" required multiple>
-							<option ng-repeat="role in roles" ng-selected="{{api.roles.indexOf(role) > -1}}" value="{{role}}">{{role}}</option>
-						</select>
-					</div>
-				</div>
-
-				<div class="form-group" ng-controller="TeamController">
-					<label class="col-md-4 control-label" for="team">Teams</label>
-					<div class="col-md-5">
-						<select name="teams" ng-model="api.teams" class="form-control input-md" required multiple>
-							<option ng-repeat="team in teams" ng-selected="{{api.teams.indexOf(team.selfLink) > -1}}" value="{{team.selfLink}}">{{team.name}}</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
-				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-			</div>
-		</form>
-	</script>
+	<cc-spinner is-loading="manager.isLoading"
+				message="Loading..."></cc-spinner>
 </div>
