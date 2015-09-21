@@ -23,7 +23,7 @@ License
 -----
 
 >
-```text
+```bash
 Copyright (c) 2014-2015 Globo.com - All rights reserved.
 
 This source is subject to the Apache License, Version 2.0.
