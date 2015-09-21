@@ -33,7 +33,7 @@
 				<i class="fa fa-circle" ng-if="resource._status == 'UNKNOWN'"></i>
 			</td>
 			<td>{{resource.name}}</td>
-			<td ng-if="resource.accountsObj.length > 5">{{resource.accountsObj.length}}</td>
+			<td ng-if="!resource.accountsObj || resource.accountsObj.length > 5">{{resource.accountsObj.length}}</td>
 		    <td ng-if="resource.accountsObj.length <= 5"><span ng-repeat="account in resource.accountsObj">{{account.name}}, </span></td>
 			<td class="text-center">
 				<button class="btn btn-default btn-sm"
