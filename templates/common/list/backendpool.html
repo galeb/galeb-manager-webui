@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="BackendPoolController">
+    <label class="col-sm-2 control-label">Target</label>
+
+    <div class="col-sm-9">
+        <select name="target" ng-model="manager.selectedResource.target"
+                class="form-control input-md" required>
+            <option value="">Select one target</option>
+            <option ng-repeat="target in manager.target"
+                    ng-selected="{{target.selfLink==manager.selectedResource.target}}"
+                    value="{{target.selfLink}}">{{target.name}}
+            </option>
+        </select>
+    </div>
+</div>

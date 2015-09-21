@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="ProjectController">
+    <label class="col-sm-2 control-label">Project</label>
+
+    <div class="col-sm-9">
+        <select name="project" ng-model="manager.selectedResource.project" class="form-control input-md"
+                required>
+            <option value="">Select one project</option>
+            <option ng-repeat="project in manager.project"
+                    ng-selected="{{project.selfLink==manager.selectedResource.project}}"
+                    value="{{project.selfLink}}">{{project.name}}
+            </option>
+        </select>
+    </div>
+</div>

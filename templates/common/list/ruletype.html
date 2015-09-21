@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="RuleTypeController">
+    <label class="col-sm-2 control-label">RuleType</label>
+
+    <div class="col-sm-9">
+        <select name="ruleType" ng-model="manager.selectedResource.ruleType"
+                class="form-control input-md" required>
+            <option value="">Select one ruletype</option>
+            <option ng-repeat="ruletype in manager.ruletype"
+                    ng-selected="{{ruletype.selfLink==manager.selectedResource.ruleType}}"
+                    value="{{ruletype.selfLink}}">{{ruletype.name}}
+            </option>
+        </select>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="EnvironmentController">
+    <label class="col-sm-2 control-label">Environment</label>
+
+    <div class="col-sm-9">
+        <select name="environment" ng-model="manager.selectedResource.environment"
+                class="form-control input-md" required>
+            <option value="">Select one environment</option>
+            <option ng-repeat="environment in manager.environment"
+                    ng-selected="{{environment.selfLink==manager.selectedResource.environment}}"
+                    value="{{environment.selfLink}}">{{environment.name}}
+            </option>
+        </select>
+    </div>
+</div>

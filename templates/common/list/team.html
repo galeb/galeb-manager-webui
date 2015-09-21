@@ -1,0 +1,13 @@
+<div class="form-group" ng-controller="TeamController">
+    <label class="col-sm-2 control-label">Teams</label>
+
+    <div class="col-sm-9">
+        <select name="teams" ng-model="manager.selectedResource.teams"
+                class="form-control input-md" required multiple>
+            <option ng-repeat="team in manager.team"
+                    ng-selected="{{manager.selectedResource.teams.indexOf(team.selfLink) > -1}}"
+                    value="{{team.selfLink}}">{{team.name}}
+            </option>
+        </select>
+    </div>
+</div>

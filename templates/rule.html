@@ -1,137 +1,66 @@
 <div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Rule</h1>
-	</div>
-</div>
-<div class="row" ng-controller="ApiController">
-	<input id="apiPath" name="apiPath" value="rule" class="hidden"/>
-	<input id="apiType" name="apiType" value="" class="hidden"/>
-	<input id="apiExcludeLinks" name="apiExcludeLinks" value="self" class="hidden"/>
-	<div class="pull-right">
-		<button type="button" class="btn btn-success add-api-button" ng-click="apiModal()">
-			Add Rule
-		</button>
-	</div>
-	<div class="clearfix"></div>
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            Rule
+            <div class="pull-right">
+                <button type="button" class="btn btn-success" ng-click="showManagerModal()">
+                    Create
+                </button>
+            </div>
+        </h3>
+    </div>
 
-	<div class="alert alert-info" role="alert" ng-hide="apis && apis.length > 0">
-		There are no rule yet.
-	</div>
+    <table class="table table-hover"
+           ng-hide="manager.resource.length == 0"
+           infinite-scroll="loadMore()"
+           infinite-scroll-immediate-check="false"
+           infinite-scroll-distance="1">
+        <thead>
+        <tr>
+            <th class="col-05 text-center">#</th>
+            <th class="col-05">Status</th>
+            <th class="col-3">Name</th>
+            <th class="col-2">Parents</th>
+            <th class="col-2">Target</th>
+            <th class="col-1">Type</th>
+            <th class="col-1">&nbsp;</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="resource in manager.resources">
+            <td class="text-center">{{resource.id}}</td>
+            <td class="text-center">
+                <i class="fa fa-circle text-warning" ng-if="resource._status == 'PENDING'"></i>
+                <i class="fa fa-circle text-primary" ng-if="resource._status == 'OK'"></i>
+                <i class="fa fa-circle text-danger" ng-if="resource._status == 'ERROR'"></i>
+                <i class="fa fa-circle" ng-if="resource._status == 'UNKNOWN'"></i>
+            </td>
+            <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span>
+            </td>
+            <td>{{resource.parentsObj.length}}</td>
+            <td>{{resource.targetObj.name}}</td>
+            <td>{{resource.ruleTypeObj.name}}</td>
+            <td class="text-center">
+                <button class="btn btn-default btn-sm"
+                        ng-click="showManagerModal(resource)">
+                    <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-danger btn-sm"
+                        ladda="manager.isDeleting"
+                        data-spinner-size="20"
+                        ng-really-message="Are you sure?"
+                        ng-really-click="removeResource(resource)">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
 
-	<table class="table table-hover" ng-show="apis && apis.length > 0">
-		<thead>
-			<tr>
-			    <th class="col-md-3">Name</th>
-				<th class="col-md-2">Parent</th>
-                <th class="col-md-2">Target</th>
-			    <th class="col-md-2">Type</th>
-			    <th class="col-md-1">&nbsp;</th>
-			</tr>
-		</thead>
-		<tr ng-repeat="api in apis">
-		    <td>{{api.name}} <span class="label label-warning" ng-hide="api.parentObj">Global rule!</span></td>
-			<td>{{api.parentObj.name}}</td>
-            <td>{{api.targetObj.name}}</td>
-		    <td>{{api.ruleTypeObj.name}}</td>
-		    <td>
-				<button type="button" ng-click="apiModal(api)" class="btn btn-default btn-sm btn-edit" title="Edit">
-    			   <span class="fa fa-pencil"></span>
-    			</button>
-    			<button type="button" ng-click="remove(api)" class="btn btn-sm btn-danger" title="Delete">
-    			   <span class="fa fa-trash-o"></span>
-    		   </button>
-			</td>
-		</tr>
-	</table>
+    <div ng-show="manager.resource.length == 0 && !manager.isLoading">
+        <div class="alert alert-info">
+            <p class="text-center">No results found for search term '{{ search }}'</p>
+        </div>
+    </div>
 
-	<script type="text/ng-template" id="apiModalForm.html">
-		<div class="modal-header">
-			<h3 class="modal-title">
-                Rule
-                <span class="label label-warning" ng-show="{{api.id && !api.parent}}">This is global rule!</span>
-            </h3>
-		</div>
-		<form name="apiForm" ng-submit="apiForm.$valid && save()" novalidate class="form-horizontal">
-			<div class="modal-body">
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="name">Name</label>
-					<div class="col-md-5">
-						<input id="id" name="id" ng-model="api.id" value="{{api.id}}" class="hidden"/>
-						<input id="name" name="name" ng-model="api.name" type="text" class="form-control input-md" required>
-					</div>
-				</div>
-
-                <div class="form-group" ng-hide="api.ruleDefault || api.id">
-					<label class="col-md-4 control-label" for="globalRule">&nbsp;</label>
-					<div class="col-md-5">
-						<label>
-							<input type="checkbox" ng-model="api.globalRule" ng-disabled="api.ruleDefault" name="globalRule"> Global rule?
-						</label>
-						<span id="helpBlock" class="help-block">Be careful when you select this option this rule will be global and visible to all.</span>
-					</div>
-				</div>
-
-				<div class="form-group" ng-controller="VirtualHostController" ng-hide="api.globalRule">
-					<label class="col-md-4 control-label" for="parent">Parent</label>
-					<div class="col-md-5">
-						<select name="parent" ng-model="api.parent" class="form-control input-md" ng-required="!api.globalRule">
-							<option value="">Select one parent</option>
-							<option ng-repeat="virtualhost in virtualhosts" ng-selected="{{virtualhost.selfLink==api.parent}}" value="{{virtualhost.selfLink}}">{{virtualhost.name}}</option>
-						</select>
-					</div>
-				</div>
-
-                <div class="form-group" ng-controller="BackendPoolController">
-                    <label class="col-md-4 control-label" for="target">Target</label>
-                    <div class="col-md-5">
-                        <select name="target" ng-model="api.target" class="form-control input-md" required>
-                            <option value="">Select one backendpool</option>
-                            <option ng-repeat="backendpool in backendpools" ng-selected="{{backendpool.selfLink==api.target}}" value="{{backendpool.selfLink}}">{{backendpool.name}}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group" ng-controller="RuleTypeController">
-					<label class="col-md-4 control-label" for="Type">Type</label>
-					<div class="col-md-5">
-						<select name="ruletype" ng-model="api.ruleType" class="form-control input-md" required>
-							<option value="">Select one type</option>
-							<option ng-repeat="ruletype in ruletypes" ng-selected="{{ruletype.selfLink==api.ruleType}}" value="{{ruletype.selfLink}}">{{ruletype.name}}</option>
-						</select>
-					</div>
-				</div>
-
-				<hr>
-
-				<div class="form-group" ng-hide="api.globalRule">
-					<label class="col-md-4 control-label" for="ruleOrder">&nbsp;</label>
-					<div class="col-md-5">
-						<label>
-							<input type="checkbox" ng-model="api.ruleDefault" name="ruleDefault" ng-checked="api.ruleDefault"> Rule default?
-						</label>
-						<span id="helpBlock" class="help-block">When you select this option this rule will be default to this virtualhost and will the first in the match list.</span>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="properties.match">Rule Match</label>
-					<div class="col-md-5">
-						<input id="properties.match" name="properties.match" ng-model="api.properties.match" type="text" class="form-control input-md" required>
-					</div>
-				</div>
-
-				<div class="form-group" ng-hide="api.globalRule">
-					<label class="col-md-4 control-label" for="ruleOrder">Rule Order</label>
-					<div class="col-md-5">
-						<input id="ruleOrder" name="ruleOrder" ng-model="api.ruleOrder" type="text" class="form-control input-md">
-					</div>
-				</div>
-
-			</div>
-			<div class="modal-footer">
-				<button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
-				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-			</div>
-		</form>
-	</script>
+    <cc-spinner is-loading="manager.isLoading"
+                message="Loading..."></cc-spinner>
 </div>

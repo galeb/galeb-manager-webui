@@ -1,63 +1,62 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Team</h1>
-	</div>
-</div>
-<div class="row" ng-controller="ApiController">
-	<input id="apiPath" name="apiPath" value="team" class="hidden"/>
-	<input id="apiType" name="apiType" value="" class="hidden"/>
-	<input id="apiExcludeLinks" name="apiExcludeLinks" value="self-projects" class="hidden"/>
-	<div class="pull-right">
-		<button type="button" class="btn btn-success add-api-button" ng-click="apiModal()">
-			Add Team
-		</button>
-	</div>
-	<div class="clearfix"></div>
-
-	<div class="alert alert-info" role="alert" ng-hide="apis && apis.length > 0">
-		There are no team yet.
+		<h3 class="page-header">
+			Team
+			<div class="pull-right">
+				<button type="button" class="btn btn-success" ng-click="showManagerModal()">
+					Create
+				</button>
+			</div>
+		</h3>
 	</div>
 
-	<table class="table table-hover" ng-show="apis && apis.length > 0">
+	<table class="table table-hover"
+		   ng-hide="manager.resource.length == 0"
+		   infinite-scroll="loadMore()"
+		   infinite-scroll-immediate-check="false"
+		   infinite-scroll-distance="1">
 		<thead>
-			<tr>
-			    <th class="col-md-5">Name</th>
-				<th class="col-md-4">Accounts</th>
-			    <th class="col-md-1">&nbsp;</th>
-			</tr>
+		<tr>
+			<th class="col-05 text-center">#</th>
+			<th class="col-05">Status</th>
+			<th class="col-4">Name</th>
+			<th class="col-4">Accounts</th>
+			<th class="col-1">&nbsp;</th>
+		</tr>
 		</thead>
-		<tr ng-repeat="api in apis">
-		    <td>{{api.name}}</td>
-		    <td><span ng-repeat="account in api.accountsObj">{{account.name}}, </span></td>
-		    <td>
-				<button type="button" ng-click="apiModal(api)" class="btn btn-default btn-sm btn-edit" title="Edit">
-    			   <span class="fa fa-pencil"></span>
-    			</button>
-    			<button type="button" ng-click="remove(api)" class="btn btn-sm btn-danger" title="Delete">
-    			   <span class="fa fa-trash-o"></span>
-    		   </button>
+		<tr ng-repeat="resource in manager.resources">
+			<td class="text-center">{{resource.id}}</td>
+			<td class="text-center">
+				<i class="fa fa-circle text-warning" ng-if="resource._status == 'PENDING'"></i>
+				<i class="fa fa-circle text-primary" ng-if="resource._status == 'OK'"></i>
+				<i class="fa fa-circle text-danger" ng-if="resource._status == 'ERROR'"></i>
+				<i class="fa fa-circle" ng-if="resource._status == 'UNKNOWN'"></i>
+			</td>
+			<td>{{resource.name}}</td>
+			<td ng-if="resource.accountsObj.length > 5">{{resource.accountsObj.length}}</td>
+		    <td ng-if="resource.accountsObj.length <= 5"><span ng-repeat="account in resource.accountsObj">{{account.name}}, </span></td>
+			<td class="text-center">
+				<button class="btn btn-default btn-sm"
+						ng-click="showManagerModal(resource)">
+					<i class="fa fa-pencil"></i>
+				</button>
+				<button class="btn btn-danger btn-sm"
+						ladda="manager.isDeleting"
+						data-spinner-size="20"
+						ng-really-message="Are you sure?"
+						ng-really-click="removeResource(resource)">
+					<i class="fa fa-trash-o"></i>
+				</button>
 			</td>
 		</tr>
 	</table>
 
-	<script type="text/ng-template" id="apiModalForm.html">
-		<div class="modal-header">
-			<h3 class="modal-title">Project</h3>
+	<div ng-show="manager.resource.length == 0 && !manager.isLoading">
+		<div class="alert alert-info">
+			<p class="text-center">No results found for search term '{{ search }}'</p>
 		</div>
-		<form name="apiForm" ng-submit="apiForm.$valid && save()" novalidate class="form-horizontal">
-			<div class="modal-body">
-                <div class="form-group">
-					<label class="col-md-4 control-label" for="name">Name</label>
-					<div class="col-md-5">
-						<input id="id" name="id" ng-model="api.id" value="{{api.id}}" class="hidden"/>
-						<input id="name" name="name" ng-model="api.name" type="text" class="form-control input-md" required>
-					</div>
-                </div>
-			</div>
-			<div class="modal-footer">
-				<button type="submit" id="save" name="save" class="btn btn-primary">Save</button>
-				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-			</div>
-		</form>
-	</script>
+	</div>
+
+	<cc-spinner is-loading="manager.isLoading"
+				message="Loading..."></cc-spinner>
 </div>

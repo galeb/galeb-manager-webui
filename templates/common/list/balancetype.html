@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="BalanceTypeTypeController">
+    <label class="col-sm-2 control-label">BalanceType</label>
+
+    <div class="col-sm-9">
+        <select name="balancePolicyType" ng-model="manager.selectedResource.balancePolicyType"
+                class="form-control input-md" required>
+            <option value="">Select one targetype</option>
+            <option ng-repeat="balancetype in manager.balancetype"
+                    ng-selected="{{balancetype.selfLink==manager.selectedResource.balancePolicyType}}"
+                    value="{{balancetype.selfLink}}">{{balancetype.name}}
+            </option>
+        </select>
+    </div>
+</div>

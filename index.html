@@ -1,166 +1,119 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<base href="/">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
+<!DOCTYPE html >
+<html lang="en"
+      ng-app="galeb-manager-webui" >
+<head >
+    <title >Galeb Manager Webui</title >
+    <link href="scripts/libs/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet" >
+    <link href="css/paper.css"
+          rel="stylesheet" >
+    <link href="scripts/libs/bootstrap-additions/dist/bootstrap-additions.min.css"
+          rel="stylesheet" >
+    <link href="scripts/libs/angularjs-toaster/toaster.min.css"
+          rel="stylesheet" >
+    <link href="scripts/libs/ladda/dist/ladda-themeless.min.css"
+          rel="stylesheet" >
+    <link href="scripts/libs/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" >
+    <link href="css/main.css"
+          rel="stylesheet" >
+</head >
 
-	<title>Galeb Manager</title>
+<body >
+<nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container" >
+        <div class="navbar-header" >
+            <a class="navbar-brand"
+               ui-sref="dashboard">
+                <img src="img/GalebManager-logo-admin.png"
+                     alt="Galeb Manager" />
+            </a>
+        </div >
 
-	<!-- Bootstrap Core CSS -->
-    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="css/vendor/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/vendor/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="css/vendor/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-	<!-- App CSS -->
-	<link href="css/app.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body ng-app="galeb-webui" ng-cloak class="ng-cloak">
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0" ng-controller="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" ng-href="#/dashboard"><img src="img/GalebManager-logo-admin.png" alt="Galeb Manager" /></a>
-            </div>
-            <!-- /.navbar-header -->
-
-            <ul class="nav navbar-top-links navbar-right" ng-show="authenticated()">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" ng-href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a ng-href="#/logout" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-						<li ng-show="authenticated()">
-							<a ng-href="#/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/virtualhost"><i class="fa fa-magic fa-fw"></i> VirtualHost</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/rule"><i class="fa fa-share-alt fa-fw"></i> Rule</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/backendpool"><i class="fa fa-object-group fa-fw"></i> BackendPool</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/backend"><i class="fa fa-server fa-fw"></i> Backend</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/project"><i class="fa fa-clone fa-fw"></i> Project</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/team"><i class="fa fa-users fa-fw"></i> Team</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/account"><i class="fa fa-user fa-fw"></i> Account</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/farm"><i class="fa fa-sitemap fa-fw"></i> Farm</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/provider"><i class="fa fa-wrench fa-fw"></i> Provider</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/balancepolicy"><i class="fa fa-random fa-fw"></i> BalancePolicy</a>
-						</li>
-						<li ng-show="authenticated()">
-							<a ng-href="#/environment"><i class="fa fa-leaf fa-fw"></i> Environment</a>
-						</li>
-						<li ng-show="authenticated()">
-                            <a ng-href="##"><i class="fa fa-tag fa-fw"></i> Types<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a ng-href="#/targettype">TargetType</a>
-                                </li>
-                                <li>
-                                    <a ng-href="#/ruletype">RuleType</a>
-                                </li>
-								<li>
-                                    <a ng-href="#/balancetype">BalanceType</a>
-                                </li>
-                            </ul>
-                        </li>
-						<li ng-show="!authenticated()">
-							<a ng-href="#/login"><i class="fa fa-key fa-fw"></i>  Login</a>
-						</li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-
-        <div id="page-wrapper">
-			<div ng-view></div>
-
+        <div ui-view="search">
         </div>
-        <!-- /#page-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+        <div class="collapse navbar-collapse" >
+            <ul class="nav navbar-nav navbar-right" >
+                <li ui-sref-active="active">
+                    <a ui-sref="dashboard"><i class="fa fa-home"></i></a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="virtualhost">VirtualHost</a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="rule">Rule</a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="backendpool">BackendPool</a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="backend">Backend</a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="project">Project</a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="team">Team</a >
+                </li >
+                <li ui-sref-active="active">
+                    <a ui-sref="account">Account</a >
+                </li >
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ui-sref="farm">Farm</a ></li>
+                        <li><a ui-sref="provider">Provider</a ></li>
+                        <li class="divider"></li>
+                        <li><a ui-sref="balancepolicy">BalancePolicy</a ></li>
+                        <li><a ui-sref="environment">Environment</a ></li>
+                        <li class="divider"></li>
+                        <li><a ui-sref="ruletype">RuleType</a ></li>
+                        <li><a ui-sref="targettype">TargetType</a ></li>
+                        <li><a ui-sref="balancetype">BalanceType</a ></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ui-sref="logout">Logout</a ></li>
+                    </ul>
+                </li>
+            </ul >
+        </div >
 
-    <!-- jQuery -->
-    <script src="js/vendor/jquery.min.js"></script>
+    </div >
+</nav >
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/vendor/bootstrap.min.js"></script>
+<div class="container main-content" >
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/vendor/metisMenu.min.js"></script>
+    <toaster-container></toaster-container >
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/vendor/sb-admin-2.js"></script>
+    <div class="row" >
 
-	<script src="js/vendor/angular.min.js" type="text/javascript"></script>
-	<script src="js/vendor/angular-route.min.js" type="text/javascript"></script>
-	<script src="js/vendor/angular-resource.min.js" type="text/javascript"></script>
-	<script src="js/vendor/ui-bootstrap-0.13.3.min.js" type="text/javascript"></script>
-	<script src="js/vendor/ui-bootstrap-tpls-0.13.3.min.js" type="text/javascript"></script>
-	<script src="js/vendor/rfc6570.js" type="text/javascript"></script>
-	<script src="js/vendor/angular-hal.js" type="text/javascript"></script>
-	<script src="js/env.js" type="text/javascript"></script>
-	<script src="js/auth.js" type="text/javascript"></script>
-	<script src="js/api.js" type="text/javascript"></script>
-	<script src="js/navigation.js" type="text/javascript"></script>
-	<script src="js/app.js" type="text/javascript"></script>
-</body>
-</html>
+        <div ui-view>
+        </div>
+
+    </div >
+</div >
+
+
+<script src="scripts/libs/jquery/dist/jquery.min.js" ></script >
+<script src="scripts/libs/bootstrap/dist/js/bootstrap.min.js" ></script >
+<script src="scripts/libs/angular/angular.min.js" ></script >
+<script src="scripts/libs/angular-resource/angular-resource.min.js" ></script >
+<script src="scripts/libs/angular-spring-data-rest/dist/angular-spring-data-rest.min.js" ></script >
+<script src="scripts/libs/angular-animate/angular-animate.min.js" ></script >
+<script src="scripts/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js" ></script >
+<script src="scripts/libs/spin.js/spin.js" ></script >
+<script src="scripts/libs/angular-spinner/angular-spinner.min.js" ></script >
+<script src="scripts/libs/angular-auto-validate/dist/jcs-auto-validate.min.js" ></script >
+<script src="scripts/libs/ladda/dist/ladda.min.js" ></script >
+<script src="scripts/libs/angular-ladda/dist/angular-ladda.min.js" ></script >
+<script src="scripts/libs/angular-strap/dist/angular-strap.min.js" ></script >
+<script src="scripts/libs/angular-strap/dist/angular-strap.tpl.min.js" ></script >
+<script src="scripts/libs/angularjs-toaster/toaster.min.js" ></script >
+<script src="scripts/libs/angular-ui-router/release/angular-ui-router.min.js" ></script >
+<script src="scripts/main.js" ></script >
+</body >
+</html >

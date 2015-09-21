@@ -33,7 +33,6 @@ angular.module('angular-hal', [])
         function Resource(href, options, data) {
             var linksAttribute = options.linksAttribute || '_links';
             var embeddedAttribute = options.embeddedAttribute || '_embedded';
-            var ignoreAttributePrefixes = options.ignoreAttributePrefixes || ['_', '$'];
             var links = {};
             var embedded = {};
 
@@ -42,6 +41,7 @@ angular.module('angular-hal', [])
             defineHiddenProperty(this, '$links', function () {
                 return links;
             });
+
             defineHiddenProperty(this, '$href', function (rel, params) {
                 if (!(rel in links)) return null;
 
@@ -74,7 +74,7 @@ angular.module('angular-hal', [])
 
             Object.keys(data)
                 .filter(function (key) {
-                    return key !== linksAttribute && key !== embeddedAttribute && (!~ignoreAttributePrefixes.indexOf(key[0]));
+                    return key !== linksAttribute && key !== embeddedAttribute && !~['_', '$'].indexOf(key[0]);
                 })
                 .forEach(function (key) {
                     Object.defineProperty(this, key, {
