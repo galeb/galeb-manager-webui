@@ -1,5 +1,6 @@
-var app = angular.module('galeb-manager-webui', [
+angular.module('galebWebui', [
 	'ngResource',
+	'ngStorage',
 	'ui.router',
 	'spring-data-rest',
 	'infinite-scroll',
@@ -10,493 +11,192 @@ var app = angular.module('galeb-manager-webui', [
 	'ngAnimate',
 	'toastr',
 	'oitozero.ngSweetAlert'
-]);
+]).config(function ($stateProvider, $urlRouterProvider, $httpProvider, $resourceProvider, laddaProvider,
+    SpringDataRestInterceptorProvider, toastrConfig) {
 
-app.config(function ($stateProvider, $urlRouterProvider) {
-	$stateProvider
-		.state('dashboard', {
-			url: "/",
-            templateUrl: 'templates/pages/dashboard.html',
-            controller: 'DashboardController'
-		})
-		.state('virtualhost', {
-			url: "/virtualhost",
-            templateUrl: 'templates/pages/virtualhost.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'virtualhost' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'environment-project' }
-            }
-		})
-		.state('rule', {
-            url: "/rule",
-            templateUrl: 'templates/pages/rule.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'rule' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'target-ruleType-parents' }
-            }
-        })
-        .state('backendpool', {
-            url: "/backendpool",
-            templateUrl: 'templates/pages/backendpool.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'target' },
-                apiType: function() { return 'BackendPool' },
-                apiLinks: function() { return 'environment-project-balancePolicy' }
-            }
-        })
-        .state('backend', {
-            url: "/backend",
-            templateUrl: 'templates/pages/backend.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'target' },
-                apiType: function() { return 'Backend' },
-                apiLinks: function() { return 'environment-project' }
-            }
-        })
-        .state('project', {
-            url: "/project",
-            templateUrl: 'templates/pages/project.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'project' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'teams' }
-            }
-        })
-        .state('team', {
-            url: "/team",
-            templateUrl: 'templates/pages/team.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'team' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'accounts' }
-            }
-        })
-        .state('account', {
-            url: "/account",
-            templateUrl: 'templates/pages/account.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'account' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'teams' }
-            }
-        })
-        .state('targettype', {
-            url: "/targettype",
-            templateUrl: 'templates/pages/targettype.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'targettype' },
-                apiType: function() { return '' },
-                apiLinks: function() { return '' }
-            }
-        })
-        .state('ruletype', {
-            url: "/ruletype",
-            templateUrl: 'templates/pages/ruletype.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'ruletype' },
-                apiType: function() { return '' },
-                apiLinks: function() { return '' }
-            }
-        })
-        .state('balancetype', {
-            url: "/balancetype",
-            templateUrl: 'templates/pages/balancetype.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'balancepolicytype' },
-                apiType: function() { return '' },
-                apiLinks: function() { return '' }
-            }
-        })
-        .state('environment', {
-            url: "/environment",
-            templateUrl: 'templates/pages/environment.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'environment' },
-                apiType: function() { return '' },
-                apiLinks: function() { return '' }
-            }
-        })
-        .state('balancepolicy', {
-            url: "/balancepolicy",
-            templateUrl: 'templates/pages/balancepolicy.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'balancepolicy' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'balancePolicyType' }
-            }
-        })
-        .state('provider', {
-            url: "/provider",
-            templateUrl: 'templates/pages/provider.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'provider' },
-                apiType: function() { return '' },
-                apiLinks: function() { return '' }
-            }
-        })
-        .state('farm', {
-            url: "/farm",
-            templateUrl: 'templates/pages/farm.html',
-            controller: 'ManagerController',
-            resolve: {
-                apiPath: function() { return 'farm' },
-                apiType: function() { return '' },
-                apiLinks: function() { return 'provider-environment' }
-            }
-        })
+    $stateProvider.state('login', {
+        url: "/login",
+        templateUrl: 'views/pages/login.html',
+        controller: 'AuthController'
+    })
+    .state('logout', {
+        url: "/logout",
+        controller: 'LogoutController'
+    })
+    .state('dashboard', {
+        url: "/",
+        templateUrl: 'views/pages/dashboard.html'
+    })
+    .state('virtualhost', {
+        url: "/virtualhost",
+        templateUrl: 'views/pages/virtualhost.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'virtualhost' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'environment-project' }
+        }
+    })
+    .state('rule', {
+        url: "/rule",
+        templateUrl: 'views/pages/rule.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'rule' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'target-ruleType-parents' }
+        }
+    })
+    .state('backendpool', {
+        url: "/backendpool",
+        templateUrl: 'views/pages/backendpool.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'target' },
+            apiType: function() { return 'BackendPool' },
+            apiLinks: function() { return 'environment-project-balancePolicy' }
+        }
+    })
+    .state('backend', {
+        url: "/backend",
+        templateUrl: 'views/pages/backend.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'target' },
+            apiType: function() { return 'Backend' },
+            apiLinks: function() { return 'environment-project' }
+        }
+    })
+    .state('project', {
+        url: "/project",
+        templateUrl: 'views/pages/project.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'project' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'teams' }
+        }
+    })
+    .state('team', {
+        url: "/team",
+        templateUrl: 'views/pages/team.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'team' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'accounts' }
+        }
+    })
+    .state('account', {
+        url: "/account",
+        templateUrl: 'views/pages/account.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'account' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'teams' }
+        }
+    })
+    .state('targettype', {
+        url: "/targettype",
+        templateUrl: 'views/pages/targettype.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'targettype' },
+            apiType: function() { return '' },
+            apiLinks: function() { return '' }
+        }
+    })
+    .state('ruletype', {
+        url: "/ruletype",
+        templateUrl: 'views/pages/ruletype.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'ruletype' },
+            apiType: function() { return '' },
+            apiLinks: function() { return '' }
+        }
+    })
+    .state('balancetype', {
+        url: "/balancetype",
+        templateUrl: 'views/pages/balancetype.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'balancepolicytype' },
+            apiType: function() { return '' },
+            apiLinks: function() { return '' }
+        }
+    })
+    .state('environment', {
+        url: "/environment",
+        templateUrl: 'views/pages/environment.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'environment' },
+            apiType: function() { return '' },
+            apiLinks: function() { return '' }
+        }
+    })
+    .state('balancepolicy', {
+        url: "/balancepolicy",
+        templateUrl: 'views/pages/balancepolicy.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'balancepolicy' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'balancePolicyType' }
+        }
+    })
+    .state('provider', {
+        url: "/provider",
+        templateUrl: 'views/pages/provider.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'provider' },
+            apiType: function() { return '' },
+            apiLinks: function() { return '' }
+        }
+    })
+    .state('farm', {
+        url: "/farm",
+        templateUrl: 'views/pages/farm.html',
+        controller: 'ManagerController',
+        resolve: {
+            apiPath: function() { return 'farm' },
+            apiType: function() { return '' },
+            apiLinks: function() { return 'provider-environment' }
+        }
+    });
 
-	$urlRouterProvider.otherwise('/');
-});
+	$urlRouterProvider.otherwise('/login');
 
-app.config(function ($httpProvider, $resourceProvider, laddaProvider, SpringDataRestInterceptorProvider, toastrConfig) {
 	$resourceProvider.defaults.stripTrailingSlashes = false;
-	laddaProvider.setOption({
-		style: 'expand-right'
-	});
-	SpringDataRestInterceptorProvider.apply();
-	angular.extend(toastrConfig, {
+
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    $httpProvider.defaults.headers.common.Authorization = 'Basic ';
+
+    laddaProvider.setOption({
+        style: 'expand-right'
+    });
+
+    SpringDataRestInterceptorProvider.apply();
+
+    angular.extend(toastrConfig, {
         progressBar: true,
-        timeOut: 2000
+        timeOut: 2000,
+        newestOnTop: true,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true
     });
-});
 
-app.factory("ManagerFactory", function ($resource) {
-    return $resource("http://localhost:8000/:path/:id", {path: '@path', id: '@id'}, {
-        update: {
-            method: 'PATCH'
+    $httpProvider.interceptors.push('httpResponseInterceptor');
+})
+.run(function ($rootScope, $location, AuthService) {
+    $rootScope.$on("$stateChangeStart", function(toState){
+        if (toState !== AuthService.logoutPath && !AuthService.isLoggedIn()){
+            $location.path(AuthService.loginPath);
+        } else if (toState.name === AuthService.loginPath) {
+            $location.path(AuthService.homePath);
         }
     });
-});
-
-app.factory("ManagerWithTypeFactory", function ($resource) {
-    return $resource("http://localhost:8000/:path/search/findByTargetTypeName?name=:type",
-        {path: '@path', type: '@type'}
-    );
-});
-
-app.directive('ccSpinner', function () {
-	return {
-		'restrict': 'AE',
-		'templateUrl': 'templates/common/spinner.html',
-		'scope': {
-			'isLoading': '=',
-			'message': '@'
-		}
-	}
-});
-
-
-app.controller('ManagerController', function ($scope, $modal, ManagerService, $filter, apiPath, apiType, apiLinks, SweetAlert) {
-
-    modalName = apiType ? $filter('lowercase')(apiType) : apiPath;
-    apiLinks = apiLinks ? apiLinks.split("-") : [];
-
-	$scope.manager = ManagerService;
-
-	$scope.manager.init(apiPath, apiType, apiLinks);
-	$scope.manager.loadResources();
-
-	$scope.loadMore = function () {
-		$scope.manager.loadMore();
-	};
-
-	$scope.showManagerModal = function (resource) {
-	    $scope.mode = 'Create';
-	    $scope.manager.selectedResource = {};
-
-	    if (resource) {
-	        $scope.manager.selectedResource = resource;
-	        $scope.mode = 'Edit';
-	    }
-
-	    $scope.managerModal = $modal({
-	        scope: $scope,
-	        templateUrl: 'templates/modal/' + modalName + '.html',
-	        show: true
-	    });
-	}
-
-	$scope.saveResource = function () {
-	    if ($scope.manager.selectedResource.id != null) {
-            $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
-                $scope.managerModal.hide();
-            });
-        } else {
-            $scope.manager.createResource($scope.manager.selectedResource).then(function () {
-                $scope.managerModal.hide();
-            });
-        }
-    };
-
-    $scope.removeResource = function (resource) {
-        SweetAlert.swal({
-            title: "Are you sure?",
-            text: "Your will not be able to recover <b>" + resource.name + "<b>!",
-            showCancelButton: true,
-            confirmButtonColor: "#e51c23",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: true,
-            html: true
-        }, function(isConfirm) {
-            if (isConfirm) {
-                $scope.manager.selectedResource = {};
-
-                if (resource) {
-                    $scope.manager.selectedResource = resource;
-                }
-                $scope.manager.removeResource($scope.manager.selectedResource);
-            }
-        });
-    };
-});
-
-app.controller('VirtualHostController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('virtualhost');
-});
-
-app.controller('RolesController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.roles = ['ROLE_USER', 'ROLE_ADMIN'];
-});
-
-app.controller('DriverController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.driver = ['GalebV3'];
-});
-
-app.controller('BackendPoolController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('target', 'BackendPool');
-});
-
-app.controller('AccountController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('account');
-});
-
-app.controller('TeamController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('team');
-});
-
-app.controller('ProjectController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('project');
-});
-
-app.controller('EnvironmentController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('environment');
-});
-
-app.controller('RuleTypeController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('ruletype');
-});
-
-app.controller('TargetTypeController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('targettype');
-});
-
-app.controller('ProviderController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('provider');
-});
-
-app.controller('BalancePolicyController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('balancepolicy');
-});
-
-app.controller('BalanceTypeController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('balancepolicytype');
-});
-
-app.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, $rootScope, $q, toastr) {
-
-	var self = {
-		'getResource': function (id) {
-			for (var i = 0; i < self.resources.length; i++) {
-				var obj = self.resources[i];
-				if (obj.id == id) {
-					return obj;
-				}
-			}
-		},
-		'page': 0,
-		'hasMore': true,
-		'isLoading': false,
-		'isSaving': false,
-		'selectedResource': null,
-		'resources': [],
-		'listResources': [],
-		'search': null,
-		'ordering': 'name',
-		'apiPath': '',
-		'apiType': '',
-		'apiLinks': '',
-		'init': function (path, type, links) {
-		    self.apiPath = path;
-            self.apiType = type;
-            self.apiLinks = links;
-            self.reset();
-		},
-		'reset': function () {
-		    self.isLoading = false;
-		    self.hasMore = true;
-		    self.isSaving = false;
-            self.page = 0;
-            self.resources = [];
-            self.listResources = [];
-		},
-		'actionReset': function () {
-            self.selectedResource = null;
-            self.reset();
-            self.loadResources();
-		},
-		'loadResources': function () {
-			if (self.hasMore && !self.isLoading) {
-				self.isLoading = true;
-
-				var params = {
-					'path': self.apiPath,
-					'type': self.apiType
-				};
-
-                customFactory = ManagerFactory;
-				if (self.apiType === 'BackendPool' || self.apiType === 'Backend') {
-				    customFactory = ManagerWithTypeFactory;
-				}
-
-                customFactory.get(params, function (response) {
-                    angular.forEach(response._embeddedItems, function(resource) {
-                        angular.forEach(self.apiLinks, function(link) {
-                            resource._resources(link).get(function (subItem) {
-                                if (subItem._embeddedItems) {
-                                    var tmpArr = [];
-                                    var tmpArrLinks = [];
-                                    angular.forEach(subItem._embeddedItems, function(item) {
-                                        tmpObj = {'name': item.name, 'href': item._links.self.href};
-                                        tmpArr.push(tmpObj);
-                                        tmpArrLinks.push(item._links.self.href);
-                                    });
-                                    resource[link + 'Obj'] = tmpArr;
-                                    resource[link] = tmpArrLinks;
-                                } else {
-                                    tmpObj = {'name': subItem.name, 'href': subItem._links.self.href};
-                                    resource[link + 'Obj'] = tmpObj;
-                                    resource[link] = subItem._links.self.href
-                                }
-                            });
-                        });
-                        self.resources.push(resource);
-                    });
-
-                    if (response.page) {
-                        if (self.page == response.page.totalPages) {
-                            self.hasMore = false;
-                        }
-                    } else {
-                        self.hasMore = false;
-                    }
-
-					self.isLoading = false;
-				});
-			}
-
-		},
-		'loadMore': function () {
-			if (self.hasMore && !self.isLoading) {
-				self.page += 1;
-				self.loadResources();
-			}
-		},
-		'loadListResources': function (apiPath, apiType) {
-		    self[apiPath] = [];
-            var params = {
-                'path': apiPath,
-                'type': apiType
-            };
-
-            customFactory = ManagerFactory;
-            if (apiType === 'BackendPool' || apiType === 'Backend') {
-                customFactory = ManagerWithTypeFactory;
-            }
-
-            customFactory.get(params, function (response) {
-                angular.forEach(response._embeddedItems, function(data) {
-                    data['selfLink'] = data._links.self.href;
-                    self[apiPath].push(data);
-                });
-            });
-        },
-		'updateResource': function (resource) {
-			var d = $q.defer();
-			self.isSaving = true;
-			ManagerFactory.update({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
-				self.isSaving = false;
-                self.actionReset();
-				toastr.success(resource.name, 'Updated');
-				d.resolve();
-			}, function (error) {
-                self.isSaving = false;
-                toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-            });
-			return d.promise;
-		},
-		'removeResource': function (resource) {
-			var d = $q.defer();
-			self.isDeleting = true;
-			ManagerFactory.delete({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
-			    self.isDeleting = false;
-				var index = self.resources.indexOf(resource);
-				self.resources.splice(index, 1);
-				self.actionReset();
-				toastr.success(resource.name, 'Deleted');
-				d.resolve();
-			}, function (error) {
-			    self.isDeleting = false;
-			    self.selectedResource = null;
-                toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-			});
-			return d.promise;
-		},
-		'createResource': function (resource) {
-			var d = $q.defer();
-			self.isSaving = true;
-			ManagerFactory.save({'path': self.apiPath}, resource).$promise.then(function () {
-				self.isSaving = false;
-				self.actionReset();
-				toastr.success(resource.name, 'Created');
-				d.resolve();
-			}, function (error) {
-			    self.isSaving = false;
-                self.selectedResource = null;
-                toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-            });
-			return d.promise;
-		}
-
-	};
-
-	return self;
-
 });
