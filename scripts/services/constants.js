@@ -1,2 +1,10 @@
 angular.module('galebWebui')
-.constant('API_URL', 'http://localhost:8000');
+.constant(
+    'CONFIG', {
+        'URL': 'http://localhost:8000'
+    },
+    'TYPE', {
+        'BACKEND_POOL': 'BackendPool',
+        'BACKEND': 'Backend',
+    }
+);

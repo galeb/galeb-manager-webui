@@ -1,14 +1,21 @@
 angular.module('galebWebui')
 .controller('ManagerController', function (
-    $scope, $modal, ManagerService, $filter, apiPath, apiType, apiLinks, SweetAlert) {
+    $scope, $modal, ManagerService, $filter, apiPath, apiLinks, SweetAlert) {
 
-    $scope.modalName = apiType ? $filter('lowercase')(apiType) : apiPath;
+    $scope.modalName = apiPath;
+    apiType = '';
+
+    if (apiPath.indexOf('-') !== -1) {
+        var tmpSplit = apiPath.split("-");
+        apiPath = tmpSplit[0];
+        apiType = tmpSplit[1];
+    }
+
     $scope.apiLinks = apiLinks ? apiLinks.split("-") : [];
-    $scope.apiType = apiType ? apiType : '';
 
 	$scope.manager = ManagerService;
 
-	$scope.manager.init(apiPath, $scope.apiType, $scope.apiLinks);
+	$scope.manager.init(apiPath, apiType, $scope.apiLinks);
 	$scope.manager.loadResources();
 
 	$scope.loadMore = function () {

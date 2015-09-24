@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('AuthService', function ($http, $localStorage, ManagerFactory, API_URL) {
+.service('AuthService', function ($http, $localStorage, Manager, CONFIG) {
 
     var self = {
         'loginPath': 'login',
@@ -16,7 +16,7 @@ angular.module('galebWebui')
                     + credentials.password)
             } : {};
 
-            $http.get(API_URL + "/token", {
+            $http.get(CONFIG.URL + "/token", {
                 headers : headers
             }).then(function(response) {
                 if (response.data) {
@@ -38,7 +38,7 @@ angular.module('galebWebui')
         },
         'logOut': function() {
             self.localReset();
-            $http.get(API_URL + "/logout");
+            $http.get(CONFIG.URL + "/logout");
         },
         'isLoggedIn': function() {
             if ($localStorage.token) {

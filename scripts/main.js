@@ -34,7 +34,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'virtualhost' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'environment-project' }
         }
     })
@@ -44,7 +43,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'rule' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'target-ruleType-parents' }
         }
     })
@@ -53,8 +51,7 @@ angular.module('galebWebui', [
         templateUrl: 'views/pages/backendpool.html',
         controller: 'ManagerController',
         resolve: {
-            apiPath: function() { return 'target' },
-            apiType: function() { return 'BackendPool' },
+            apiPath: function() { return 'target-BACKEND_POOL' },
             apiLinks: function() { return 'environment-project-balancePolicy' }
         }
     })
@@ -63,8 +60,7 @@ angular.module('galebWebui', [
         templateUrl: 'views/pages/backend.html',
         controller: 'ManagerController',
         resolve: {
-            apiPath: function() { return 'target' },
-            apiType: function() { return 'Backend' },
+            apiPath: function() { return 'target-BACKEND' },
             apiLinks: function() { return 'environment-project' }
         }
     })
@@ -74,7 +70,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'project' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'teams' }
         }
     })
@@ -84,7 +79,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'team' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'accounts' }
         }
     })
@@ -94,7 +88,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'account' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'teams' }
         }
     })
@@ -104,7 +97,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'targettype' },
-            apiType: function() { return '' },
             apiLinks: function() { return '' }
         }
     })
@@ -114,7 +106,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'ruletype' },
-            apiType: function() { return '' },
             apiLinks: function() { return '' }
         }
     })
@@ -124,7 +115,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'balancepolicytype' },
-            apiType: function() { return '' },
             apiLinks: function() { return '' }
         }
     })
@@ -134,7 +124,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'environment' },
-            apiType: function() { return '' },
             apiLinks: function() { return '' }
         }
     })
@@ -144,7 +133,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'balancepolicy' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'balancePolicyType' }
         }
     })
@@ -154,7 +142,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'provider' },
-            apiType: function() { return '' },
             apiLinks: function() { return '' }
         }
     })
@@ -164,7 +151,6 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'farm' },
-            apiType: function() { return '' },
             apiLinks: function() { return 'provider-environment' }
         }
     });

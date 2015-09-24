@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (ManagerFactory, ManagerWithTypeFactory, $q, toastr) {
+.service('ManagerService', function (Manager, ManagerWithTypeFactory, $q, toastr) {
 
 	var self = {
 		'getResource': function (id) {
@@ -10,7 +10,7 @@ angular.module('galebWebui')
 				}
 			}
 		},
-		'customFactory': ManagerFactory,
+		'customFactory': Manager,
 		'page': 1,
 		'hasMore': true,
 		'isLoading': false,
@@ -54,7 +54,7 @@ angular.module('galebWebui')
 				if (self.apiType == 'BackendPool' || self.apiType == 'Backend') {
 				    self.customFactory = ManagerWithTypeFactory;
 				} else {
-				    self.customFactory = ManagerFactory;
+				    self.customFactory = Manager;
 				}
 
                 self.customFactory.get(params, function (response) {
@@ -106,6 +106,8 @@ angular.module('galebWebui')
 
             if (apiType === 'BackendPool' || apiType === 'Backend') {
                 self.customFactory = ManagerWithTypeFactory;
+            } else {
+                self.customFactory = Manager;
             }
 
             self.customFactory.get(params, function (response) {
@@ -118,7 +120,7 @@ angular.module('galebWebui')
 		'updateResource': function (resource) {
 			var d = $q.defer();
 			self.isSaving = true;
-			ManagerFactory.update({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
+			Manager.update({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
 				self.isSaving = false;
                 self.actionReset();
 				toastr.success(resource.name, 'Updated');
@@ -132,7 +134,7 @@ angular.module('galebWebui')
 		'removeResource': function (resource) {
 			var d = $q.defer();
 			self.isDeleting = true;
-			ManagerFactory.delete({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
+			Manager.delete({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
 			    self.isDeleting = false;
 				var index = self.resources.indexOf(resource);
 				self.resources.splice(index, 1);
@@ -149,7 +151,7 @@ angular.module('galebWebui')
 		'createResource': function (resource) {
 			var d = $q.defer();
 			self.isSaving = true;
-			ManagerFactory.save({'path': self.apiPath}, resource).$promise.then(function () {
+			Manager.save({'path': self.apiPath}, resource).$promise.then(function () {
 				self.isSaving = false;
 				self.actionReset();
 				toastr.success(resource.name, 'Created');
