@@ -21,6 +21,7 @@ angular.module('galebWebui', [
     })
     .state('logout', {
         url: "/logout",
+        templateUrl: 'views/pages/logout.html',
         controller: 'LogoutController'
     })
     .state('dashboard', {
@@ -193,7 +194,7 @@ angular.module('galebWebui', [
 })
 .run(function ($rootScope, $location, AuthService) {
     $rootScope.$on("$stateChangeStart", function(toState){
-        if (toState !== AuthService.logoutPath && !AuthService.isLoggedIn()){
+        if (!AuthService.isLoggedIn()){
             $location.path(AuthService.loginPath);
         } else if (toState.name === AuthService.loginPath) {
             $location.path(AuthService.homePath);

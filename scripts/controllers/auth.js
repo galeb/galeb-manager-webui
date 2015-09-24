@@ -29,7 +29,11 @@ angular.module('galebWebui')
         });
     };
 })
-.controller('LogoutController', function ($scope, AuthService) {
+.controller('LogoutController', function ($scope, $state, AuthService) {
     $scope.logout = AuthService;
     $scope.logout.logOut();
+
+    $scope.returnLogin = function() {
+        $state.go('login');
+    }
 });
