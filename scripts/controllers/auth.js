@@ -2,6 +2,8 @@ angular.module('galebWebui')
 .controller('AuthController', function ($scope, $location, $state, toastr, AuthService) {
 
     $scope.credentials = {};
+    $scope.currentUser = '';
+
     $scope.auth = AuthService;
 
     $scope.isAuthenticated = function() {
@@ -12,16 +14,13 @@ angular.module('galebWebui')
         return $scope.auth.isAdmin();
     }
 
-    $scope.currentUser = $scope.auth.account();
-
     $scope.login = function() {
         $scope.auth.logIn($scope.credentials, function(authenticated) {
             if (authenticated) {
-                console.log("Login success ;)");
                 toastr.success('Login succeeded!');
+                $scope.currentUser = $scope.auth.account();
                 $state.go('dashboard');
             } else {
-                console.log("Login failed ;/");
                 $scope.auth.logOut();
                 toastr.error('Please try again.', 'There was a problem logging in!');
                 $state.go('login');

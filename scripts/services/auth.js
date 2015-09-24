@@ -48,17 +48,8 @@ angular.module('galebWebui')
                 return false;
             }
         },
-        'isAdmin': function() {
-            if ($localStorage.admin) {
-                return true;
-            } else {
-                delete $localStorage.admin;
-                return false;
-            }
-        },
-        'account': function() {
-            return $localStorage.account;
-        }
+        'isAdmin': function() { return $localStorage.admin ? true : false; },
+        'account': function() { return $localStorage.account; }
 
     };
 
