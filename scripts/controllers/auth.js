@@ -14,11 +14,12 @@ angular.module('galebWebui')
         return $scope.auth.isAdmin();
     }
 
+    $scope.currentUser = $scope.auth.account();
+
     $scope.login = function() {
         $scope.auth.logIn($scope.credentials, function(authenticated) {
             if (authenticated) {
                 toastr.success('Login succeeded!');
-                $scope.currentUser = $scope.auth.account();
                 $state.go('dashboard');
             } else {
                 $scope.auth.logOut();
