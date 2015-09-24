@@ -193,7 +193,8 @@ angular.module('galebWebui', [
     $httpProvider.interceptors.push('httpResponseInterceptor');
 })
 .run(function ($rootScope, $location, AuthService) {
-    $rootScope.$on("$stateChangeStart", function(toState){
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        $rootScope.currentState = toState.name;
         if (!AuthService.isLoggedIn()){
             $location.path(AuthService.loginPath);
         } else if (toState.name === AuthService.loginPath) {
