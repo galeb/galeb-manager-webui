@@ -2,7 +2,7 @@ angular.module('galebWebui')
 .service('ManagerService', function (Manager, $q, toastr, config) {
 
 	var self = {
-		'page': 1,
+		'page': 0,
 		'hasMore': true,
 		'isLoading': false,
 		'isSaving': false,
@@ -35,7 +35,8 @@ angular.module('galebWebui')
 				self.isLoading = true;
 
 				var params = {
-					'path': self.apiPath
+					'path': self.apiPath,
+					'page': self.page
 				};
 
                 Manager.get(params, function (response) {
@@ -63,7 +64,7 @@ angular.module('galebWebui')
                         self.resources.push(resource);
                     });
 
-                    if (self.page == response.page.totalPages) {
+                    if (!response._links.next) {
                         self.hasMore = false;
                     }
 
