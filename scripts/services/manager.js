@@ -23,7 +23,6 @@ angular.module('galebWebui')
             self.page = 0;
             self.resources = [];
             self.listResources = [];
-            self.listResources = [];
 		},
 		'actionReset': function () {
             self.selectedResource = null;
