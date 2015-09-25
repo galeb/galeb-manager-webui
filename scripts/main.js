@@ -43,7 +43,7 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'rule' },
-            apiLinks: function() { return 'target-ruleType-parents' }
+            apiLinks: function() { return 'pool-ruleType-parents' }
         }
     })
     .state('pool', {

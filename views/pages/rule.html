@@ -21,7 +21,7 @@
             <th class="col-05">Status</th>
             <th class="col-3">Name</th>
             <th class="col-2">Parents</th>
-            <th class="col-2">Target</th>
+            <th class="col-2">Pool</th>
             <th class="col-1">Type</th>
             <th class="col-1">&nbsp;</th>
         </tr>
@@ -34,7 +34,7 @@
             <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span>
             </td>
             <td>{{resource.parentsObj.length}}</td>
-            <td>{{resource.targetObj.name}}</td>
+            <td>{{resource.poolObj.name}}</td>
             <td>{{resource.ruleTypeObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
