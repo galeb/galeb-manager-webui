@@ -1,16 +1,7 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, ManagerWithTypeFactory, $q, toastr) {
+.service('ManagerService', function (Manager, $q, toastr, config) {
 
 	var self = {
-		'getResource': function (id) {
-			for (var i = 0; i < self.resources.length; i++) {
-				var obj = self.resources[i];
-				if (obj.id == id) {
-					return obj;
-				}
-			}
-		},
-		'customFactory': Manager,
 		'page': 1,
 		'hasMore': true,
 		'isLoading': false,
@@ -18,14 +9,10 @@ angular.module('galebWebui')
 		'selectedResource': null,
 		'resources': [],
 		'listResources': [],
-		'search': null,
-		'ordering': 'name',
 		'apiPath': '',
-		'apiType': '',
 		'apiLinks': '',
-		'init': function (path, type, links) {
+		'init': function (path, links) {
 		    self.apiPath = path;
-            self.apiType = type;
             self.apiLinks = links;
             self.reset();
 		},
@@ -35,6 +22,7 @@ angular.module('galebWebui')
 		    self.isSaving = false;
             self.page = 0;
             self.resources = [];
+            self.listResources = [];
             self.listResources = [];
 		},
 		'actionReset': function () {
@@ -47,17 +35,10 @@ angular.module('galebWebui')
 				self.isLoading = true;
 
 				var params = {
-					'path': self.apiPath,
-					'type': self.apiType
+					'path': self.apiPath
 				};
 
-				if (self.apiType == 'BackendPool' || self.apiType == 'Backend') {
-				    self.customFactory = ManagerWithTypeFactory;
-				} else {
-				    self.customFactory = Manager;
-				}
-
-                self.customFactory.get(params, function (response) {
+                Manager.get(params, function (response) {
                     angular.forEach(response._embeddedItems, function(resource) {
                         angular.forEach(self.apiLinks, function(link) {
                             resource._resources(link).get(function (subItem) {
@@ -82,14 +63,13 @@ angular.module('galebWebui')
                         self.resources.push(resource);
                     });
 
-					if (self.page == response.page.totalPages) {
-						self.hasMore = false;
-					}
+                    if (self.page == response.page.totalPages) {
+                        self.hasMore = false;
+                    }
 
-					self.isLoading = false;
-				});
+                    self.isLoading = false;
+                });
 			}
-
 		},
 		'loadMore': function () {
 			if (self.hasMore && !self.isLoading) {
@@ -100,22 +80,18 @@ angular.module('galebWebui')
 		'loadListResources': function (apiPath, apiType) {
 		    self[apiPath] = [];
             var params = {
-                'path': apiPath,
-                'type': apiType
+                'path': apiPath
             };
 
-            if (apiType === 'BackendPool' || apiType === 'Backend') {
-                self.customFactory = ManagerWithTypeFactory;
-            } else {
-                self.customFactory = Manager;
-            }
-
-            self.customFactory.get(params, function (response) {
+            Manager.get(params, function (response) {
                 angular.forEach(response._embeddedItems, function(data) {
                     data['selfLink'] = data._links.self.href;
                     self[apiPath].push(data);
                 });
             });
+        },
+        'populateList': function (response) {
+
         },
 		'updateResource': function (resource) {
 			var d = $q.defer();

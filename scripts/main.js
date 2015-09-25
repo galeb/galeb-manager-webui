@@ -46,22 +46,22 @@ angular.module('galebWebui', [
             apiLinks: function() { return 'target-ruleType-parents' }
         }
     })
-    .state('backendpool', {
-        url: "/backendpool",
-        templateUrl: 'views/pages/backendpool.html',
+    .state('pool', {
+        url: "/pool",
+        templateUrl: 'views/pages/pool.html',
         controller: 'ManagerController',
         resolve: {
-            apiPath: function() { return 'target-BACKEND_POOL' },
+            apiPath: function() { return 'pool' },
             apiLinks: function() { return 'environment-project-balancePolicy' }
         }
     })
-    .state('backend', {
-        url: "/backend",
-        templateUrl: 'views/pages/backend.html',
+    .state('target', {
+        url: "/target",
+        templateUrl: 'views/pages/target.html',
         controller: 'ManagerController',
         resolve: {
-            apiPath: function() { return 'target-BACKEND' },
-            apiLinks: function() { return 'environment-project' }
+            apiPath: function() { return 'target' },
+            apiLinks: function() { return 'project-pool' }
         }
     })
     .state('project', {
@@ -89,15 +89,6 @@ angular.module('galebWebui', [
         resolve: {
             apiPath: function() { return 'account' },
             apiLinks: function() { return 'teams' }
-        }
-    })
-    .state('targettype', {
-        url: "/targettype",
-        templateUrl: 'views/pages/targettype.html',
-        controller: 'ManagerController',
-        resolve: {
-            apiPath: function() { return 'targettype' },
-            apiLinks: function() { return '' }
         }
     })
     .state('ruletype', {

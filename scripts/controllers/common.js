@@ -11,9 +11,9 @@ angular.module('galebWebui')
 	$scope.manager = ManagerService;
     $scope.manager.driver = ['GalebV3'];
 })
-.controller('BackendPoolController', function ($scope, ManagerService) {
+.controller('PoolController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('target', 'BackendPool');
+    $scope.manager.loadListResources('pool');
 })
 .controller('AccountController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
@@ -34,10 +34,6 @@ angular.module('galebWebui')
 .controller('RuleTypeController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('ruletype');
-})
-.controller('TargetTypeController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('targettype');
 })
 .controller('ProviderController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;

@@ -6,11 +6,15 @@
             <button type="button"
                     class="close"
                     ng-click="managerModal.hide()">&times;</button>
-            <h4 class="modal-title">{{mode}} TargetType</h4>
+            <h4 class="modal-title">{{mode}} Target</h4>
         </div>
         <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
             <div class="modal-body">
                 <ng-include src="'views/common/header.modal.html'"></ng-include>
+
+                <ng-include src="'views/common/list/pool.html'"></ng-include>
+
+                <ng-include src="'views/common/list/project.html'"></ng-include>
 
                 <ng-include src="'views/common/footer.modal.html'"></ng-include>
             </div>
