@@ -90,9 +90,6 @@ angular.module('galebWebui')
                 });
             });
         },
-        'populateList': function (response) {
-
-        },
 		'updateResource': function (resource) {
 			var d = $q.defer();
 			self.isSaving = true;
@@ -112,8 +109,6 @@ angular.module('galebWebui')
 			self.isDeleting = true;
 			Manager.delete({'path': self.apiPath, 'id': resource.id}, resource).$promise.then(function () {
 			    self.isDeleting = false;
-				var index = self.resources.indexOf(resource);
-				self.resources.splice(index, 1);
 				self.actionReset();
 				toastr.success(resource.name, 'Deleted');
 				d.resolve();
