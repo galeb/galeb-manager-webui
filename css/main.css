@@ -28,7 +28,7 @@ body {
     background-color: #f5f5f5;
 }
 
-.footer .container .text-muted {
+.footer .container .pull-left, .footer .container .pull-right {
     margin: 18px 0;
     color: #777;
 }
@@ -86,4 +86,9 @@ body {
 .form-login h2 {
     text-align: center;
     margin-top:0;
+}
+
+.form-search {
+    max-width: 300px;
+    margin-right: 100px;
 }
