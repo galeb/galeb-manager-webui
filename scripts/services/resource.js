@@ -5,4 +5,7 @@ angular.module('galebWebui')
             method: 'PATCH'
         }
     });
+})
+.factory("ManagerSearch", function ($resource, config) {
+    return $resource(config.apiUrl + "/:path/search/findByNameContaining?name=:search", {path: '@path', search: '@search'});
 });
