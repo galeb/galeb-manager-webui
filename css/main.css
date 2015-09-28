@@ -92,3 +92,41 @@ body {
     max-width: 300px;
     margin-right: 100px;
 }
+
+
+.page-header {
+  margin: 20px 0 23px;
+}
+
+.navbar-brand {
+  padding: 16.5px 15px;
+}
+
+.navbar-inverse {
+  background-color: #333333;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #999999;
+}
+
+.modal-content {
+  border-radius: 5px;
+}
+.modal-backdrop {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.modal-header {
+  border-bottom: 1px solid #EEEEEE;
+  padding: 10px 15px 5px;
+}
+
+.modal-header .close {
+    margin-top: 5px;
+}
+
+.modal-footer {
+  border-top: 1px solid #EEEEEE;
+}
