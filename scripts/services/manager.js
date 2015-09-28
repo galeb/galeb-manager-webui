@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, $q, toastr, config) {
+.service('ManagerService', function (Manager, ManagerSearch, $q, toastr, config) {
 
 	var self = {
 		'page': 0,
@@ -11,6 +11,11 @@ angular.module('galebWebui')
 		'listResources': [],
 		'apiPath': '',
 		'apiLinks': '',
+		'searchText': '',
+		'doSearch': function () {
+            self.reset();
+            self.loadResources();
+        },
 		'init': function (path, links) {
 		    self.apiPath = path;
             self.apiLinks = links;
@@ -35,10 +40,17 @@ angular.module('galebWebui')
 
 				var params = {
 					'path': self.apiPath,
-					'page': self.page
+					'page': self.page,
+					'search': self.searchText
 				};
 
-                Manager.get(params, function (response) {
+				if (self.searchText != '') {
+				    ManagerSelected = ManagerSearch;
+				} else {
+				    ManagerSelected = Manager;
+				}
+
+                ManagerSelected.get(params, function (response) {
                     angular.forEach(response._embeddedItems, function(resource) {
                         angular.forEach(self.apiLinks, function(link) {
                             resource._resources(link).get(function (subItem) {
@@ -129,7 +141,6 @@ angular.module('galebWebui')
 				d.resolve();
 			}, function (error) {
 			    self.isSaving = false;
-                self.selectedResource = null;
                 toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
             });
 			return d.promise;
