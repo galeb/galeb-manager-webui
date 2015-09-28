@@ -75,8 +75,12 @@
                         </ul>
                     </li>
                     <li class="dropdown" ui-sref-active="active">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
-                                class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
+                        <a class="dropdown-toggle dropdown-gravatar" data-toggle="dropdown" role="button"
+                           aria-expanded="false">
+                            <gw-gravatar name="{{ currentUser }}" height="34" width="34"
+                                         emailHash="{{ emailHash }}"></gw-gravatar>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
                             <li class="dropdown-header">Hello, <b>{{currentUser}}</b></li>
                             <li class="divider"></li>
@@ -138,5 +142,6 @@
 <script src="scripts/controllers/manager.js"></script>
 <script src="scripts/controllers/common.js"></script>
 <script src="scripts/directives/spinner.js"></script>
+<script src="scripts/directives/gravatar.js"></script>
 </body>
 </html>

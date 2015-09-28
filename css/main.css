@@ -130,3 +130,12 @@ body {
 .modal-footer {
   border-top: 1px solid #EEEEEE;
 }
+
+.img-rounded {
+    border-radius: 50%;
+}
+
+.navbar-inverse .navbar-nav > li > a.dropdown-gravatar {
+    padding-top: 17px;
+    padding-bottom: 13px;
+}
