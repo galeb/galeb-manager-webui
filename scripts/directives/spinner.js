@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.directive('ccSpinner', function () {
+.directive('gwSpinner', function () {
 	return {
 		'restrict': 'AE',
 		'templateUrl': 'views/common/spinner.html',
