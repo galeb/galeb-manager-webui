@@ -6,6 +6,7 @@ angular.module('galebWebui')
 
 	$scope.manager = ManagerService;
 	$scope.manager.init(apiPath, $scope.apiLinks);
+	$scope.manager.searchText = '';
 	$scope.manager.loadResources();
 
 	$scope.loadMore = function () {
