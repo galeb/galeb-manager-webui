@@ -5,7 +5,7 @@
         <select name="environment" ng-model="manager.selectedResource.environment"
                 class="form-control input-md" required>
             <option value="">Select one environment</option>
-            <option ng-repeat="environment in manager.environment"
+            <option ng-repeat="environment in manager.environment | filter:{name: '!Null Environment'}"
                     ng-selected="{{environment.selfLink==manager.selectedResource.environment}}"
                     value="{{environment.selfLink}}">{{environment.name}}
             </option>
