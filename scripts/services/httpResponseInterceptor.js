@@ -9,7 +9,9 @@ angular.module('galebWebui')
             return config;
         },
         'responseError': function(response) {
-            if(response.status === 0 || response.status === 401 || response.status === 403) {
+            if (response.status === 0) {
+                $location.path('login');
+            } else if (response.status === 401 || response.status === 403) {
                 $location.path('logout');
             }
             return $q.reject(response);
