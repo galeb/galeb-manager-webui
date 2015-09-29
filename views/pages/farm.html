@@ -35,6 +35,12 @@
 			<td>{{resource.environmentObj.name}}</td>
 			<td class="text-center">
 				<ng-include src="'views/common/buttons.table.html'"></ng-include>
+                <button class="btn btn-warning btn-sm"
+                        ladda="manager.isReloading"
+                        data-spinner-size="20"
+                        ng-click="reloadFarm(resource)">
+                    <i class="fa fa-refresh"></i>
+                </button>
 			</td>
 		</tr>
 	</table>

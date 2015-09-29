@@ -6,6 +6,8 @@ angular.module('galebWebui')
 		'hasMore': true,
 		'isLoading': false,
 		'isSaving': false,
+		'isDeleting': false,
+		'isReloading': false,
 		'selectedResource': null,
 		'resources': [],
 		'listResources': [],
@@ -143,6 +145,18 @@ angular.module('galebWebui')
 			    self.isSaving = false;
                 toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
             });
+			return d.promise;
+		},
+		'reloadFarm': function (resource) {
+			var d = $q.defer();
+			self.isReloading = true;
+			Manager.get({'path': 'reload', 'id': resource.id}, function () {
+				toastr.success(resource.name, 'Reloaded');
+				d.resolve();
+			}, function (error) {
+				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
+			});
+			self.isReloading = false;
 			return d.promise;
 		}
 
