@@ -15,7 +15,7 @@ angular.module('galebWebui')
 
 	$scope.doSearch = function () {
 	    $scope.manager.doSearch();
-	}
+	};
 
 	$scope.showManagerModal = function (resource) {
 	    $scope.mode = 'Create';
