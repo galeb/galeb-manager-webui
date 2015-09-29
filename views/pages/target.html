@@ -16,7 +16,7 @@
             <th class="col-05 text-center">#</th>
             <th class="col-05">Status</th>
             <th class="col-4">Name</th>
-            <th class="col-2">Pool</th>
+			<th class="col-2">Parent</th>
             <th class="col-2">Project</th>
             <th class="col-1">&nbsp;</th>
         </tr>
@@ -27,7 +27,7 @@
                 <ng-include src="'views/common/status.table.html'"></ng-include>
             </td>
             <td>{{resource.name}}</td>
-            <td>{{resource.poolObj.name}}</td>
+			<td>{{resource.parentObj.name}}</td>
 			<td>{{resource.projectObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>

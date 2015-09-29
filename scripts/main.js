@@ -61,7 +61,7 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'target' },
-            apiLinks: function() { return 'project-pool' }
+            apiLinks: function() { return 'project-parent' }
         }
     })
     .state('project', {
