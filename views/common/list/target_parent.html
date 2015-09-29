@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="PoolController">
+    <label class="col-sm-3 control-label">Parent</label>
+
+    <div class="col-sm-8">
+        <select name="parent" ng-model="manager.selectedResource.parent"
+                class="form-control input-md" required>
+            <option value="">Select one parent</option>
+            <option ng-repeat="pool in manager.pool | filter:"
+                    ng-selected="{{pool.selfLink==manager.selectedResource.pool}}"
+                    value="{{pool.selfLink}}">{{pool.name}}
+            </option>
+        </select>
+    </div>
+</div>
