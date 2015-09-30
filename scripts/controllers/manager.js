@@ -83,7 +83,7 @@ angular.module('galebWebui')
                         showCancelButton: true,
                         confirmButtonColor: "#e51c23",
                         confirmButtonText: "Reload now!",
-                        closeOnConfirm: false,
+                        closeOnConfirm: true,
                         html: true
                     }, function(isConfirmToo) {
                         if (isConfirmToo) {
