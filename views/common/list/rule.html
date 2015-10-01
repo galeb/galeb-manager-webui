@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="RuleController">
+    <label class="col-sm-3 control-label">Rule Default</label>
+
+    <div class="col-sm-8">
+        <select name="rule" ng-model="manager.selectedResource.ruleDefault"
+                class="form-control input-md" required>
+            <option value="">Select one rule default</option>
+            <option ng-repeat="rule in manager.rule"
+                    ng-selected="{{rule.selfLink==manager.selectedResource.ruleDefault}}"
+                    value="{{rule.selfLink}}">{{rule.name}}
+            </option>
+        </select>
+    </div>
+</div>
