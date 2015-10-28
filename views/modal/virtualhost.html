@@ -32,6 +32,23 @@
 
                     <ng-include src="'views/common/list/environment.html'"></ng-include>
 
+                    <div ng-if="manager.selectedResource.id">
+                        <hr>
+
+                        <h5>Rule's order
+                            <small>Drag rules to arrange</small>
+                        </h5>
+                        <ul class="sortable-list" ui-sortable="sortableOptions"
+                            ng-model="manager.selectedResource.arrayRuleOrder">
+                            <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
+                                <b>{{ rule.name }}</b>
+                                <br>
+                                <span class="label label-warning" ng-show="rule.global">Global rule!</span> #{{ rule.id
+                                }} - Match: {{ rule.match }}
+                            </li>
+                        </ul>
+                    </div>
+
                     <ng-include src="'views/common/footer.modal.html'"></ng-include>
                 </div>
                 <div class="modal-footer">
