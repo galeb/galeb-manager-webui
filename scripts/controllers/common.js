@@ -15,6 +15,10 @@ angular.module('galebWebui')
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('pool');
 })
+.controller('TargetController', function ($scope, ManagerService) {
+	$scope.manager = ManagerService;
+    $scope.manager.loadListResources('target');
+})
 .controller('AccountController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('account');
@@ -50,4 +54,8 @@ angular.module('galebWebui')
 .controller('RuleController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('rule');
+})
+.controller('FarmController', function ($scope, ManagerService) {
+	$scope.manager = ManagerService;
+    $scope.manager.loadListResources('farm');
 });
