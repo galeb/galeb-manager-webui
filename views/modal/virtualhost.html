@@ -43,7 +43,8 @@
                             <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
                                 <b>{{ rule.name }}</b>
                                 <br>
-                                <span class="label label-warning" ng-show="rule.global">Global rule!</span> #{{ rule.id
+                                <span class="label label-warning" ng-show="rule.global">Global rule!</span> ID: {{
+                                rule.id
                                 }} - Match: {{ rule.match }}
                             </li>
                         </ul>
