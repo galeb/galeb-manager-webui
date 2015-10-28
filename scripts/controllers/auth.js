@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.controller('AuthController', function ($scope, $location, $state, toastr, AuthService) {
+.controller('AuthController', function ($rootScope, $scope, $location, $state, toastr, AuthService) {
 
     $scope.credentials = {};
     $scope.currentUser = '';
@@ -10,7 +10,7 @@ angular.module('galebWebui')
         return $scope.auth.isLoggedIn();
     }
 
-    $scope.isAdmin = function() {
+    $rootScope.isAdmin = function() {
         return $scope.auth.isAdmin();
     }
 
