@@ -24,6 +24,22 @@ angular.module('galebWebui')
 	    if (resource) {
 	        $scope.manager.selectedResource = resource;
 	        $scope.mode = 'Edit';
+
+            if ($scope.manager.selectedResource.rulesOrdered) {
+                $scope.sortableOptions = {
+                    placeholder: "placeholder"
+                };
+
+                $scope.manager.selectedResource.arrayRuleOrder = [];
+                angular.forEach($filter('orderBy')($scope.manager.selectedResource.rulesOrdered, 'ruleOrder'),
+                    function(element, index) {
+                    angular.forEach($scope.manager.selectedResource.rulesObj, function (v, k) {
+                        if (element.ruleId == v.id) {
+                            $scope.manager.selectedResource.arrayRuleOrder.push(v);
+                        }
+                    });
+                });
+            }
 	    }
 
 	    $scope.managerModal = $modal({
@@ -35,6 +51,13 @@ angular.module('galebWebui')
 
 	$scope.saveResource = function () {
 	    if ($scope.manager.selectedResource.id != null) {
+            if ($scope.manager.selectedResource.rulesOrdered) {
+                $scope.manager.selectedResource.rulesOrdered = [];
+                angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function (v, k) {
+                    $scope.manager.selectedResource.rulesOrdered.push({'ruleId': v.id, 'ruleOrder': k});
+                });
+            }
+
             $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
                 $scope.managerModal.hide();
             });
@@ -67,35 +90,36 @@ angular.module('galebWebui')
     };
 
     $scope.reloadFarm = function (resource) {
-            SweetAlert.swal({
-                title: "Are you sure?",
-                text: "This will remove all content of <b>" + resource.name + "</b><br> and will perform a reload!",
-                showCancelButton: true,
-                confirmButtonColor: "#e51c23",
-                confirmButtonText: "Yes, reload it!",
-                closeOnConfirm: false,
-                html: true
-            }, function(isConfirm) {
-                if (isConfirm) {
-                    SweetAlert.swal({
-                        title: "Are you really sure?",
-                        text: "This is your last chance!",
-                        showCancelButton: true,
-                        confirmButtonColor: "#e51c23",
-                        confirmButtonText: "Reload now!",
-                        closeOnConfirm: true,
-                        html: true
-                    }, function(isConfirmToo) {
-                        if (isConfirmToo) {
-                            $scope.manager.selectedResource = {};
+        SweetAlert.swal({
+            title: "Are you sure?",
+            text: "This will remove all content of <b>" + resource.name + "</b><br> and will perform a reload!",
+            showCancelButton: true,
+            confirmButtonColor: "#e51c23",
+            confirmButtonText: "Yes, reload it!",
+            closeOnConfirm: false,
+            html: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                SweetAlert.swal({
+                    title: "Are you really sure?",
+                    text: "This is your last chance!",
+                    showCancelButton: true,
+                    confirmButtonColor: "#e51c23",
+                    confirmButtonText: "Reload now!",
+                    closeOnConfirm: true,
+                    html: true
+                }, function(isConfirmToo) {
+                    if (isConfirmToo) {
+                        $scope.manager.selectedResource = {};
 
-                            if (resource) {
-                                $scope.manager.selectedResource = resource;
-                            }
-                            $scope.manager.reloadFarm($scope.manager.selectedResource);
+                        if (resource) {
+                            $scope.manager.selectedResource = resource;
                         }
-                    });
-                }
-            });
-        };
+                        $scope.manager.reloadFarm($scope.manager.selectedResource);
+                    }
+                });
+            }
+        });
+    };
+
 });
