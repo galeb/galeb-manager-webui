@@ -3,7 +3,7 @@
 
     <div class="col-sm-8">
         <select name="parents" ng-model="manager.selectedResource.parents"
-                class="form-control input-md" required multiple>
+                class="form-control input-md" multiple>
             <option ng-repeat="virtualhost in manager.virtualhost"
                     ng-selected="{{manager.selectedResource.parents.indexOf(virtualhost.selfLink) > -1}}"
                     value="{{virtualhost.selfLink}}">{{virtualhost.name}}
