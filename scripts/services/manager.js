@@ -61,7 +61,11 @@ angular.module('galebWebui')
                                     var tmpArr = [];
                                     var tmpArrLinks = [];
                                     angular.forEach(subItem._embeddedItems, function(item) {
-                                        tmpObj = {'name': item.name, 'href': item._links.self.href};
+										if (resource.rulesOrdered) {
+											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global};
+										} else {
+                                            tmpObj = {'name': item.name, 'href': item._links.self.href};
+										}
                                         tmpArr.push(tmpObj);
                                         tmpArrLinks.push(item._links.self.href);
                                     });
