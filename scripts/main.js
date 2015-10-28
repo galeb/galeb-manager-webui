@@ -10,7 +10,8 @@ angular.module('galebWebui', [
 	'mgcrea.ngStrap',
 	'ngAnimate',
 	'toastr',
-	'oitozero.ngSweetAlert'
+	'oitozero.ngSweetAlert',
+	'ui.sortable'
 ]).config(function ($stateProvider, $urlRouterProvider, $httpProvider, $resourceProvider, laddaProvider,
     SpringDataRestInterceptorProvider, toastrConfig) {
 
@@ -34,7 +35,7 @@ angular.module('galebWebui', [
         controller: 'ManagerController',
         resolve: {
             apiPath: function() { return 'virtualhost' },
-            apiLinks: function() { return 'environment-project' }
+            apiLinks: function() { return 'environment-project-rules-ruleDefault' }
         }
     })
     .state('rule', {
@@ -150,8 +151,10 @@ angular.module('galebWebui', [
 
 	$resourceProvider.defaults.stripTrailingSlashes = false;
 
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     $httpProvider.defaults.headers.common.Authorization = 'Basic ';
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     laddaProvider.setOption({
         style: 'expand-right'
