@@ -148,6 +148,7 @@ body {
 }
 
 .sortable-item {
+    position: relative;
 	background-color: #DCDCDC;
 	cursor: move;
 	display: block;
@@ -155,6 +156,17 @@ body {
 	padding: 5px 0;
 	text-align: center;
 	border-radius: 3px;
+}
+
+.sortable-item:before {
+  content: "\f0c9";
+  font-family: FontAwesome;
+  color: #999999;
+  font-size: 20px;
+  top: 10px;
+  left: 20px;
+  z-index: 1;
+  position: absolute;
 }
 
 .sortable-item:hover {
