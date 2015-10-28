@@ -153,8 +153,7 @@ angular.module('galebWebui', [
 
     $httpProvider.defaults.headers.common.Authorization = 'Basic ';
     $httpProvider.defaults.useXDomain = true;
-    $httpProvider.defaults.withCredentials = true;
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    delete $httpProvider.defaults.headers.common["X-Requested-With"];
 
     laddaProvider.setOption({
         style: 'expand-right'
