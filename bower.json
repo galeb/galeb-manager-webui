@@ -33,6 +33,7 @@
     "ngInfiniteScroll": "~1.2.1",
     "ngSweetAlert": "angular-sweetalert#~1.1.0",
     "ngstorage": "~0.3.9",
-    "sweetalert": "~1.1.0"
+    "sweetalert": "~1.1.0",
+    "angular-ui-sortable": "~0.13.4"
   }
 }
