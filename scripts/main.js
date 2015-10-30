@@ -165,8 +165,7 @@ angular.module('galebWebui', [
         progressBar: true,
         timeOut: 2000,
         newestOnTop: true,
-        positionClass: 'toast-bottom-right',
-        preventDuplicates: true
+        positionClass: 'toast-bottom-right'
     });
 
     $httpProvider.interceptors.push('httpResponseInterceptor');
