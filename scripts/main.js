@@ -163,7 +163,7 @@ angular.module('galebWebui', [
 
     angular.extend(toastrConfig, {
         progressBar: true,
-        timeOut: 2000,
+        timeOut: 4000,
         newestOnTop: true,
         positionClass: 'toast-bottom-right'
     });
