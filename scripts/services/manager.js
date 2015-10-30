@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, ManagerSearch, $q, toastr, config) {
+.service('ManagerService', function (Manager, ManagerSearch, ManagerList, $q, toastr, config) {
 
 	var self = {
 		'page': 0,
@@ -101,7 +101,7 @@ angular.module('galebWebui')
                 'path': apiPath
             };
 
-            Manager.get(params, function (response) {
+            ManagerList.get(params, function (response) {
                 angular.forEach(response._embeddedItems, function(data) {
                     data['selfLink'] = data._links.self.href;
                     self[apiPath].push(data);
