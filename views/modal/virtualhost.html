@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <ng-include src="'views/common/list/rule.html'"></ng-include>
+                    <ng-include src="'views/common/list/rule.html'" ng-if="manager.selectedResource.id"></ng-include>
 
                     <ng-include src="'views/common/list/project.html'"></ng-include>
 
