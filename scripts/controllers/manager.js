@@ -1,6 +1,6 @@
 angular.module('galebWebui')
 .controller('ManagerController', function (
-    $scope, $modal, ManagerService, $filter, apiPath, apiLinks, SweetAlert) {
+    $scope, $modal, ManagerService, $filter, apiPath, apiLinks, SweetAlert, config) {
 
     $scope.apiLinks = apiLinks ? apiLinks.split("-") : [];
 
@@ -8,6 +8,8 @@ angular.module('galebWebui')
 	$scope.manager.init(apiPath, $scope.apiLinks);
 	$scope.manager.searchText = '';
 	$scope.manager.loadResources();
+
+	$scope.manager.statsUrl = config.statsUrl;
 
 	$scope.loadMore = function () {
 		$scope.manager.loadMore();
