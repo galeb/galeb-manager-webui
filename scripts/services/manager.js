@@ -81,7 +81,7 @@ angular.module('galebWebui')
                         self.resources.push(resource);
                     });
 
-                    if (!response._links.next) {
+                    if (!response._links || !response._links.next) {
                         self.hasMore = false;
                     }
 
