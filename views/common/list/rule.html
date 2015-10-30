@@ -3,7 +3,7 @@
 
     <div class="col-sm-8">
         <select name="rule" ng-model="manager.selectedResource.ruleDefault"
-                class="form-control input-md" required>
+                class="form-control input-md">
             <option value="">Select one rule default</option>
             <option ng-repeat="rule in manager.rule"
                     ng-selected="{{rule.selfLink==manager.selectedResource.ruleDefault}}"
