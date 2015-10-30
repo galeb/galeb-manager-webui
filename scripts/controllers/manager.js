@@ -58,8 +58,10 @@ angular.module('galebWebui')
                 angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function (v, k) {
                     $scope.manager.selectedResource.rulesOrdered.push({'ruleId': v.id, 'ruleOrder': k});
                 });
+                if ($scope.manager.selectedResource.ruleDefault == "") {
+                    $scope.manager.selectedResource.ruleDefault = null;
+                }
             }
-
             $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
                 $scope.managerModal.hide();
             });
