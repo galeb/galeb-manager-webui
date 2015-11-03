@@ -28,7 +28,7 @@
             </td>
             <td>
                 {{resource.name}}
-                <a href="{{ manager.statsUrl }}/?vh={{resource.name.replace('.','_')}}" target="_blank">
+                <a ng-href="{{manager.statsUrl}}{{resource.nameStats}}" target="_blank">
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
             </td>

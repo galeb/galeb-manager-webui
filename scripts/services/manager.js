@@ -78,6 +78,7 @@ angular.module('galebWebui')
                                 }
                             });
                         });
+                        resource['nameStats'] = resource.name.replace(/\./g,'_');
                         self.resources.push(resource);
                     });
 
