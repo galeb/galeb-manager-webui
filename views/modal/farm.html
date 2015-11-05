@@ -31,6 +31,19 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">&nbsp;</label>
+
+                        <div class="col-sm-8">
+                            <label>
+                                <input type="checkbox" ng-model="manager.selectedResource.autoReload" id="autoReload"
+                                       disable-valid-styling="true"
+                                       ng-checked="manager.selectedResource.autoReload || !manager.selectedResource.id">
+                                Auto Reload?
+                            </label>
+                        </div>
+                    </div>
+
                     <ng-include src="'views/common/list/provider.html'"></ng-include>
 
                     <ng-include src="'views/common/list/environment.html'"></ng-include>
