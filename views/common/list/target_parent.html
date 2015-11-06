@@ -6,7 +6,7 @@
                 class="form-control input-md" required>
             <option value="">Select one parent</option>
             <option ng-repeat="pool in manager.pool"
-                    ng-selected="{{pool.selfLink==manager.selectedResource.pool}}"
+                    ng-selected="{{pool.selfLink==manager.selectedResource.parent}}"
                     value="{{pool.selfLink}}">{{pool.name}}
             </option>
         </select>
