@@ -28,7 +28,8 @@
             </td>
             <td>
                 {{resource.name}}
-                <a ng-href="{{manager.statsUrl}}{{resource.nameStats}}" target="_blank">
+                <a ng-href="{{manager.statsUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
+                   target="_blank">
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
             </td>

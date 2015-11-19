@@ -60,9 +60,20 @@ angular.module('galebWebui')
                                 if (subItem._embeddedItems) {
                                     var tmpArr = [];
                                     var tmpArrLinks = [];
+                                    var tmpTargetList = [];
                                     angular.forEach(subItem._embeddedItems, function(item) {
 										if (resource.rulesOrdered) {
 											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global};
+
+											if (link == 'rules') {
+											    item._resources('pool').get(function (poolItem) {
+											        poolItem._resources('targets').get(function (targetItem) {
+											           angular.forEach(targetItem._embeddedItems, function(tempTargetItem) {
+                                                          tmpTargetList.push(tempTargetItem.name.replace('http://','').replace(/\./g,'_').replace(/\:/g,'-'));
+											           });
+											        });
+											    });
+											}
 										} else {
                                             tmpObj = {'name': item.name, 'href': item._links.self.href};
 										}
@@ -71,6 +82,7 @@ angular.module('galebWebui')
                                     });
                                     resource[link + 'Obj'] = tmpArr;
                                     resource[link] = tmpArrLinks;
+                                    resource['targetListStats'] = tmpTargetList;
                                 } else {
                                     tmpObj = {'name': subItem.name, 'href': subItem._links.self.href};
                                     resource[link + 'Obj'] = tmpObj;
@@ -78,6 +90,7 @@ angular.module('galebWebui')
                                 }
                             });
                         });
+
                         resource['nameStats'] = resource.name.replace(/\./g,'_');
                         self.resources.push(resource);
                     });
