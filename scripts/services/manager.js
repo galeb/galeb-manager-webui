@@ -69,7 +69,7 @@ angular.module('galebWebui')
 											    item._resources('pool').get(function (poolItem) {
 											        poolItem._resources('targets').get(function (targetItem) {
 											           angular.forEach(targetItem._embeddedItems, function(tempTargetItem) {
-                                                          tmpTargetList.push(tempTargetItem.name.replace('http://','').replace(/\./g,'_').replace(/\:/g,'-'));
+                                                          tmpTargetList.push(tempTargetItem.name.replace('http://','').replace(/[\.:]/g,'_'));
 											           });
 											        });
 											    });
