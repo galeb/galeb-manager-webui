@@ -58,8 +58,9 @@ body {
 .sortables {
   display: inline-block;
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  margin-left: 10px;
   vertical-align: middle; }
   .sortables span:first-child {
     position: absolute;
@@ -68,10 +69,10 @@ body {
     position: absolute;
     bottom: 0; }
   .sortables span {
-    color: lightgray;
-    font-size: 18px; }
+    color: #999999; }
   .sortables span:hover {
-    color: #002a80; }
+    color: #0c7cd5;
+    cursor: pointer;}
 
 .form-login {
     background-color: #FFFFFF;
@@ -90,7 +91,6 @@ body {
 
 .form-search {
     max-width: 300px;
-    margin-right: 100px;
 }
 
 
@@ -185,4 +185,8 @@ body {
     font-size: 34px;
     padding: 0;
     margin: -5px;
+}
+
+.btn-success {
+    margin-left: 100px;
 }

@@ -19,6 +19,10 @@ angular.module('galebWebui')
 	    $scope.manager.doSearch();
 	};
 
+	$scope.doSort = function (sortType) {
+        $scope.manager.doSort(sortType);
+    };
+
 	$scope.showManagerModal = function (resource) {
 	    $scope.mode = 'Create';
 	    $scope.manager.selectedResource = {};

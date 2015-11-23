@@ -14,8 +14,14 @@ angular.module('galebWebui')
 		'apiPath': '',
 		'apiLinks': '',
 		'searchText': '',
+		'sortType': '',
 		'doSearch': function () {
             self.reset();
+            self.loadResources();
+        },
+        'doSort': function (sortType) {
+            self.reset();
+            self.sortType = sortType;
             self.loadResources();
         },
 		'init': function (path, links) {
@@ -45,6 +51,10 @@ angular.module('galebWebui')
 					'page': self.page,
 					'search': self.searchText
 				};
+
+				if (self.sortType != '') {
+				    params.sort = self.sortType
+				}
 
 				if (self.searchText != '') {
 				    ManagerSelected = ManagerSearch;
