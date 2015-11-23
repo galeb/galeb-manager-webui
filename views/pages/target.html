@@ -44,7 +44,11 @@
             <td class="text-center">
                 <ng-include src="'views/common/status.table.html'"></ng-include>
             </td>
-            <td>{{resource.name}}</td>
+			<td>
+				{{resource.name}}
+				<span class="label label-primary" ng-if="resource.description == 'blue'">BLUE</span>
+				<span class="label label-success" ng-if="resource.description == 'green'">GREEN</span>
+			</td>
 			<td class="text-center">{{resource.parentObj.name}}</td>
 			<td class="text-center">{{resource.projectObj.name}}</td>
             <td class="text-center">
