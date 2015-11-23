@@ -34,6 +34,7 @@ angular.module('galebWebui')
 		    self.hasMore = true;
 		    self.isSaving = false;
             self.page = 0;
+            self.sortType = '';
             self.resources = [];
             self.listResources = [];
 		},

@@ -15,9 +15,21 @@
         <tr>
             <th class="col-05 text-center">#</th>
             <th class="col-05">Status</th>
-            <th class="col-3">Name</th>
+            <th class="col-3">
+                Name
+                <div class="sortables">
+                    <span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
+                </div>
+            </th>
             <th class="col-2">Parents</th>
-            <th class="col-2">Pool</th>
+            <th class="col-2">
+                Pool
+                <div class="sortables">
+                    <span ng-click="doSort('pool.name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('pool.name,desc')" class="fa fa-sort-desc"></span>
+                </div>
+            </th>
             <th class="col-1">Type</th>
             <th class="col-1">&nbsp;</th>
         </tr>
