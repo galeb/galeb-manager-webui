@@ -11,7 +11,8 @@ angular.module('galebWebui', [
 	'ngAnimate',
 	'toastr',
 	'oitozero.ngSweetAlert',
-	'ui.sortable'
+	'ui.sortable',
+	'angular-md5'
 ]).config(function ($stateProvider, $urlRouterProvider, $httpProvider, $resourceProvider, laddaProvider,
     SpringDataRestInterceptorProvider, toastrConfig) {
 

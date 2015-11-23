@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.directive('gwGravatar', function() {
+.directive('gwGravatar',['md5', function(md5) {
  return {
    restrict: 'AE',
    replace: true,
@@ -10,8 +10,8 @@ angular.module('galebWebui')
      emailHash: '@'
    },
    link: function(scope, el, attr) {
-     scope.url = "https://secure.gravatar.com/avatar/" + scope.emailHash + ".jpg?s=" + scope.width;
+     scope.url = "https://secure.gravatar.com/avatar/" + md5.createHash(scope.emailHash || '') + ".jpg?s=" + scope.width;
    },
    template: '<img alt="{{ name }}" class="img-rounded" height="{{ height }}"  width="{{ width }}" ng-src="{{ url }}">'
  };
-});
+}]);
