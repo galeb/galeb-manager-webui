@@ -109,18 +109,27 @@ angular.module('galebWebui')
 				self.loadResources();
 			}
 		},
-		'loadListResources': function (apiPath, apiType) {
+		'loadListResources': function (apiPath, listDash) {
 		    self[apiPath] = [];
             var params = {
-                'path': apiPath
+                'path': apiPath,
+                'size': '999999'
             };
 
-            ManagerList.get(params, function (response) {
-                angular.forEach(response._embeddedItems, function(data) {
-                    data['selfLink'] = data._links.self.href;
-                    self[apiPath].push(data);
+            if (listDash) {
+                params.size = "1";
+
+                ManagerList.get(params, function (response) {
+                    self[apiPath].size = response.page.totalElements;
                 });
-            });
+            } else {
+                ManagerList.get(params, function (response) {
+                    angular.forEach(response._embeddedItems, function(data) {
+                        data['selfLink'] = data._links.self.href;
+                        self[apiPath].push(data);
+                    });
+                });
+            }
         },
 		'updateResource': function (resource) {
 			var d = $q.defer();

@@ -50,12 +50,4 @@ angular.module('galebWebui')
 .controller('BalanceTypeController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
     $scope.manager.loadListResources('balancepolicytype');
-})
-.controller('RuleController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('rule');
-})
-.controller('FarmController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('farm');
 });

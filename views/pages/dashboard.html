@@ -1,7 +1,7 @@
 <div class="col-lg-12">
 	<h3 class="page-header">Dashboard</h3>
 </div>
-<div class="col-lg-3 col-md-6" ng-controller="VirtualHostController">
+<div class="col-lg-3 col-md-6" ng-controller="VirtualHostDashController">
 	<div class="panel">
 		<div class="panel-heading">
 			<div class="row">
@@ -9,14 +9,14 @@
 					<i class="fa fa-sitemap fa-5x"></i>
 				</div>
 				<div class="col-xs-8 text-right">
-					<div class="huge">{{ manager.virtualhost.length }}</div>
+					<div class="huge">{{ manager.virtualhost.size }}</div>
 					<div>VirtualHost</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="col-lg-3 col-md-6" ng-controller="RuleController">
+<div class="col-lg-3 col-md-6" ng-controller="RuleDashController">
 	<div class="panel">
 		<div class="panel-heading">
 			<div class="row">
@@ -24,14 +24,14 @@
 					<i class="fa fa-random fa-5x"></i>
 				</div>
 				<div class="col-xs-8 text-right">
-					<div class="huge">{{ manager.rule.length }}</div>
+					<div class="huge">{{ manager.rule.size }}</div>
 					<div>Rule</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="col-lg-3 col-md-6" ng-controller="PoolController">
+<div class="col-lg-3 col-md-6" ng-controller="PoolDashController">
 	<div class="panel">
 		<div class="panel-heading">
 			<div class="row">
@@ -39,14 +39,14 @@
 					<i class="fa fa-th-large fa-5x"></i>
 				</div>
 				<div class="col-xs-8 text-right">
-					<div class="huge">{{ manager.pool.length }}</div>
+					<div class="huge">{{ manager.pool.size }}</div>
 					<div>Pool</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="col-lg-3 col-md-6" ng-controller="TargetController">
+<div class="col-lg-3 col-md-6" ng-controller="TargetDashController">
 	<div class="panel">
 		<div class="panel-heading">
 			<div class="row">
@@ -54,7 +54,7 @@
 					<i class="fa fa-server fa-5x"></i>
 				</div>
 				<div class="col-xs-8 text-right">
-					<div class="huge">{{ manager.target.length }}</div>
+					<div class="huge">{{ manager.target.size }}</div>
 					<div>Target</div>
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 	</div>
 </div>
 <div ng-if="isAdmin()">
-	<div class="col-lg-3 col-md-6" ng-controller="AccountController">
+	<div class="col-lg-3 col-md-6" ng-controller="AccountDashController">
 		<div class="panel">
 			<div class="panel-heading">
 				<div class="row">
@@ -70,14 +70,14 @@
 						<i class="fa fa-user fa-5x"></i>
 					</div>
 					<div class="col-xs-8 text-right">
-						<div class="huge">{{ manager.account.length }}</div>
+						<div class="huge">{{ manager.account.size }}</div>
 						<div>Account</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-3 col-md-6" ng-controller="TeamController">
+	<div class="col-lg-3 col-md-6" ng-controller="TeamDashController">
 		<div class="panel">
 			<div class="panel-heading">
 				<div class="row">
@@ -85,14 +85,14 @@
 						<i class="fa fa-users fa-5x"></i>
 					</div>
 					<div class="col-xs-8 text-right">
-						<div class="huge">{{ manager.team.length }}</div>
+						<div class="huge">{{ manager.team.size }}</div>
 						<div>Team</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-3 col-md-6" ng-controller="ProjectController">
+	<div class="col-lg-3 col-md-6" ng-controller="ProjectDashController">
 		<div class="panel">
 			<div class="panel-heading">
 				<div class="row">
@@ -100,14 +100,14 @@
 						<i class="fa fa-clone fa-5x"></i>
 					</div>
 					<div class="col-xs-8 text-right">
-						<div class="huge">{{ manager.project.length }}</div>
+						<div class="huge">{{ manager.project.size }}</div>
 						<div>Project</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-3 col-md-6" ng-controller="FarmController">
+	<div class="col-lg-3 col-md-6" ng-controller="FarmDashController">
 		<div class="panel">
 			<div class="panel-heading">
 				<div class="row">
@@ -115,7 +115,7 @@
 						<i class="fa fa-cubes fa-5x"></i>
 					</div>
 					<div class="col-xs-8 text-right">
-						<div class="huge">{{ manager.farm.length }}</div>
+						<div class="huge">{{ manager.farm.size }}</div>
 						<div>Farm</div>
 					</div>
 				</div>
