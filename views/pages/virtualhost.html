@@ -22,14 +22,14 @@
                     <span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
                 </div>
             </th>
-            <th class="col-2">
+            <th class="col-2 text-center">
                 Project
                 <div class="sortables">
                     <span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
                     <span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
                 </div>
             </th>
-            <th class="col-2">
+            <th class="col-2 text-center">
                 Environment
                 <div class="sortables">
                     <span ng-click="doSort('environment.name,asc')" class="fa fa-sort-asc"></span>
@@ -51,8 +51,8 @@
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
             </td>
-            <td>{{resource.projectObj.name}}</td>
-            <td>{{resource.environmentObj.name}}</td>
+            <td class="text-center">{{resource.projectObj.name}}</td>
+            <td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
             </td>

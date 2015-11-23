@@ -15,22 +15,22 @@
 			<tr>
                 <th class="col-05 text-center">#</th>
                 <th class="col-05">Status</th>
-				<th class="col-4">
+				<th class="col-3">
 					Name
 					<div class="sortables">
 						<span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
 						<span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
 					</div>
 				</th>
-				<th class="col-2">
+				<th class="col-2 text-center">
 					Project
 					<div class="sortables">
 						<span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
 						<span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
 					</div>
 				</th>
-                <th class="col-1">BalancePolicy</th>
-				<th class="col-1">
+				<th class="col-1 text-center">BalancePolicy</th>
+				<th class="col-2 text-center">
 					Environment
 					<div class="sortables">
 						<span ng-click="doSort('environment.name,asc')" class="fa fa-sort-asc"></span>
@@ -46,9 +46,9 @@
 				<ng-include src="'views/common/status.table.html'"></ng-include>
             </td>
 		    <td>{{resource.name}}</td>
-			<td>{{resource.projectObj.name}}</td>
-			<td>{{resource.balancePolicyObj.name}}</td>
-			<td>{{resource.environmentObj.name}}</td>
+			<td class="text-center">{{resource.projectObj.name}}</td>
+			<td class="text-center">{{resource.balancePolicyObj.name}}</td>
+			<td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-center">
 				<ng-include src="'views/common/buttons.table.html'"></ng-include>
             </td>

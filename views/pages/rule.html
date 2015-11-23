@@ -22,15 +22,15 @@
                     <span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
                 </div>
             </th>
-            <th class="col-2">Parents</th>
-            <th class="col-2">
+            <th class="col-2 text-center">Parents</th>
+            <th class="col-2 text-center">
                 Pool
                 <div class="sortables">
                     <span ng-click="doSort('pool.name,asc')" class="fa fa-sort-asc"></span>
                     <span ng-click="doSort('pool.name,desc')" class="fa fa-sort-desc"></span>
                 </div>
             </th>
-            <th class="col-1">Type</th>
+            <th class="col-1 text-center">Type</th>
             <th class="col-1">&nbsp;</th>
         </tr>
         </thead>
@@ -41,9 +41,9 @@
             </td>
             <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span>
             </td>
-            <td>{{resource.parentsObj.length}}</td>
-            <td>{{resource.poolObj.name}}</td>
-            <td>{{resource.ruleTypeObj.name}}</td>
+            <td class="text-center">{{resource.parentsObj.length}}</td>
+            <td class="text-center">{{resource.poolObj.name}}</td>
+            <td class="text-center">{{resource.ruleTypeObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
             </td>
