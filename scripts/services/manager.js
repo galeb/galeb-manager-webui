@@ -50,6 +50,7 @@ angular.module('galebWebui')
 				var params = {
 					'path': self.apiPath,
 					'page': self.page,
+					'size': '40',
 					'search': self.searchText
 				};
 
@@ -103,9 +104,10 @@ angular.module('galebWebui')
                         });
 
                         resource['nameStats'] = resource.name.replace(/\./g,'_');
+
                         var missingResource = true;
                         angular.forEach(self.resources, function(tempResource) {
-                            if (tempResource.name === resource.name) {
+                            if (tempResource.name == resource.name) {
                                 missingResource = false;
                             }
                         });
@@ -117,6 +119,8 @@ angular.module('galebWebui')
                     if (!response._links || !response._links.next) {
                         self.hasMore = false;
                     }
+
+                    console.log(self.resources.length);
 
                     self.isLoading = false;
                 });
