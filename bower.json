@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "homepage": "https://github.com/galeb/galeb-manager-webui",
   "authors": [
-    "Igor Fernandes <igor.frds@gmail.com>"
+    "Igor Fernandes Ribeiro <igor.frds@gmail.com>",
+    "Marcelo Teixeira Monteiro <marcelotmonteiro@gmail.com>"
   ],
   "description": "Galeb Manager Webui",
   "license": "MIT",
