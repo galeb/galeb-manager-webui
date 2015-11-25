@@ -2,7 +2,26 @@
 	<div class="col-lg-12">
 		<h3 class="page-header">
 			Team
-			<ng-include src="'views/common/header.list.html'"></ng-include>
+			<div class="pull-right" ng-if="isAdmin()">
+				<button type="button" class="btn btn-success" ng-click="showManagerModal()">
+					Create
+				</button>
+			</div>
+
+			<div class="pull-right">
+				<form name="form-search" class="form-inline form-search" ng-submit="doSearch()" novalidate>
+					<div class="form-group">
+						<input type="text"
+							   class="form-control"
+							   id="searchText"
+							   ng-model="manager.searchText"
+							   placeholder="Search name.."
+							   disable-invalid-styling="true"
+						/>
+					</div>
+					<button type="submit" class="btn btn-default btn-sm">OK</button>
+				</form>
+			</div>
 		</h3>
 	</div>
 
@@ -29,7 +48,16 @@
 			<td ng-if="!resource.accountsObj || resource.accountsObj.length > 5">{{resource.accountsObj.length}}</td>
 		    <td ng-if="resource.accountsObj.length <= 5"><span ng-repeat="account in resource.accountsObj">{{account.name}}, </span></td>
 			<td class="text-center">
-				<ng-include src="'views/common/buttons.table.html'"></ng-include>
+				<button class="btn btn-default btn-sm"
+						ng-click="showManagerModal(resource)" ng-if="isAdmin()">
+					<i class="fa fa-pencil"></i>
+				</button>
+				<button class="btn btn-danger btn-sm"
+						ladda="manager.isDeleting"
+						data-spinner-size="20"
+						ng-click="removeResource(resource)">
+					<i class="fa fa-trash-o"></i>
+				</button>
 			</td>
 		</tr>
 	</table>

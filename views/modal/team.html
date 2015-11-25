@@ -9,7 +9,7 @@
                         ng-click="managerModal.hide()">&times;</button>
                 <h4 class="modal-title">{{mode}} Team</h4>
             </div>
-            <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
+            <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal" ng-show="isAdmin()">
                 <div class="modal-body">
                     <ng-include src="'views/common/header.modal.html'"></ng-include>
 
