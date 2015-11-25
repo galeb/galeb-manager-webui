@@ -145,7 +145,16 @@ angular.module('galebWebui')
                 ManagerList.get(params, function (response) {
                     angular.forEach(response._embeddedItems, function(data) {
                         data['selfLink'] = data._links.self.href;
-                        self[apiPath].push(data);
+
+                        var missingResourceList = true;
+                        angular.forEach(self[apiPath], function(tempResourceList) {
+                            if (tempResourceList.name === data.name) {
+                                missingResourceList = false;
+                            }
+                        });
+                        if (missingResourceList) {
+                            self[apiPath].push(data);
+                        }
                     });
                 });
             }
