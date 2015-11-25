@@ -103,7 +103,15 @@ angular.module('galebWebui')
                         });
 
                         resource['nameStats'] = resource.name.replace(/\./g,'_');
-                        self.resources.push(resource);
+                        var missingResource = true;
+                        angular.forEach(self.resources, function(tempResource) {
+                            if (tempResource.name === resource.name) {
+                                missingResource = false;
+                            }
+                        });
+                        if (missingResource) {
+                            self.resources.push(resource);
+                        }
                     });
 
                     if (!response._links || !response._links.next) {
