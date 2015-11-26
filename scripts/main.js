@@ -171,7 +171,11 @@ angular.module('galebWebui', [
 
     $httpProvider.interceptors.push('httpResponseInterceptor');
 })
-.run(function ($rootScope, $location, AuthService) {
+.run(function ($rootScope, $location, AuthService, defaultErrorMessageResolver) {
+    defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
+        errorMessages['badTarget'] = 'You must use the target pattern, with "http://" and the port. Eg: http://127.0.0.1:80';
+    });
+
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         $rootScope.currentState = toState.name;
         if (toState.name !== AuthService.logoutPath && !AuthService.isLoggedIn()){

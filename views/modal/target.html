@@ -11,7 +11,19 @@
             </div>
             <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
                 <div class="modal-body">
-                    <ng-include src="'views/common/header.modal.html'"></ng-include>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="name">Name</label>
+
+                        <div class="col-sm-8">
+                            <input id="id" name="id" ng-model="manager.selectedResource.id"
+                                   value="{{manager.selectedResource.id}}" class="hidden"/>
+                            <input id="name" name="name" ng-model="manager.selectedResource.name" type="text"
+                                   class="form-control input-md" placeholder="http://127.0.0.1:80"
+                                   ng-pattern="/^(http:\/\/)(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(([1-9]\d{0,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5]))$/"
+                                   ng-pattern-err-type="badTarget"
+                                   required>
+                        </div>
+                    </div>
 
                     <ng-include src="'views/common/list/target_parent.html'"></ng-include>
 
