@@ -7,10 +7,10 @@
 	</div>
 
 	<table class="table table-hover"
-            ng-hide="manager.resource.length == 0"
-            infinite-scroll="loadMore()"
-            infinite-scroll-immediate-check="false"
-            infinite-scroll-distance="1" >
+		   ng-hide="manager.resource.length == 0"
+		   infinite-scroll="loadMore()"
+		   infinite-scroll-immediate-check="false"
+		   infinite-scroll-disabled="manager.isLoading">
 		<thead>
 			<tr>
                 <th class="col-05 text-center">#</th>
