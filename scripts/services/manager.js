@@ -104,16 +104,7 @@ angular.module('galebWebui')
                         });
 
                         resource['nameStats'] = resource.name.replace(/\./g,'_');
-
-                        var missingResource = true;
-                        angular.forEach(self.resources, function(tempResource) {
-                            if (tempResource.name == resource.name) {
-                                missingResource = false;
-                            }
-                        });
-                        if (missingResource) {
-                            self.resources.push(resource);
-                        }
+                        self.resources.push(resource);
                     });
 
                     if (!response._links || !response._links.next) {
@@ -149,16 +140,7 @@ angular.module('galebWebui')
                 ManagerList.get(params, function (response) {
                     angular.forEach(response._embeddedItems, function(data) {
                         data['selfLink'] = data._links.self.href;
-
-                        var missingResourceList = true;
-                        angular.forEach(self[apiPath], function(tempResourceList) {
-                            if (tempResourceList.name === data.name) {
-                                missingResourceList = false;
-                            }
-                        });
-                        if (missingResourceList) {
-                            self[apiPath].push(data);
-                        }
+                        self[apiPath].push(data);
                     });
                 });
             }
