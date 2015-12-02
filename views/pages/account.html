@@ -51,16 +51,7 @@
             <td>{{resource.roles}}</td>
 		    <td><span ng-repeat="team in resource.teamsObj">{{team.name}}, </span></td>
 			<td class="text-center">
-				<button class="btn btn-default btn-sm"
-						ng-click="showManagerModal(resource)" ng-if="isAdmin()">
-					<i class="fa fa-pencil"></i>
-				</button>
-				<button class="btn btn-danger btn-sm"
-						ladda="manager.isDeleting"
-						data-spinner-size="20"
-						ng-click="removeResource(resource)">
-					<i class="fa fa-trash-o"></i>
-				</button>
+				<ng-include src="'views/common/buttons.table.html'" ng-if="isAdmin()"></ng-include>
 			</td>
 		</tr>
 	</table>
