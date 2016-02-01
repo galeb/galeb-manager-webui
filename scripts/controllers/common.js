@@ -9,7 +9,7 @@ angular.module('galebWebui')
 })
 .controller('DriverController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.driver = ['GalebV3'];
+    $scope.manager.driver = ['GalebV3','GalebV32'];
 })
 .controller('PoolController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
