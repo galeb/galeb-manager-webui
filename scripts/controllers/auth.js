@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.controller('AuthController', function ($rootScope, $scope, $location, $state, toastr, AuthService) {
+.controller('AuthController', function ($rootScope, $scope, $location, $state, toastr, config, AuthService) {
 
     $scope.credentials = {};
     $scope.currentUser = '';
@@ -15,6 +15,7 @@ angular.module('galebWebui')
     }
 
     $scope.currentUser = $scope.auth.account();
+    $scope.email = $scope.auth.account() + '@' + config.domain;
 
     $scope.login = function() {
         $scope.auth.logIn($scope.credentials, function(authenticated) {
@@ -23,8 +24,7 @@ angular.module('galebWebui')
                 $state.go('dashboard');
             } else {
                 $scope.auth.logOut();
-                toastr.error('Please try again.', 'There was a problem logging in!');
-                $state.go('login');
+                toastr.error($scope.auth.errorMsg, 'Ops..');
             }
         });
     };
