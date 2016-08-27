@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, ManagerSearch, ManagerList, $q, toastr, config) {
+.service('ManagerService', function (Manager, ManagerSearch, ManagerList, $q, toastr) {
 
 	var self = {
 		'page': 0,
@@ -110,9 +110,6 @@ angular.module('galebWebui')
                     if (!response._links || !response._links.next) {
                         self.hasMore = false;
                     }
-
-                    console.log(self.resources.length);
-
                     self.isLoading = false;
                 });
 			}
