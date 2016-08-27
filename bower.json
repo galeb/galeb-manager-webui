@@ -37,5 +37,9 @@
     "sweetalert": "~1.1.0",
     "angular-ui-sortable": "~0.13.4",
     "angular-md5": "~0.1.10"
+  },
+  "resolutions": {
+    "angular-resource": "~1.4.8",
+    "angular": ">=1.2.0"
   }
 }
