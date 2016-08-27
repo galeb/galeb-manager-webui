@@ -177,9 +177,10 @@ angular.module('galebWebui', [
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-        $rootScope.currentState = toState.name;
-        if (toState.name !== AuthService.logoutPath && !AuthService.isLoggedIn()){
-            $location.path(AuthService.loginPath);
+        if (!AuthService.isLoggedIn()){
+            if (toState.name !== AuthService.loginPath) {
+                $location.path(AuthService.logoutPath);
+            }
         } else if (toState.name === AuthService.loginPath) {
             $location.path(AuthService.homePath);
         }

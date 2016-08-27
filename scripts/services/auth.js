@@ -6,6 +6,7 @@ angular.module('galebWebui')
         'logoutPath': 'logout',
         'homePath':'/',
         'isLogging': false,
+        'errorMsg': '',
         'localReset': function() {
             $localStorage.$reset();
         },
@@ -30,7 +31,12 @@ angular.module('galebWebui')
                     self.isLogging = false;
                     callback && callback(false);
                 }
-            }, function() {
+            }, function(response) {
+                if (response.status === 401) {
+                    self.errorMsg = 'Please enter the correct username and password!';
+                } else if (response.status === -1) {
+                    self.errorMsg = 'There was a problem with Galeb API, please contact administrator!';
+                }
                 self.localReset();
                 self.isLogging = false;
                 callback && callback(false);
@@ -38,7 +44,6 @@ angular.module('galebWebui')
         },
         'logOut': function() {
             self.localReset();
-            $http.get(config.apiUrl + "/logout");
         },
         'isLoggedIn': function() {
             if ($localStorage.token) {
