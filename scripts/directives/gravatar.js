@@ -7,10 +7,10 @@ angular.module('galebWebui')
      name: '@',
      height: '@',
      width: '@',
-     emailHash: '@'
+     email: '@'
    },
    link: function(scope, el, attr) {
-     scope.url = "https://secure.gravatar.com/avatar/" + md5.createHash(scope.emailHash || '') + ".jpg?s=" + scope.width;
+     scope.url = "https://secure.gravatar.com/avatar/" + md5.createHash(scope.email || '') + ".jpg?s=" + scope.width;
    },
    template: '<img alt="{{ name }}" class="img-rounded" height="{{ height }}"  width="{{ width }}" ng-src="{{ url }}">'
  };
