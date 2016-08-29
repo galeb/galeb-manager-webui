@@ -1,6 +1,6 @@
 angular.module('galebWebui')
 .controller('ManagerController', function (
-    $scope, $modal, ManagerService, $filter, apiPath, apiLinks, SweetAlert, config) {
+    $scope, $modal, ManagerService, $filter, apiPath, apiLinks, SweetAlert, config, md5) {
 
     $scope.apiLinks = apiLinks ? apiLinks.split("-") : [];
 
@@ -56,6 +56,10 @@ angular.module('galebWebui')
 	}
 
 	$scope.saveResource = function () {
+        if ($scope.manager.apiPath === 'account') {
+            var passMD5 = md5.createHash($scope.manager.selectedResource.email + new Date() || '');
+            $scope.manager.selectedResource.password = passMD5;
+        }
 	    if ($scope.manager.selectedResource.id != null) {
             if ($scope.manager.selectedResource.rulesOrdered) {
                 $scope.manager.selectedResource.rulesOrdered = [];
