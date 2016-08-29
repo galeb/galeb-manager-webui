@@ -8,6 +8,7 @@ angular.module('galebWebui')
 		'isSaving': false,
 		'isDeleting': false,
 		'isReloading': false,
+		'isUnlocking': false,
 		'selectedResource': null,
 		'resources': [],
 		'listResources': [],
@@ -195,6 +196,18 @@ angular.module('galebWebui')
 				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
 			});
 			self.isReloading = false;
+			return d.promise;
+		},
+		'unlockFarm': function (resource) {
+			var d = $q.defer();
+			self.isUnlocking = true;
+			Manager.get({'path': 'unlock', 'id': resource.id}, function () {
+				toastr.success(resource.name, 'Unlocked');
+				d.resolve();
+			}, function (error) {
+				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
+			});
+			self.isUnlocking = false;
 			return d.promise;
 		}
 
