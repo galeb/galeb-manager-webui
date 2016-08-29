@@ -33,6 +33,10 @@ body {
     color: #777;
 }
 
+.footer .container .pull-right a {
+    margin-right: 20px;
+}
+
 .spinner {
   position: relative;
   width: 50px;

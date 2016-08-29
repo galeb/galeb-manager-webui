@@ -107,8 +107,12 @@
 
 <footer class="footer">
     <div class="container">
-        <div class="pull-left">Copyright &copy; Globo.com 2015</div>
-        <div class="pull-right">A-Team <i class="fa fa-smile-o"></i></div>
+        <div class="pull-left">Copyright &copy; Globo.com {{ dateNow | date:'yyyy' }}</div>
+        <div class="pull-right">
+            <a href="{{ statusGaleb }}" target="_blank">Status Galeb</a>
+            <a href="{{ statusIaaS }}" target="_blank">Status IaaS</a>
+            A-Team <i class="fa fa-smile-o"></i>
+        </div>
     </div>
 </footer>
 
