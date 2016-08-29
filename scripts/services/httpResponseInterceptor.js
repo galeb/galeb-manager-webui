@@ -9,10 +9,11 @@ angular.module('galebWebui')
             return config;
         },
         'responseError': function(response) {
-            $localStorage.$reset();
             if (response.status === -1) {
+                $localStorage.$reset();
                 $location.path('login');
             } else if (response.status === 401 || response.status === 403) {
+                $localStorage.$reset();
                 $location.path('logout');
             }
             return $q.reject(response);
