@@ -171,12 +171,17 @@ angular.module('galebWebui', [
 
     $httpProvider.interceptors.push('httpResponseInterceptor');
 })
-.run(function ($rootScope, $location, AuthService, defaultErrorMessageResolver) {
+.run(function ($rootScope, $location, config, AuthService, defaultErrorMessageResolver) {
     defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
         errorMessages['badTarget'] = 'You must use the target pattern, with "http://" and the port. Eg: http://127.0.0.1:80';
     });
 
+    $rootScope.statusGaleb = config.statusGaleb;
+    $rootScope.statusIaaS = config.statusIaaS;
+    $rootScope.dateNow = new Date();
+
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        $rootScope.currentState = toState.name;
         if (!AuthService.isLoggedIn()){
             if (toState.name !== AuthService.loginPath) {
                 $location.path(AuthService.logoutPath);
