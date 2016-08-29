@@ -1,6 +1,7 @@
 angular.module('galebWebui')
 .constant('config', {
-    'apiUrl': 'http://localhost:8081',
-    'statsUrl': 'http://localhost:9000/',
+    'apiUrl': 'http://localhost',
+    'statsUrl': 'http://stats.localhost/',
+    'statusPage': 'http://status.localhost/',
     'domain': 'localhost.com'
 });
