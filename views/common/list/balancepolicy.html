@@ -1,14 +1,15 @@
 <div class="form-group" ng-controller="BalancePolicyController">
-    <label class="col-sm-3 control-label">BalancePolicy</label>
+  <label class="col-sm-3 control-label">BalancePolicy</label>
 
-    <div class="col-sm-8">
-        <select name="balancePolicy" ng-model="manager.selectedResource.balancePolicy"
-                class="form-control input-md" required>
-            <option value="">Select one balancepolicy</option>
-            <option ng-repeat="balancepolicy in manager.balancepolicy"
-                    ng-selected="{{balancepolicy.selfLink==manager.selectedResource.balancePolicy}}"
-                    value="{{balancepolicy.selfLink}}">{{balancepolicy.name}}
-            </option>
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.balancePolicy" required>
+      <ui-select-match placeholder="Select one balancepolicy">
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="balancepolicy.selfLink as balancepolicy in (manager.balancepolicy
+      | filter: $select.search) track by balancepolicy.id">
+        <span ng-bind="balancepolicy.name"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

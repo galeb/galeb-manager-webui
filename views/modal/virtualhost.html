@@ -1,63 +1,61 @@
-<div id="createModal"
-     class="modal"
-     role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button"
-                        class="close"
-                        ng-click="managerModal.hide()">&times;</button>
-                <h4 class="modal-title">{{mode}} VirtualHost</h4>
+<div id="createModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button"
+        class="close"
+        ng-click="managerModal.hide()">&times;</button>
+        <h4 class="modal-title">{{mode}} VirtualHost</h4>
+      </div>
+      <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
+        <div class="modal-body">
+          <ng-include src="'views/common/header.modal.html'"></ng-include>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="aliases">Aliases</label>
+
+            <div class="col-sm-8">
+
+              <input id="aliases" name="aliases" ng-list
+              ng-model="manager.selectedResource.aliases" type="text"
+              class="form-control input-md"
+              disable-valid-styling="true">
+              <span class="help-block">Use commas to separate your alias.</span>
             </div>
-            <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
-                <div class="modal-body">
-                    <ng-include src="'views/common/header.modal.html'"></ng-include>
+          </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="aliases">Aliases</label>
+          <ng-include src="'views/common/list/rule.html'" ng-if="manager.selectedResource.id"></ng-include>
 
-                        <div class="col-sm-8">
+          <ng-include src="'views/common/list/project.html'"></ng-include>
 
-                            <input id="aliases" name="aliases" ng-list
-                                   ng-model="manager.selectedResource.aliases" type="text"
-                                   class="form-control input-md"
-                                   disable-valid-styling="true">
-                            <span class="help-block">Use commas to separate your alias.</span>
-                        </div>
-                    </div>
+          <ng-include src="'views/common/list/environment.html'"></ng-include>
 
-                    <ng-include src="'views/common/list/rule.html'" ng-if="manager.selectedResource.id"></ng-include>
+          <ng-include src="'views/common/footer.modal.html'"></ng-include>
 
-                    <ng-include src="'views/common/list/project.html'"></ng-include>
+          <div ng-if="manager.selectedResource.id">
+            <hr>
 
-                    <ng-include src="'views/common/list/environment.html'"></ng-include>
-
-                    <ng-include src="'views/common/footer.modal.html'"></ng-include>
-
-                    <div ng-if="manager.selectedResource.id">
-                        <hr>
-
-                        <h5>Rule's order
-                            <small>Drag rules to arrange</small>
-                        </h5>
-                        <ul class="sortable-list" ui-sortable="sortableOptions"
-                            ng-model="manager.selectedResource.arrayRuleOrder">
-                            <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
-                                <b>{{ rule.name }}</b>
-                                <br>
-                                <span class="label label-warning" ng-show="rule.global">Global rule!</span> ID: {{
-                                rule.id
-                                }} - Match: {{ rule.match }}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id="save" name="save" ladda="manager.isSaving" class="btn btn-primary">Save
-                    </button>
-                    <button class="btn btn-default" type="button" ng-click="managerModal.hide()">Cancel</button>
-                </div>
-            </form>
+            <h5>Rule's order
+              <small>Drag rules to arrange</small>
+            </h5>
+            <ul class="sortable-list" ui-sortable="sortableOptions"
+            ng-model="manager.selectedResource.arrayRuleOrder">
+            <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
+              <b>{{ rule.name }}</b>
+              <br>
+              <span class="label label-warning" ng-show="rule.global">Global rule!</span> ID: {{
+                rule.id
+              }} - Match: {{ rule.match }}
+            </li>
+          </ul>
         </div>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="save" name="save" ladda="manager.isSaving" class="btn btn-primary">Save
+        </button>
+        <button class="btn btn-default" type="button" ng-click="managerModal.hide()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>

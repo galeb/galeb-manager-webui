@@ -1,14 +1,18 @@
-<div class="form-group" ng-controller="PoolController">
-    <label class="col-sm-3 control-label">Parent</label>
+<div class="form-group" ng-controller="CommonController">
+  <label class="col-sm-3 control-label">Pool</label>
 
-    <div class="col-sm-8">
-        <select name="parent" ng-model="manager.selectedResource.parent"
-                class="form-control input-md" required>
-            <option value="">Select one parent</option>
-            <option ng-repeat="pool in manager.pool"
-                    ng-selected="{{pool.selfLink==manager.selectedResource.parent}}"
-                    value="{{pool.selfLink}}">{{pool.name}}
-            </option>
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.parent" required>
+      <ui-select-match placeholder="Select one pool">
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="pool.selfLink as pool in (manager.pool
+      | filter: $select.search) track by pool.id"
+      refresh="manager.loadListResources('pool', $select.search)"
+      refresh-delay="500"
+      minimum-input-length="3">
+        <span ng-bind="pool.name"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

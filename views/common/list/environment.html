@@ -1,14 +1,16 @@
 <div class="form-group" ng-controller="EnvironmentController">
-    <label class="col-sm-3 control-label">Environment</label>
+  <label class="col-sm-3 control-label">Environment</label>
 
-    <div class="col-sm-8">
-        <select name="environment" ng-model="manager.selectedResource.environment"
-                class="form-control input-md" required>
-            <option value="">Select one environment</option>
-            <option ng-repeat="environment in manager.environment | filter:{name: '!Null Environment'}"
-                    ng-selected="{{environment.selfLink==manager.selectedResource.environment}}"
-                    value="{{environment.selfLink}}">{{environment.name}}
-            </option>
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.environment" required>
+      <ui-select-match placeholder="Select one environment">
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="environment.selfLink as environment in (manager.environment
+      | filter:{name: '!Null Environment'}
+      | filter: $select.search) track by environment.id">
+        <span ng-bind="environment.name"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

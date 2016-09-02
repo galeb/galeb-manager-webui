@@ -1,14 +1,18 @@
-<div class="form-group" ng-controller="ProjectController">
-    <label class="col-sm-3 control-label">Project</label>
+<div class="form-group" ng-controller="CommonController">
+  <label class="col-sm-3 control-label">Project</label>
 
-    <div class="col-sm-8">
-        <select name="project" ng-model="manager.selectedResource.project" class="form-control input-md"
-                required>
-            <option value="">Select one project</option>
-            <option ng-repeat="project in manager.project"
-                    ng-selected="{{project.selfLink==manager.selectedResource.project}}"
-                    value="{{project.selfLink}}">{{project.name}}
-            </option>
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.project" required>
+      <ui-select-match placeholder="Select one project">
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="project.selfLink as project in (manager.project
+      | filter: $select.search) track by project.id"
+      refresh="manager.loadListResources('project', $select.search)"
+      refresh-delay="500"
+      minimum-input-length="2">
+        <span ng-bind="project.name"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

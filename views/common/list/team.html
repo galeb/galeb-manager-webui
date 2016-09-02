@@ -1,13 +1,15 @@
-<div class="form-group" ng-controller="TeamController">
-    <label class="col-sm-3 control-label">Teams</label>
+<div class="form-group" ng-controller="CommonController">
+  <label class="col-sm-3 control-label">Teams</label>
 
-    <div class="col-sm-8">
-        <select name="teams" ng-model="manager.selectedResource.teams"
-                class="form-control input-md" required multiple>
-            <option ng-repeat="team in manager.team"
-                    ng-selected="{{manager.selectedResource.teams.indexOf(team.selfLink) > -1}}"
-                    value="{{team.selfLink}}">{{team.name}}
-            </option>
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.teams" close-on-select="false" multiple>
+      <ui-select-match placeholder="Select teams...">{{ $item.name }}</ui-select-match>
+      <ui-select-choices repeat="team.selfLink as team in manager.team | filter: $select.search"
+      refresh="manager.loadListResources('team', $select.search)"
+      refresh-delay="500"
+      minimum-input-length="2">
+        <div ng-bind-html="team.name | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

@@ -1,13 +1,15 @@
-<div class="form-group" ng-controller="VirtualHostController">
-    <label class="col-sm-3 control-label">VirtualHost's</label>
+<div class="form-group" ng-controller="CommonController">
+  <label class="col-sm-3 control-label">VirtualHosts</label>
 
-    <div class="col-sm-8">
-        <select name="parents" ng-model="manager.selectedResource.parents"
-                class="form-control input-md" multiple>
-            <option ng-repeat="virtualhost in manager.virtualhost"
-                    ng-selected="{{manager.selectedResource.parents.indexOf(virtualhost.selfLink) > -1}}"
-                    value="{{virtualhost.selfLink}}">{{virtualhost.name}}
-            </option>
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.parents" close-on-select="false" multiple>
+      <ui-select-match placeholder="Select virtualhosts...">{{ $item.name }}</ui-select-match>
+      <ui-select-choices repeat="virtualhost.selfLink as virtualhost in manager.virtualhost | filter: $select.search"
+      refresh="manager.loadListResources('virtualhost', $select.search)"
+      refresh-delay="500"
+      minimum-input-length="3">
+        <div ng-bind-html="virtualhost.name | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

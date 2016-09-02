@@ -1,13 +1,15 @@
 <div class="form-group" ng-controller="DriverController">
-    <label class="col-sm-3 control-label">Driver</label>
+  <label class="col-sm-3 control-label">Driver</label>
 
-    <div class="col-sm-8">
-        <select name="driver" ng-model="manager.selectedResource.driver"
-                class="form-control input-md" required>
-            <option value="">Select one driver</option>
-            <option ng-repeat="driver in manager.driver"
-                    ng-selected="{{driver==manager.selectedResource.driver}}"
-                    value="{{driver}}">{{driver}}
-        </select>
-    </div>
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.driver" required>
+      <ui-select-match placeholder="Select one driver">
+        <span ng-bind="$select.selected"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="driver in (manager.driver
+      | filter: $select.search)">
+        <span ng-bind="driver"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </div>

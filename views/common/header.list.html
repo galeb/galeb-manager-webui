@@ -1,20 +1,17 @@
 <div class="pull-right">
-    <button type="button" class="btn btn-success" ng-click="showManagerModal()">
-        Create
-    </button>
+  <button type="button" class="btn btn-success" ng-click="showManagerModal()">
+    Create
+  </button>
 </div>
 
 <div class="pull-right">
-    <form name="form-search" class="form-inline form-search" ng-submit="doSearch()" novalidate>
-        <div class="form-group">
-            <input type="text"
-                   class="form-control"
-                   id="searchText"
-                   ng-model="manager.searchText"
-                   placeholder="Search name.."
-                   disable-invalid-styling="true"
-                    />
-        </div>
-        <button type="submit" class="btn btn-default btn-sm">OK</button>
-    </form>
+  <form name="form-search" class="form-inline form-search" ng-submit="doSearch()" novalidate>
+    <div class="form-group">
+      <input type="text" class="form-control" id="searchText" ng-model="manager.searchText"
+      placeholder="Search name.."
+      disable-invalid-styling="true"
+      />
+    </div>
+    <button type="submit" class="btn btn-default btn-sm">OK</button>
+  </form>
 </div>

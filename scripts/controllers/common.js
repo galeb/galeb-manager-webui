@@ -1,57 +1,32 @@
 angular.module('galebWebui')
-.controller('VirtualHostController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('virtualhost');
-})
 .controller('RolesController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.roles = ['ROLE_USER', 'ROLE_ADMIN'];
+	$scope.manager.roles = ['ROLE_USER', 'ROLE_ADMIN'];
 })
 .controller('DriverController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.driver = ['GalebV3','GalebV32'];
+	$scope.manager.driver = ['GalebV3','GalebV32'];
 })
-.controller('PoolController', function ($scope, ManagerService) {
+.controller('CommonController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('pool');
-})
-.controller('TargetController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('target');
-})
-.controller('AccountController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('account');
-})
-.controller('TeamController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('team');
-})
-.controller('ProjectController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('project');
 })
 .controller('EnvironmentController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('environment');
+	$scope.manager.loadListResources('environment');
 })
 .controller('RuleTypeController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('ruletype');
+	$scope.manager.loadListResources('ruletype');
 })
 .controller('ProviderController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('provider');
+	$scope.manager.loadListResources('provider');
 })
 .controller('BalancePolicyController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('balancepolicy');
+	$scope.manager.loadListResources('balancepolicy');
 })
 .controller('BalanceTypeController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('balancepolicytype');
-})
-.controller('RuleController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-    $scope.manager.loadListResources('rule');
+	$scope.manager.loadListResources('balancepolicytype');
 });
