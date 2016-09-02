@@ -36,7 +36,9 @@
     "ngstorage": "0.3.10",
     "sweetalert": "~1.1.0",
     "angular-ui-sortable": "~0.13.4",
-    "angular-md5": "~0.1.10"
+    "angular-md5": "~0.1.10",
+    "angular-ui-select": "^0.19.4",
+    "angular-sanitize": "^1.5.8"
   },
   "resolutions": {
     "angular-resource": "~1.4.8",
