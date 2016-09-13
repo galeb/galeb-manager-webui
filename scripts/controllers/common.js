@@ -7,9 +7,6 @@ angular.module('galebWebui')
 	$scope.manager = ManagerService;
 	$scope.manager.driver = ['GalebV3','GalebV32'];
 })
-.controller('CommonController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-})
 .controller('EnvironmentController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
 	$scope.manager.loadListResources('environment');

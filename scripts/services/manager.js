@@ -88,7 +88,7 @@ angular.module('galebWebui')
 												});
 											}
 										} else {
-											tmpObj = {'name': item.name, 'href': item._links.self.href};
+											tmpObj = {'name': item.name, 'href': item._links.self.href, 'selfLink': item._links.self.href};
 										}
 										tmpArr.push(tmpObj);
 										tmpArrLinks.push(item._links.self.href);
@@ -97,7 +97,7 @@ angular.module('galebWebui')
 									resource[link] = tmpArrLinks;
 									resource['targetListStats'] = tmpTargetList;
 								} else {
-									tmpObj = {'name': subItem.name, 'href': subItem._links.self.href};
+									tmpObj = {'name': subItem.name, 'href': subItem._links.self.href, 'selfLink': subItem._links.self.href};
 									resource[link + 'Obj'] = tmpObj;
 									resource[link] = subItem._links.self.href
 								}
@@ -133,6 +133,7 @@ angular.module('galebWebui')
 		},
 		'loadListResources': function (apiPath, itemName) {
 			self[apiPath] = [];
+			var tmpObj = [];
 			var params = {
 				'path': apiPath,
 				'search': itemName
@@ -140,8 +141,8 @@ angular.module('galebWebui')
 
 			ManagerSearch.get(params, function (response) {
 				angular.forEach(response._embeddedItems, function(data) {
-					data['selfLink'] = data._links.self.href;
-					self[apiPath].push(data);
+					tmpObj = {'name': data.name, 'href': data._links.self.href, 'selfLink': data._links.self.href};
+					self[apiPath].push(tmpObj);
 				});
 			});
 		},

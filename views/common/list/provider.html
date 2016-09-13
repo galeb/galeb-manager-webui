@@ -7,8 +7,8 @@
         <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="provider.selfLink as provider in (manager.provider
-      | filter: $select.search) track by provider.id">
-        <span ng-bind="provider.name"></span>
+      | filter: { name: $select.search}) track by provider.id">
+        <span ng-bind="provider.name | highlight: $select.search"></span>
       </ui-select-choices>
     </ui-select>
   </div>

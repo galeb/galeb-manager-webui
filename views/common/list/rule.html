@@ -1,4 +1,4 @@
-<div class="form-group" ng-controller="CommonController">
+<div class="form-group">
   <label class="col-sm-3 control-label">Rule Default</label>
 
   <div class="col-sm-8">
@@ -7,11 +7,11 @@
         <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="rule.selfLink as rule in (manager.rule
-      | filter: $select.search) track by rule.id"
+      | filter: { name: $select.search }) track by rule.id"
       refresh="manager.loadListResources('rule', $select.search)"
       refresh-delay="500"
       minimum-input-length="3">
-        <span ng-bind="rule.name"></span>
+        <span ng-bind="rule.name | highlight: $select.search"></span>
       </ui-select-choices>
     </ui-select>
     <span class="help-block">Only marks a rule already associated as a last option. <br> To delete VirtualHost you need to disassociate the rule default.</span>

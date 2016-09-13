@@ -7,9 +7,9 @@
         <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="environment.selfLink as environment in (manager.environment
-      | filter:{name: '!Null Environment'}
-      | filter: $select.search) track by environment.id">
-        <span ng-bind="environment.name"></span>
+      | filter: { name: '!Null Environment' }
+      | filter: { name: $select.search }) track by environment.id">
+        <span ng-bind="environment.name | highlight: $select.search"></span>
       </ui-select-choices>
     </ui-select>
   </div>

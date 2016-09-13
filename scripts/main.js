@@ -38,7 +38,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'virtualhost' },
-				apiLinks: function() { return 'environment-project-rules-ruleDefault' }
+				apiLinks: function() { return 'environment-project-rules-ruleDefault' },
+				apiForce: function() { return {'project': 'project', 'rules': 'rules'} }
 			}
 		})
 		.state('rule', {
@@ -47,7 +48,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'rule' },
-				apiLinks: function() { return 'pool-ruleType-parents' }
+				apiLinks: function() { return 'pool-ruleType-parents' },
+				apiForce: function() { return {'pool': 'pool', 'parents': 'virtualhost'} }
 			}
 		})
 		.state('pool', {
@@ -56,7 +58,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'pool' },
-				apiLinks: function() { return 'environment-project-balancePolicy' }
+				apiLinks: function() { return 'environment-project-balancePolicy' },
+				apiForce: function() { return {'project': 'project'} }
 			}
 		})
 		.state('target', {
@@ -65,7 +68,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'target' },
-				apiLinks: function() { return 'project-parent' }
+				apiLinks: function() { return 'project-parent' },
+				apiForce: function() { return {'project': 'project', 'parent': 'pool'} }
 			}
 		})
 		.state('project', {
@@ -74,7 +78,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'project' },
-				apiLinks: function() { return 'teams' }
+				apiLinks: function() { return 'teams' },
+				apiForce: function() { return {'teams': 'team'} }
 			}
 		})
 		.state('team', {
@@ -92,7 +97,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'account' },
-				apiLinks: function() { return 'teams' }
+				apiLinks: function() { return 'teams' },
+				apiForce: function() { return {'teams': 'team'} }
 			}
 		})
 		.state('ruletype', {

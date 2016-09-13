@@ -1,4 +1,4 @@
-<div class="form-group" ng-controller="CommonController">
+<div class="form-group">
   <label class="col-sm-3 control-label">Pool</label>
 
   <div class="col-sm-8">
@@ -7,11 +7,11 @@
         <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="pool.selfLink as pool in (manager.pool
-      | filter: $select.search) track by pool.id"
+      | filter: { name: $select.search }) track by pool.id"
       refresh="manager.loadListResources('pool', $select.search)"
       refresh-delay="500"
       minimum-input-length="3">
-        <span ng-bind="pool.name"></span>
+        <span ng-bind="pool.name | highlight: $select.search"></span>
       </ui-select-choices>
     </ui-select>
   </div>

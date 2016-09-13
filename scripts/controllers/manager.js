@@ -1,6 +1,6 @@
 angular.module('galebWebui')
 .controller('ManagerController', function (
-  $scope, $modal, ManagerService, $filter, apiPath, apiLinks, SweetAlert, config, md5) {
+  $scope, $modal, ManagerService, $filter, apiPath, apiLinks, apiForce, SweetAlert, config, md5) {
 
     $scope.apiLinks = apiLinks ? apiLinks.split("-") : [];
 
@@ -46,6 +46,16 @@ angular.module('galebWebui')
             });
           });
         }
+
+        angular.forEach(apiForce, function (value, key) {
+          tmpObj = $scope.manager.selectedResource[key + 'Obj'];
+          $scope.manager[value] = [];
+          if (tmpObj instanceof Array) {
+            Array.prototype.push.apply($scope.manager[value], $scope.manager.selectedResource[key + 'Obj']);
+          } else {
+            $scope.manager[value][0] = tmpObj;
+          }
+        });
       }
 
       $scope.managerModal = $modal({
@@ -53,7 +63,7 @@ angular.module('galebWebui')
         templateUrl: 'views/modal/' + apiPath + '.html',
         show: true
       });
-    }
+    };
 
     $scope.saveResource = function () {
       if ($scope.manager.apiPath === 'account') {
