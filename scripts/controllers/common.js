@@ -5,7 +5,7 @@ angular.module('galebWebui')
 })
 .controller('DriverController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-	$scope.manager.driver = ['GalebV3','GalebV32'];
+	$scope.manager.driver = ['GalebV32'];
 })
 .controller('EnvironmentController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
