@@ -35,16 +35,16 @@ angular.module('galebWebui')
           $scope.sortableOptions = {
             placeholder: "placeholder"
           };
-
+          var tmpArray = [];
           $scope.manager.selectedResource.arrayRuleOrder = [];
-          angular.forEach($filter('orderBy')($scope.manager.selectedResource.rulesOrdered, 'ruleOrder'),
-          function(element, index) {
-            angular.forEach($scope.manager.selectedResource.rulesObj, function (v, k) {
-              if (element.ruleId == v.id) {
-                $scope.manager.selectedResource.arrayRuleOrder.push(v);
-              }
+
+          angular.forEach($scope.manager.selectedResource.rulesObj, function(element, i) {
+            $scope.manager.selectedResource.rulesOrdered.some(function(item) {
+              element.ruleOrder = item.ruleId == element.id ? item.ruleOrder : 999999;
             });
+            tmpArray.push(element);
           });
+          $scope.manager.selectedResource.arrayRuleOrder = $filter('orderBy')(tmpArray, 'ruleOrder');
         }
 
         angular.forEach(apiForce, function (value, key) {
