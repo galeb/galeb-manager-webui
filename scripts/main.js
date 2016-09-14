@@ -88,7 +88,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'team' },
-				apiLinks: function() { return 'accounts' }
+				apiLinks: function() { return 'accounts' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('account', {
@@ -107,7 +108,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'ruletype' },
-				apiLinks: function() { return '' }
+				apiLinks: function() { return '' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('balancetype', {
@@ -116,7 +118,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'balancepolicytype' },
-				apiLinks: function() { return '' }
+				apiLinks: function() { return '' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('environment', {
@@ -125,7 +128,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'environment' },
-				apiLinks: function() { return '' }
+				apiLinks: function() { return '' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('balancepolicy', {
@@ -134,7 +138,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'balancepolicy' },
-				apiLinks: function() { return 'balancePolicyType' }
+				apiLinks: function() { return 'balancePolicyType' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('provider', {
@@ -143,7 +148,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'provider' },
-				apiLinks: function() { return '' }
+				apiLinks: function() { return '' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('farm', {
@@ -152,7 +158,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'farm' },
-				apiLinks: function() { return 'provider-environment' }
+				apiLinks: function() { return 'provider-environment' },
+				apiForce: function() { return '' }
 			}
 		});
 
