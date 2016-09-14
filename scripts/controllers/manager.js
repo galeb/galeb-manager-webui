@@ -39,11 +39,18 @@ angular.module('galebWebui')
           $scope.manager.selectedResource.arrayRuleOrder = [];
 
           angular.forEach($scope.manager.selectedResource.rulesObj, function(element, i) {
+
             $scope.manager.selectedResource.rulesOrdered.some(function(item) {
-              element.ruleOrder = item.ruleId == element.id ? item.ruleOrder : 999999;
+              if (item.ruleId == element.id) {
+                element.ruleOrder = item.ruleOrder;
+                return true;
+              } else {
+                element.ruleOrder = 999999;
+              }
             });
             tmpArray.push(element);
           });
+
           $scope.manager.selectedResource.arrayRuleOrder = $filter('orderBy')(tmpArray, 'ruleOrder');
         }
 
