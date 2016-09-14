@@ -8,7 +8,7 @@
       </ui-select-match>
       <ui-select-choices repeat="driver in (manager.driver
       | filter: $select.search)">
-        <span ng-bind="driver"></span>
+        <div ng-bind-html="driver | highlight: $select.search"></div>
       </ui-select-choices>
     </ui-select>
   </div>

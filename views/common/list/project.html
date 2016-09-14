@@ -11,7 +11,7 @@
       refresh="manager.loadListResources('project', $select.search)"
       refresh-delay="500"
       minimum-input-length="2">
-        <span ng-bind="project.name | highlight: $select.search"></span>
+        <div ng-bind-html="project.name | highlight: $select.search"></div>
       </ui-select-choices>
     </ui-select>
   </div>

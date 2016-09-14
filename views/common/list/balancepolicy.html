@@ -8,7 +8,7 @@
       </ui-select-match>
       <ui-select-choices repeat="balancepolicy.selfLink as balancepolicy in (manager.balancepolicy
       | filter: { name: $select.search }) track by balancepolicy.id">
-        <span ng-bind="balancepolicy.name | highlight: $select.search"></span>
+        <div ng-bind-html="balancepolicy.name | highlight: $select.search"></div>
       </ui-select-choices>
     </ui-select>
   </div>
