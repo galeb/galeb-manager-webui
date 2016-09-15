@@ -157,6 +157,7 @@ angular.module('galebWebui')
 			}, function (error) {
 				self.isSaving = false;
 				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
+				console.log(error.data.cause.cause.message);
 			});
 			return d.promise;
 		},
@@ -172,6 +173,7 @@ angular.module('galebWebui')
 				self.isDeleting = false;
 				self.selectedResource = null;
 				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
+				console.log(error.data.cause.cause.message);
 			});
 			return d.promise;
 		},
@@ -186,6 +188,7 @@ angular.module('galebWebui')
 			}, function (error) {
 				self.isSaving = false;
 				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
+				console.log(error.data.cause.cause.message);
 			});
 			return d.promise;
 		},
