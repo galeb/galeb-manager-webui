@@ -7,7 +7,7 @@ angular.module('galebWebui')
   });
 })
 .factory("ManagerSearch", function ($resource, config) {
-  return $resource(config.apiUrl + "/:path/search/findByNameContaining?name=:search&page=0&size=10&sort=name", {path: '@path', search: '@search'});
+  return $resource(config.apiUrl + "/:path/search/findByNameContaining?name=:search&page=0&size=100&sort=name", {path: '@path', search: '@search'});
 })
 .factory("ManagerDashboard", function ($resource, config) {
   return $resource(config.apiUrl + "/:path/?page=0&size=1", {path: '@path'});
