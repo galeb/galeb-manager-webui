@@ -76,7 +76,7 @@ angular.module('galebWebui')
 									var tmpTargetList = [];
 									angular.forEach(subItem._embeddedItems, function(item) {
 										if (resource.rulesOrdered) {
-											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global};
+											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global, 'selfLink': item._links.self.href};
 
 											if (link == 'rules') {
 												item._resources('pool').get(function (poolItem) {

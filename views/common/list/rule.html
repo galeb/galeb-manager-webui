@@ -7,18 +7,14 @@
         <ui-select-match placeholder="Select one rule default">
           <span ng-bind="$select.selected.name"></span>
         </ui-select-match>
-        <ui-select-choices repeat="rule.selfLink as rule in (manager.rule
-        | filter: { name: $select.search }) track by rule.id"
-        refresh="manager.loadListResources('rule', $select.search)"
-        refresh-delay="500"
-        minimum-input-length="3">
+        <ui-select-choices repeat="rule.selfLink as rule in (manager.selectedResource.rulesObj
+        | filter: { name: $select.search }) track by rule.id">
           <div ng-bind-html="rule.name | highlight: $select.search"></div>
         </ui-select-choices>
       </ui-select>
-
       <span class="input-group-btn">
-        <button type="button" class="btn btn-danger btn-sm"
-                          ng-click="cleanRuleDefault()">
+        <button type="button" class="btn btn-danger form-control ui-select-toggle"
+                ng-click="cleanRuleDefault()">
           <i class="fa fa-trash-o"></i>
         </button>
       </span>
