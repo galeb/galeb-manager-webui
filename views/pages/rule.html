@@ -17,7 +17,7 @@
             <th class="col-05">Status</th>
             <th class="col-3">
                 Name
-                <div class="sortables">
+                <div class="sortables" ng-if="!manager.isSearching">
                     <span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
                     <span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
                 </div>
@@ -25,7 +25,7 @@
             <th class="col-2 text-center">Virtualhosts</th>
             <th class="col-2 text-center">
                 Pool
-                <div class="sortables">
+                <div class="sortables" ng-if="!manager.isSearching">
                     <span ng-click="doSort('pool.name,asc')" class="fa fa-sort-asc"></span>
                     <span ng-click="doSort('pool.name,desc')" class="fa fa-sort-desc"></span>
                 </div>

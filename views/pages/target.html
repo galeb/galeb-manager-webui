@@ -17,21 +17,21 @@
             <th class="col-05">Status</th>
 			<th class="col-4">
 				Name
-				<div class="sortables">
+				<div class="sortables" ng-if="!manager.isSearching">
 					<span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
 					<span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
 				</div>
 			</th>
 			<th class="col-2 text-center">
 				Pool
-				<div class="sortables">
+				<div class="sortables" ng-if="!manager.isSearching">
 					<span ng-click="doSort('parent.name,asc')" class="fa fa-sort-asc"></span>
 					<span ng-click="doSort('parent.name,desc')" class="fa fa-sort-desc"></span>
 				</div>
 			</th>
 			<th class="col-2 text-center">
 				Project
-				<div class="sortables">
+				<div class="sortables" ng-if="!manager.isSearching">
 					<span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
 					<span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
 				</div>

@@ -9,6 +9,7 @@ angular.module('galebWebui')
 		'isDeleting': false,
 		'isReloading': false,
 		'isUnlocking': false,
+		'isSearching': false,
 		'selectedResource': null,
 		'resources': [],
 		'listResources': [],
@@ -18,6 +19,11 @@ angular.module('galebWebui')
 		'sortType': '',
 		'doSearch': function () {
 			self.reset();
+			if (self.searchText != '') {
+				self.isSearching = true;
+			} else {
+				self.isSearching = false;
+			}
 			self.loadResources();
 		},
 		'doSort': function (sortType) {
