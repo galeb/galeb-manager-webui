@@ -2,18 +2,27 @@
   <label class="col-sm-3 control-label">Rule Default</label>
 
   <div class="col-sm-8">
-    <ui-select ng-model="manager.selectedResource.ruleDefault">
-      <ui-select-match placeholder="Select one rule default">
-        <span ng-bind="$select.selected.name"></span>
-      </ui-select-match>
-      <ui-select-choices repeat="rule.selfLink as rule in (manager.rule
-      | filter: { name: $select.search }) track by rule.id"
-      refresh="manager.loadListResources('rule', $select.search)"
-      refresh-delay="500"
-      minimum-input-length="3">
-        <div ng-bind-html="rule.name | highlight: $select.search"></div>
-      </ui-select-choices>
-    </ui-select>
+    <div class="input-group">
+      <ui-select ng-model="manager.selectedResource.ruleDefault">
+        <ui-select-match placeholder="Select one rule default">
+          <span ng-bind="$select.selected.name"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="rule.selfLink as rule in (manager.rule
+        | filter: { name: $select.search }) track by rule.id"
+        refresh="manager.loadListResources('rule', $select.search)"
+        refresh-delay="500"
+        minimum-input-length="3">
+          <div ng-bind-html="rule.name | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-danger btn-sm"
+                          ng-click="cleanRuleDefault()">
+          <i class="fa fa-trash-o"></i>
+        </button>
+      </span>
+    </div>
     <span class="help-block">Only marks a rule already associated as a last option. <br> To delete VirtualHost you need to disassociate the rule default.</span>
   </div>
 </div>

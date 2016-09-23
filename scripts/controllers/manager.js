@@ -60,7 +60,12 @@ angular.module('galebWebui')
           if (tmpObj instanceof Array) {
             Array.prototype.push.apply($scope.manager[value], $scope.manager.selectedResource[key + 'Obj']);
           } else {
-            $scope.manager[value][0] = tmpObj;
+            if (value == 'ruleDefault') {
+              $scope.manager['rule'] = [];
+              $scope.manager['rule'][0] = tmpObj;
+            } else {
+              $scope.manager[value][0] = tmpObj;
+            }
           }
         });
       }
@@ -116,6 +121,10 @@ angular.module('galebWebui')
           $scope.manager.removeResource($scope.manager.selectedResource);
         }
       });
+    };
+
+    $scope.cleanRuleDefault = function () {
+      $scope.manager.selectedResource.ruleDefault = "";
     };
 
     $scope.reloadFarm = function (resource) {
