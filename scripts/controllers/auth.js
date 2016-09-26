@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.controller('AuthController', function ($rootScope, $scope, $location, $state, toastr, config, AuthService) {
+.controller('AuthController', function ($rootScope, $scope, $location, $state, toastr, AuthService) {
 
   $scope.credentials = {};
   $scope.currentUser = '';
@@ -15,7 +15,7 @@ angular.module('galebWebui')
   }
 
   $scope.currentUser = $scope.auth.account();
-  $scope.email = $scope.auth.account() + '@' + config.domain;
+  $scope.email = $scope.auth.email();
 
   $scope.login = function() {
     $scope.auth.logIn($scope.credentials, function(authenticated) {

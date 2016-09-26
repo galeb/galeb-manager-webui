@@ -24,6 +24,7 @@ angular.module('galebWebui')
           $localStorage.token = response.data.token;
           $localStorage.account = response.data.account;
           $localStorage.admin = response.data.admin;
+          $localStorage.email = response.data.email;
           self.isLogging = false;
           callback && callback(true);
         } else {
@@ -54,7 +55,8 @@ angular.module('galebWebui')
       }
     },
     'isAdmin': function() { return $localStorage.admin ? true : false; },
-    'account': function() { return $localStorage.account; }
+    'account': function() { return $localStorage.account; },
+    'email': function() { return $localStorage.email; }
 
   };
 
