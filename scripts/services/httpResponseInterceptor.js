@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.factory('httpResponseInterceptor', function($q, $location, $localStorage) {
+.factory('httpResponseInterceptor', function($q, $location, $localStorage, $window) {
   return {
     'request': function (config) {
       config.headers = config.headers || {};
@@ -15,6 +15,7 @@ angular.module('galebWebui')
       } else if (response.status === 401 || response.status === 403) {
         $localStorage.$reset();
         $location.path('logout');
+        $window.location.reload();
       }
       return $q.reject(response);
     }
