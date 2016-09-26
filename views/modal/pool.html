@@ -21,29 +21,42 @@
 
           <hr>
 
-          <div class="form-group form-group-no-margin">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="hcTCP">&nbsp;</label>
+
+            <div class="col-sm-8">
+              <label>
+                <input type="checkbox" ng-model="manager.selectedResource.hcTCP" id="hcTCP"
+                       disable-valid-styling="true">
+                Healthcheck TCP Only?
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
             <label class="col-sm-3 control-label" for="properties.hcPath">HealthChecker Path</label>
 
             <div class="col-sm-8">
               <input id="properties.hcPath" name="properties.hcPath"
               ng-model="manager.selectedResource.properties.hcPath" type="text"
-              class="form-control input-md">
-              <span class="help-block">Example: /healthcheck.html (Default is '/')</span>
+              ng-pattern="/^\//" ng-pattern-err-type="badHCPath"
+              class="form-control input-md" required>
+              <span class="help-block">Example: /healthcheck.html</span>
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin">
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
             <label class="col-sm-3 control-label" for="properties.hcStatusCode">HealthChecker Status</label>
 
             <div class="col-sm-8">
               <input id="properties.hcStatusCode" name="properties.hcStatusCode"
               ng-model="manager.selectedResource.properties.hcStatusCode" type="text"
-              class="form-control input-md">
-              <span class="help-block">Example: 200 (Default just check open port)</span>
+              class="form-control input-md" required>
+              <span class="help-block">Example: 200</span>
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin">
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
             <label class="col-sm-3 control-label" for="properties.hcHost">HealthChecker Host</label>
 
             <div class="col-sm-8">
@@ -54,7 +67,7 @@
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin">
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
             <label class="col-sm-3 control-label" for="properties.hcBody">HealthChecker Body</label>
 
             <div class="col-sm-8">

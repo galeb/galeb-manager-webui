@@ -27,9 +27,15 @@ angular.module('galebWebui')
       $scope.mode = 'Create';
       $scope.manager.selectedResource = {};
 
+      $scope.manager.selectedResource.hcTCP = true;
+
       if (resource) {
         $scope.manager.selectedResource = resource;
         $scope.mode = 'Edit';
+
+        if (angular.equals({}, $scope.manager.selectedResource.properties)) {
+          $scope.manager.selectedResource.hcTCP = true;
+        }
 
         if ($scope.manager.selectedResource.rulesOrdered) {
           $scope.sortableOptions = {
@@ -86,6 +92,9 @@ angular.module('galebWebui')
           if ($scope.manager.selectedResource.ruleDefault == "") {
             $scope.manager.selectedResource.ruleDefault = null;
           }
+        }
+        if ($scope.manager.selectedResource.hcTCP) {
+          $scope.manager.selectedResource.properties = {};
         }
         $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
           $scope.managerModal.hide();
