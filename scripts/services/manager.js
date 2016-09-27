@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, ManagerSearch, ManagerDashboard, $q, toastr) {
+.service('ManagerService', function (Manager, ManagerSearch, ManagerSearchWithSize, ManagerDashboard, $q, toastr) {
 
 	var self = {
 		'page': 0,
@@ -137,7 +137,7 @@ angular.module('galebWebui')
 				self[apiPath].size = response.page.totalElements;
 			});
 		},
-		'loadListResources': function (apiPath, itemName) {
+		'loadListResources': function (apiPath, itemName = '') {
 			self[apiPath] = [];
 			var tmpObj = [];
 			var params = {
@@ -145,7 +145,9 @@ angular.module('galebWebui')
 				'search': itemName
 			};
 
-			ManagerSearch.get(params, function (response) {
+			ManagerSelected = itemName == '' ? ManagerSearch : ManagerSearchWithSize;
+
+			ManagerSelected.get(params, function (response) {
 				angular.forEach(response._embeddedItems, function(data) {
 					tmpObj = {'id': data.id, 'name': data.name, 'href': data._links.self.href, 'selfLink': data._links.self.href};
 					self[apiPath].push(tmpObj);
