@@ -51,12 +51,12 @@
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
                 <a href="#" role="button" ng-if="resource.aliases.length" data-toggle="collapse" data-target="#collapse{{resource.id}}" aria-expanded="false" aria-controls="collapse{{resource.id}}" class="text-decoration:none;">
-                    <span class="label label-primary">Has Alias <i class="fa fa-caret-down"></i></span>
+                    <span class="label label-primary">Alias <i class="fa fa-caret-down"></i></span>
                 </a>
                 <div class="collapse" id="collapse{{resource.id}}" ng-if="resource.aliases.length">
                     <ul class="list-unstyled">
                         <li ng-repeat="alias in resource.aliases">
-                            <i class="fa fa-level-up fa-rotate-90"></i> {{alias}}
+                            <i class="fa fa-level-up fa-rotate-90"></i> &nbsp;&nbsp;{{alias}}
                             <a ng-href="{{manager.statsUrl}}{{alias}}&targets={{ resource.targetListStats.join(',') }}"
                                target="_blank">
                                 <i class="fa fa-bar-chart fa-fw"></i>
