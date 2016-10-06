@@ -55,7 +55,7 @@
                 </a>
                 <div class="collapse" id="collapse{{resource.id}}" ng-if="resource.aliases.length">
                     <ul class="list-unstyled">
-                        <li ng-repeat="alias in resource.aliases">
+                        <li ng-repeat="alias in resource.aliasStats">
                             <i class="fa fa-level-up fa-rotate-90"></i> &nbsp;&nbsp;{{alias}}
                             <a ng-href="{{manager.statsUrl}}{{alias}}&targets={{ resource.targetListStats.join(',') }}"
                                target="_blank">
