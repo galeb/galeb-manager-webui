@@ -7,6 +7,7 @@
         <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="balancepolicy.selfLink as balancepolicy in (manager.balancepolicy
+      | filter: { name: '!Default' }
       | filter: { name: $select.search }) track by balancepolicy.id">
         <div ng-bind-html="balancepolicy.name | highlight: $select.search"></div>
       </ui-select-choices>
