@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <ng-include src="'views/common/list/rule.html'" ng-if="manager.selectedResource.id && manager.selectedResource.arrayRuleOrder"></ng-include>
+          <ng-include src="'views/common/list/rule.html'" ng-if="manager.selectedResource.id && manager.selectedResource.arrayRuleOrder.length"></ng-include>
 
           <ng-include src="'views/common/list/project.html'"></ng-include>
 
@@ -36,8 +36,9 @@
             <hr>
 
             <h5>Rule's order
-              <small>Drag rules to arrange</small>
+              <small ng-if="manager.selectedResource.arrayRuleOrder.length">Drag rules to arrange</small>
             </h5>
+            <div class="alert alert-warning" role="alert" ng-if="!manager.selectedResource.arrayRuleOrder.length">There are no rules associated</div>
             <ul class="sortable-list" ui-sortable="sortableOptions"
             ng-model="manager.selectedResource.arrayRuleOrder">
             <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
