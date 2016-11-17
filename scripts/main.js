@@ -190,6 +190,7 @@ angular.module('galebWebui', [
 		defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
 			errorMessages['badTarget'] = 'You must use the target pattern, with "http://" and the port. Eg: http://127.0.0.1:80';
 			errorMessages['badHCPath'] = 'This field must start with slash. Eg: /healthcheck';
+			errorMessages['badAllows'] = 'This field must be IPv4. Eg: 192.168.0.1,127.0.0.48/30';
 		});
 
 		$rootScope.statusGaleb = config.statusGaleb;

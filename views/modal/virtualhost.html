@@ -29,9 +29,9 @@
             <div class="col-sm-8">
 
               <input id="allows" name="allows" ng-model="manager.selectedResource.properties.allows" type="text"
-                     class="form-control input-md"
+                     class="form-control input-md" ng-pattern="regex_virtualhost_allows" ng-pattern-err-type="badAllows"
                      disable-valid-styling="true">
-              <span class="help-block">Use commas or spaces to separate ip's.</span>
+              <span class="help-block">Use commas to separate ip's.</span>
             </div>
           </div>
 
