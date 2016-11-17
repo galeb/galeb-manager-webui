@@ -33,9 +33,10 @@ angular.module('galebWebui')
         $scope.manager.selectedResource = resource;
         $scope.mode = 'Edit';
 
-        if (angular.equals({}, $scope.manager.selectedResource.properties)) {
-          $scope.manager.selectedResource.hcTCP = true;
-        }
+        $scope.manager.selectedResource.hcTCP = !angular.isDefined($scope.manager.selectedResource.properties.hcPath) &&
+                                                !angular.isDefined($scope.manager.selectedResource.properties.hcStatusCode) &&
+                                                !angular.isDefined($scope.manager.selectedResource.properties.hcHost) &&
+                                                !angular.isDefined($scope.manager.selectedResource.properties.hcBody);
 
         if ($scope.manager.selectedResource.rulesOrdered) {
           $scope.sortableOptions = {
@@ -93,11 +94,21 @@ angular.module('galebWebui')
             $scope.manager.selectedResource.ruleDefault = null;
           }
         }
-        if ($scope.manager.selectedResource.hcTCP) {
-          $scope.manager.selectedResource.properties = {};
+        if ($scope.manager.apiPath === 'pool') {
+          if ($scope.manager.selectedResource.hcTCP) {
+            delete $scope.manager.selectedResource.properties.hcPath;
+            delete $scope.manager.selectedResource.properties.hcStatusCode;
+            delete $scope.manager.selectedResource.properties.hcHost;
+            delete $scope.manager.selectedResource.properties.hcBody;
+          }
+        }
+        if ($scope.manager.apiPath === 'virtualhost') {
+          if (!$scope.manager.selectedResource.properties.allows || $scope.manager.selectedResource.properties.allows == "") {
+            delete $scope.manager.selectedResource.properties.allows;
+          }
         }
         $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
-          $scope.managerModal.hide();
+        $scope.managerModal.hide();
         });
       } else {
         $scope.manager.createResource($scope.manager.selectedResource).then(function () {
