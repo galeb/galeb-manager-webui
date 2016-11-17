@@ -109,6 +109,12 @@ angular.module('galebWebui')
             delete $scope.manager.selectedResource.properties.allows;
           }
         }
+        if ($scope.manager.apiPath === 'balancepolicy') {
+          if (!$scope.manager.selectedResource.properties.keyType || $scope.manager.selectedResource.properties.keyType == "") {
+            delete $scope.manager.selectedResource.properties.keyType;
+          }
+        }
+
         $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
         $scope.managerModal.hide();
         });
