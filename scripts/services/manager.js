@@ -17,6 +17,7 @@ angular.module('galebWebui')
 		'apiLinks': '',
 		'searchText': '',
 		'sortType': '',
+		'errorMsg': 'Something was wrong',
 		'doSearch': function () {
 			self.reset();
 			if (self.searchText != '') {
@@ -168,8 +169,10 @@ angular.module('galebWebui')
 				d.resolve();
 			}, function (error) {
 				self.isSaving = false;
-				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-				console.log(error.data.cause.cause.message);
+				if (error.status == 409) {
+					error.statusText = self.showConflict();
+				}
+				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
 			});
 			return d.promise;
 		},
@@ -184,8 +187,10 @@ angular.module('galebWebui')
 			}, function (error) {
 				self.isDeleting = false;
 				self.selectedResource = null;
-				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-				console.log(error.data.cause.cause.message);
+				if (error.status == 409) {
+					error.statusText = self.showConflict();
+				}
+				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
 			});
 			return d.promise;
 		},
@@ -199,8 +204,7 @@ angular.module('galebWebui')
 				d.resolve();
 			}, function (error) {
 				self.isSaving = false;
-				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-				console.log(error.data.cause.cause.message);
+				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
 			});
 			return d.promise;
 		},
@@ -211,7 +215,7 @@ angular.module('galebWebui')
 				toastr.success(resource.name, 'Reloaded');
 				d.resolve();
 			}, function (error) {
-				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
+				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
 			});
 			self.isReloading = false;
 			return d.promise;
@@ -227,6 +231,14 @@ angular.module('galebWebui')
 			});
 			self.isUnlocking = false;
 			return d.promise;
+		},
+		'showConflict': function () {
+			switch (self.apiPath) {
+				case 'pool':
+					return "Cannot delete a pool with association in rule or target";
+				case 'virtualhost':
+					return "Cannot delete a virtualhost with association in rule";
+			}
 		}
 
 	};
