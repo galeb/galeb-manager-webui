@@ -72,7 +72,8 @@
                 </a>
                 <a ng-href="{{manager.logUrl}}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
                    data-toggle="tooltip" title="See access log of your virtualhost"
-                   data-placement="bottom" onmouseenter="$(this).tooltip('show')">
+                   data-placement="bottom" onmouseenter="$(this).tooltip('show')"
+                   ng-if="manager.logEnv == '' || resource.environmentObj.name == manager.logEnv">
                     <i class="fa fa-file-text-o fa-fw"></i>
                 </a>
                 &nbsp;&nbsp;

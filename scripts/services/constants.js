@@ -4,5 +4,6 @@ angular.module('galebWebui')
   'statsUrl': 'http://stats.localhost/',
   'statusGaleb': 'http://status-galeb.localhost/',
   'statusIaaS': 'http://status-iaas.localhost/',
-  'logUrl': 'http://logs.localhost/'
+  'logUrl': 'http://logs.localhost/',
+  'logEnv': ''
 });

@@ -13,6 +13,7 @@ angular.module('galebWebui')
 
     $scope.manager.statsUrl = config.statsUrl;
     $scope.manager.logUrl = config.logUrl;
+    $scope.manager.logEnv = config.logEnv;
 
     $scope.loadMore = function () {
       $scope.manager.loadMore();
