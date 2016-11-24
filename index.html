@@ -101,6 +101,10 @@
 
     <div class="push">
 
+        <div class="alert alert-dismissible alert-danger text-center">
+            <strong>You are not associated with a team.</strong> Contact the team {{ alertTeam }}: <a href="mailto:{{ alertMail }}" class="alert-link">{{ alertMail }}</a>.
+        </div>
+
         <div ui-view>
         </div>
 

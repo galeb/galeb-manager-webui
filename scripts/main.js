@@ -196,6 +196,9 @@ angular.module('galebWebui', [
 		$rootScope.statusGaleb = config.statusGaleb;
 		$rootScope.statusIaaS = config.statusIaaS;
 		$rootScope.dateNow = new Date();
+		$rootScope.hasTeam = AuthService.hasTeam();
+		$rootScope.alertTeam = config.alertTeam;
+		$rootScope.alertMail = config.alertMail;
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 			$rootScope.currentState = toState.name;
