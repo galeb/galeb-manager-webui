@@ -196,7 +196,7 @@ angular.module('galebWebui', [
 		$rootScope.statusGaleb = config.statusGaleb;
 		$rootScope.statusIaaS = config.statusIaaS;
 		$rootScope.dateNow = new Date();
-		$rootScope.hasTeam = AuthService.hasTeam();
+		$rootScope.hasTeam = AuthService.isLoggedIn() ? AuthService.hasTeam() : true;
 		$rootScope.alertTeam = config.alertTeam;
 		$rootScope.alertMail = config.alertMail;
 
