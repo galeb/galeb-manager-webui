@@ -10,24 +10,28 @@
             <div class="modal-body">
                 <ul class="tree">
                     <li id="report-first-item">
-                        <a data-placement="top" data-animation="am-flip-x" data-auto-close="true" bs-popover data-html="true"
+                        <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                            data-title="ID: {{ manager.selectedResource.id }} - {{ manager.selectedResource.name }}"
-                           data-content="Status: <b>{{manager.selectedResource.status}}</b> <br>{{manager.selectedResource.tooltip}}">
+                           data-content="Status: <b>{{manager.selectedResource.status}}</b>
+                           <br>Environment: <b>{{manager.selectedResource.environment}}</b>
+                           <br>{{manager.selectedResource.tooltip}}">
                             {{ manager.selectedResource.name }}
                         </a>
                         <ul>
                             <li ng-repeat="rule in manager.selectedResource.rules">
-                                <a data-placement="top" data-animation="am-flip-x" data-auto-close="1" bs-popover data-html="true"
+                                <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                    data-title="ID: {{ rule.id }} - {{ rule.name }}"
                                    data-content="Status: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">{{ rule.match }}</a>
                                 <ul>
                                     <li>
-                                        <a data-placement="top" data-animation="am-flip-x" data-auto-close="1" bs-popover data-html="true"
+                                        <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                            data-title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}"
-                                           data-content="Status: <b>{{rule.pool.status}}</b><br>{{ rule.pool.tooltip }}">{{ rule.pool.name }}</a>
+                                           data-content="Status: <b>{{ rule.pool.status }}</b>
+                                           <br>Environemtn: <b>{{rule.pool.environment}}</b>
+                                           <br>{{ rule.pool.tooltip }}">{{ rule.pool.name }}</a>
                                         <ul>
                                             <li ng-repeat="target in rule.pool.targets">
-                                                <a data-placement="top" data-animation="am-flip-x" data-auto-close="1" bs-popover data-html="true"
+                                                <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                                    data-title="ID: {{ target.id }} - {{ target.name }}"
                                                    data-content="Status: <b>{{target.status}}</b>">{{ target.name }}</a>
                                             </li>

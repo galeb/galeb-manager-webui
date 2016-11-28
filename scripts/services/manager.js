@@ -242,17 +242,21 @@ angular.module('galebWebui')
 		},
 		'loadReport': function (id) {
 			var params = {'path': 'virtualhost', 'id': id};
-			var arrVirtualHost = {};
+			var tmpVirtualHost = {};
 
 			Manager.get(params, function (response) {
-				arrVirtualHost['id'] = response.id;
-				arrVirtualHost['name'] = response.name;
-				arrVirtualHost['status'] = response._status;
-				arrVirtualHost['rulesOrdered'] = response.rulesOrdered;
+				tmpVirtualHost.id = response.id;
+				tmpVirtualHost.name = response.name;
+				tmpVirtualHost.status = response._status;
+				tmpVirtualHost.rulesOrdered = response.rulesOrdered;
 
 				if (response.aliases.length > 0) {
-					arrVirtualHost['tooltip'] = "Aliases:<br><b>" + response.aliases.join("<br>") + "</b>";
+					tmpVirtualHost.tooltip = "Aliases:<br><b>" + response.aliases.join("<br>") + "</b>";
 				}
+
+				response._resources('environment').get(function (envVH) {
+					tmpVirtualHost.environment = envVH.name;
+				});
 
 				response._resources('rules').get(function (rules) {
 					var arrRules = [];
@@ -271,6 +275,10 @@ angular.module('galebWebui')
 									+ "</b><br> Body: <b>" + pool.properties.hcBody + "</b>";
 							}
 							tmpPool.tooltip = hcPool;
+
+							pool._resources('environment').get(function (envPOOL) {
+								tmpPool.environment = envPOOL.name;
+							});
 
 							var arrTargets = [];
 							pool._resources('targets').get(function (targets) {
@@ -291,7 +299,7 @@ angular.module('galebWebui')
 							'pool': tmpPool
 						};
 
-						arrVirtualHost['rulesOrdered'].some(function(item) {
+						tmpVirtualHost.rulesOrdered.some(function(item) {
 							if (item.ruleId == rule.id) {
 								tmpRule.ruleOrder = item.ruleOrder;
 								return true;
@@ -302,9 +310,9 @@ angular.module('galebWebui')
 						arrRules.push(tmpRule);
 					});
 
-					arrVirtualHost['rules'] = $filter('orderBy')(arrRules, 'ruleOrder');
+					tmpVirtualHost.rules = $filter('orderBy')(arrRules, 'ruleOrder');
 				});
-				self.selectedResource = arrVirtualHost;
+				self.selectedResource = tmpVirtualHost;
 			});
 		}
 
