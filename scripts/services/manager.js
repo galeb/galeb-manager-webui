@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, ManagerSearch, ManagerSearchWithSize, ManagerDashboard, $q, toastr) {
+.service('ManagerService', function (Manager, ManagerSearch, ManagerSearchWithSize, ManagerDashboard, $q, toastr, $filter) {
 
 	var self = {
 		'page': 0,
@@ -239,6 +239,62 @@ angular.module('galebWebui')
 				case 'virtualhost':
 					return "Cannot delete a virtualhost with association in rule";
 			}
+		},
+		'loadReport': function (id) {
+			var params = {'path': 'virtualhost', 'id': id};
+			var arrVirtualHost = {};
+
+			Manager.get(params, function (response) {
+				arrVirtualHost['id'] = response.id;
+				arrVirtualHost['name'] = response.name;
+				arrVirtualHost['aliases'] = response.aliases;
+				arrVirtualHost['status'] = response._status;
+				arrVirtualHost['rulesOrdered'] = response.rulesOrdered;
+
+				response._resources('rules').get(function (rules) {
+					var arrRules = [];
+					angular.forEach(rules._embeddedItems, function(rule) {
+						var tmpPool = {};
+						rule._resources('pool').get(function (pool) {
+							tmpPool.id = pool.id;
+							tmpPool.name = pool.name;
+							tmpPool.properties = pool.properties;
+							tmpPool.status = pool._status;
+
+							var arrTargets = [];
+							pool._resources('targets').get(function (targets) {
+								angular.forEach(targets._embeddedItems, function(target) {
+									tmpTarget = {'id': target.id, 'name': target.name, 'status': target._status};
+									arrTargets.push(tmpTarget);
+								});
+							});
+							tmpPool.targets = arrTargets;
+						});
+
+						tmpRule = {
+							'id': rule.id,
+							'name': rule.name,
+							'match': rule.properties.match,
+							'global': rule.global,
+							'status': rule._status,
+							'pool': tmpPool
+						};
+
+						arrVirtualHost['rulesOrdered'].some(function(item) {
+							if (item.ruleId == rule.id) {
+								tmpRule.ruleOrder = item.ruleOrder;
+								return true;
+							} else {
+								tmpRule.ruleOrder = 999999;
+							}
+						});
+						arrRules.push(tmpRule);
+					});
+
+					arrVirtualHost['rules'] = $filter('orderBy')(arrRules, 'ruleOrder');
+				});
+				self.selectedResource = arrVirtualHost;
+			});
 		}
 
 	};

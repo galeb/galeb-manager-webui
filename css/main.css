@@ -206,3 +206,85 @@ body {
     text-transform: none;
     font-size: 14px;
 }
+/* REPORT VIRTUALHOST */
+
+.tree ul {
+    margin: 0 0 0 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li {
+    list-style-type: none;
+    margin:20px 20px 20px 5px;
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li::before {
+    content: "";
+    position: absolute;
+    top:-15px;
+    left:-20px;
+    border-left: 1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    border-radius:0;
+    width:20px;
+    height:26px;
+}
+
+.tree li::after {
+    position:absolute;
+    content:"";
+    top:10px;
+    left:-20px;
+    border-left: 1px solid #ccc;
+    border-top:1px solid #ccc;
+    border-radius:0;
+    width:20px;
+    height:100%;
+}
+
+.tree li:last-child::after  {
+    display:none;
+}
+
+.tree li:last-child:before{
+    border-radius: 0 0 0 5px;
+}
+
+ul.tree>li:first-child::before {
+    display:none;
+}
+
+ul.tree>li:first-child::after {
+    border-radius:5px 0 0 0;
+}
+
+.tree li a {
+    background-color: #EFEFEF;
+    padding:10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.tree li a:hover, .tree li a:hover+ul li a,
+.tree li a:focus, .tree li a:focus+ul li a {
+    background: #DCDCDC;
+    color: #2196f3;
+}
+
+.tree li a:hover+ul li::after, .tree li a:focus+ul li::after,
+.tree li a:hover+ul li::before, .tree li a:focus+ul li::before
+.tree li a:hover+ul::before, .tree li a:focus+ul::before
+.tree li a:hover+ul ul::before, .tree li a:focus+ul ul::before{
+    border-color:  #000;
+}

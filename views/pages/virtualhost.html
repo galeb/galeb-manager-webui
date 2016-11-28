@@ -64,6 +64,11 @@
             <td class="text-center">{{resource.projectObj.name}}</td>
             <td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-center">
+                <a ng-click="showReportModal(resource.id)"
+                   data-toggle="tooltip" title="See complete report of your virtualhost"
+                   data-placement="bottom" onmouseenter="$(this).tooltip('show')" class="btn btn-default btn-sm">
+                    <i class="fa fa-eye fa-fw"></i>
+                </a>
                 <a ng-href="{{manager.statsUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
                    data-toggle="tooltip" title="See metrics of your virtualhost"
                    data-placement="bottom" onmouseenter="$(this).tooltip('show')"

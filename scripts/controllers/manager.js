@@ -218,4 +218,18 @@ angular.module('galebWebui')
       });
     };
 
-  });
+  $scope.showReportModal = function (virtualhost) {
+    $scope.manager.selectedResource = {};
+
+    if (virtualhost) {
+      $scope.manager.loadReport(virtualhost);
+    }
+
+    $scope.reportModal = $modal({
+      scope: $scope,
+      templateUrl: 'views/modal/report.html',
+      show: true
+    });
+  };
+
+});
