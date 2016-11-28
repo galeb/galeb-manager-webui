@@ -10,20 +10,26 @@
             <div class="modal-body">
                 <ul class="tree">
                     <li id="report-first-item">
-                        <a href="#" data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
-                           title="ID: {{ manager.selectedResource.id }} - {{ manager.selectedResource.name }}<br>Status: {{manager.selectedResource.status}} <br>Aliases: {{manager.selectedResource.aliases}}">{{ manager.selectedResource.name }}</a>
+                        <a data-placement="top" data-animation="am-flip-x" data-auto-close="true" bs-popover data-html="true"
+                           data-title="ID: {{ manager.selectedResource.id }} - {{ manager.selectedResource.name }}"
+                           data-content="Status: <b>{{manager.selectedResource.status}}</b> <br>{{manager.selectedResource.tooltip}}">
+                            {{ manager.selectedResource.name }}
+                        </a>
                         <ul>
                             <li ng-repeat="rule in manager.selectedResource.rules">
-                                <a href="#" data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
-                                   title="ID: {{ rule.id }} - {{ rule.name }}<br>Status: {{rule.status}} <br>Global: {{rule.global}}">{{ rule.match }}</a>
+                                <a data-placement="top" data-animation="am-flip-x" data-auto-close="1" bs-popover data-html="true"
+                                   data-title="ID: {{ rule.id }} - {{ rule.name }}"
+                                   data-content="Status: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">{{ rule.match }}</a>
                                 <ul>
                                     <li>
-                                        <a href="#" data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
-                                           title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}<br>Status: {{rule.pool.status}} <br>Properties: {{rule.pool.properties}}">{{ rule.pool.name }}</a>
+                                        <a data-placement="top" data-animation="am-flip-x" data-auto-close="1" bs-popover data-html="true"
+                                           data-title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}"
+                                           data-content="Status: <b>{{rule.pool.status}}</b><br>{{ rule.pool.tooltip }}">{{ rule.pool.name }}</a>
                                         <ul>
                                             <li ng-repeat="target in rule.pool.targets">
-                                                <a href="#"  data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
-                                                   title="ID: {{ target.id }} - {{ target.name }}<br>Status: {{target.status}}">{{ target.name }}</a>
+                                                <a data-placement="top" data-animation="am-flip-x" data-auto-close="1" bs-popover data-html="true"
+                                                   data-title="ID: {{ target.id }} - {{ target.name }}"
+                                                   data-content="Status: <b>{{target.status}}</b>">{{ target.name }}</a>
                                             </li>
                                         </ul>
                                     </li>

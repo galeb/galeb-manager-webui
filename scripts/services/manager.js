@@ -247,9 +247,12 @@ angular.module('galebWebui')
 			Manager.get(params, function (response) {
 				arrVirtualHost['id'] = response.id;
 				arrVirtualHost['name'] = response.name;
-				arrVirtualHost['aliases'] = response.aliases;
 				arrVirtualHost['status'] = response._status;
 				arrVirtualHost['rulesOrdered'] = response.rulesOrdered;
+
+				if (response.aliases.length > 0) {
+					arrVirtualHost['tooltip'] = "Aliases:<br><b>" + response.aliases.join("<br>") + "</b>";
+				}
 
 				response._resources('rules').get(function (rules) {
 					var arrRules = [];
@@ -258,8 +261,16 @@ angular.module('galebWebui')
 						rule._resources('pool').get(function (pool) {
 							tmpPool.id = pool.id;
 							tmpPool.name = pool.name;
-							tmpPool.properties = pool.properties;
 							tmpPool.status = pool._status;
+
+							hcPool = "HealthCheck TCP";
+							if (pool.properties.hcPath) {
+								hcPool = "HealthCheck HTTP <br> Path: <b>" + pool.properties.hcPath
+									+ "</b><br> StatusCode: <b>" + pool.properties.hcStatusCode
+									+ "</b><br> Host: <b>" + pool.properties.hcHost
+									+ "</b><br> Body: <b>" + pool.properties.hcBody + "</b>";
+							}
+							tmpPool.tooltip = hcPool;
 
 							var arrTargets = [];
 							pool._resources('targets').get(function (targets) {
