@@ -170,7 +170,7 @@ angular.module('galebWebui')
 			}, function (error) {
 				self.isSaving = false;
 				if (error.status == 409) {
-					error.statusText = self.showConflict();
+					error.data.statusText = self.showConflict();
 				}
 				toastr.error(error.status + ' - ' + error.data.statusText, self.errorMsg);
 			});
