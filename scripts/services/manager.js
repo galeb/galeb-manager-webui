@@ -170,9 +170,9 @@ angular.module('galebWebui')
 			}, function (error) {
 				self.isSaving = false;
 				if (error.status == 409) {
-					error.statusText = self.showConflict();
+					error.data.statusText = self.showConflict();
 				}
-				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
+				toastr.error(error.status + ' - ' + error.data.statusText, self.errorMsg);
 			});
 			return d.promise;
 		},
@@ -188,9 +188,9 @@ angular.module('galebWebui')
 				self.isDeleting = false;
 				self.selectedResource = null;
 				if (error.status == 409) {
-					error.statusText = self.showConflict();
+					error.data.statusText = self.showConflict();
 				}
-				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
+				toastr.error(error.status + ' - ' + error.data.statusText, self.errorMsg);
 			});
 			return d.promise;
 		},
@@ -204,7 +204,7 @@ angular.module('galebWebui')
 				d.resolve();
 			}, function (error) {
 				self.isSaving = false;
-				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
+				toastr.error(error.status + ' - ' + error.data.statusText, self.errorMsg);
 			});
 			return d.promise;
 		},
