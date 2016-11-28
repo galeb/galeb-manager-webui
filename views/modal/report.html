@@ -1,0 +1,42 @@
+<div id="reportModal" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        ng-click="reportModal.hide()">&times;</button>
+                <h4 class="modal-title">VirtualHost Report</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="tree">
+                    <li id="report-first-item">
+                        <a href="#" data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
+                           title="ID: {{ manager.selectedResource.id }} - {{ manager.selectedResource.name }}<br>Status: {{manager.selectedResource.status}} <br>Aliases: {{manager.selectedResource.aliases}}">{{ manager.selectedResource.name }}</a>
+                        <ul>
+                            <li ng-repeat="rule in manager.selectedResource.rules">
+                                <a href="#" data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
+                                   title="ID: {{ rule.id }} - {{ rule.name }}<br>Status: {{rule.status}} <br>Global: {{rule.global}}">{{ rule.match }}</a>
+                                <ul>
+                                    <li>
+                                        <a href="#" data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
+                                           title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}<br>Status: {{rule.pool.status}} <br>Properties: {{rule.pool.properties}}">{{ rule.pool.name }}</a>
+                                        <ul>
+                                            <li ng-repeat="target in rule.pool.targets">
+                                                <a href="#"  data-toggle="tooltip" onmouseenter="$(this).tooltip('show')" data-html="true"
+                                                   title="ID: {{ target.id }} - {{ target.name }}<br>Status: {{target.status}}">{{ target.name }}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" ng-click="reportModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
