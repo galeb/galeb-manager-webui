@@ -1,9 +1,9 @@
 <button class="btn btn-default btn-sm" ng-click="showManagerModal(resource)" data-toggle="tooltip"
-        title="Edit your entity" data-placement="bottom" onmouseenter="$(this).tooltip('show')">
+        title="Edit your entity" data-placement="bottom" bs-tooltip>
   <i class="fa fa-pencil"></i>
 </button>
 <button class="btn btn-danger btn-sm" ladda="manager.isDeleting" data-spinner-size="20"
         data-toggle="tooltip" title="Remove your entity" data-placement="bottom"
-        onmouseenter="$(this).tooltip('show')" ng-click="removeResource(resource)">
+        bs-tooltip ng-click="removeResource(resource)">
   <i class="fa fa-trash-o"></i>
 </button>

@@ -66,18 +66,18 @@
             <td class="text-center">
                 <a ng-click="showReportModal(resource.id)"
                    data-toggle="tooltip" title="See complete report of your virtualhost"
-                   data-placement="bottom" onmouseenter="$(this).tooltip('show')" class="btn btn-default btn-sm">
+                   data-placement="bottom" bs-tooltip class="btn btn-default btn-sm">
                     <i class="fa fa-eye fa-fw"></i>
                 </a>
                 <a ng-href="{{manager.statsUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
                    data-toggle="tooltip" title="See metrics of your virtualhost"
-                   data-placement="bottom" onmouseenter="$(this).tooltip('show')"
+                   data-placement="bottom" bs-tooltip
                    target="_blank" class="btn btn-default btn-sm">
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
                 <a ng-href="{{manager.logUrl}}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
                    data-toggle="tooltip" title="See access log of your virtualhost"
-                   data-placement="bottom" onmouseenter="$(this).tooltip('show')"
+                   data-placement="bottom" bs-tooltip
                    ng-if="manager.logEnv == '' || resource.environmentObj.name == manager.logEnv">
                     <i class="fa fa-file-text-o fa-fw"></i>
                 </a>
