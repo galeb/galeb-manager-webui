@@ -16,10 +16,11 @@
               <input id="id" name="id" ng-model="manager.selectedResource.id"
               value="{{manager.selectedResource.id}}" class="hidden"/>
               <input id="name" name="name" ng-model="manager.selectedResource.name" type="text"
-              class="form-control input-md" placeholder="http://127.0.0.1:80" ng-disabled="manager.selectedResource.id"
+              class="form-control input-md" placeholder="http://127.0.0.1:80" ng-if="!manager.selectedResource.id"
               ng-pattern="/^(http:\/\/)(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(([1-9]\d{0,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5]))$/"
               ng-pattern-err-type="badTarget"
               required>
+              <p class="form-control-static" ng-if="manager.selectedResource.id"><b>{{manager.selectedResource.name}}</b></p>
             </div>
           </div>
 
