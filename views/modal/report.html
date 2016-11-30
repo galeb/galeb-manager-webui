@@ -15,25 +15,35 @@
                            data-content="Status: <b>{{manager.selectedResource.status}}</b>
                            <br>Environment: <b>{{manager.selectedResource.environment}}</b>
                            <br>{{manager.selectedResource.tooltip}}">
-                            {{ manager.selectedResource.name }}
+                            <gw-status status="{{ manager.selectedResource.status }}"></gw-status>
+                            &nbsp;{{ manager.selectedResource.name }}
                         </a>
                         <ul>
                             <li ng-repeat="rule in manager.selectedResource.rules">
                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                    data-title="ID: {{ rule.id }} - {{ rule.name }}"
-                                   data-content="Status: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">{{ rule.match }}</a>
+                                   data-content="Status: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">
+                                    <gw-status status="{{ rule.status }}"></gw-status>
+                                    &nbsp;{{ rule.match }}
+                                </a>
                                 <ul>
                                     <li>
                                         <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                            data-title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}"
                                            data-content="Status: <b>{{ rule.pool.status }}</b>
                                            <br>Environment: <b>{{rule.pool.environment}}</b>
-                                           <br>{{ rule.pool.tooltip }}">{{ rule.pool.name }}</a>
+                                           <br>{{ rule.pool.tooltip }}">
+                                            <gw-status status="{{ rule.pool.status }}"></gw-status>
+                                            &nbsp;{{ rule.pool.name }}
+                                        </a>
                                         <ul>
                                             <li ng-repeat="target in rule.pool.targets">
                                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                                    data-title="ID: {{ target.id }} - {{ target.name }}"
-                                                   data-content="Status: <b>{{target.status}}</b>">{{ target.name }}</a>
+                                                   data-content="Status: <b>{{target.status}}</b>">
+                                                    <gw-status status="{{ target.status }}"></gw-status>
+                                                    &nbsp;{{ target.name }}
+                                                </a>
                                             </li>
                                         </ul>
                                     </li>

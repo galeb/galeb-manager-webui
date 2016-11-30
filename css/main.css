@@ -290,6 +290,10 @@ ul.tree>li:first-child::after {
     border-color:  #DCDCDC;
 }
 
+.tree i.fa.fa-circle {
+    font-size: 8px;
+}
+
 .popover {
     display: inline-block;
     white-space: nowrap;
