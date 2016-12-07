@@ -1,0 +1,303 @@
+<div id="wizardModal" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        ng-click="wizardModal.hide()">&times;</button>
+                <h4 class="modal-title">Create wizard</h4>
+            </div>
+
+
+            <wizard on-finish="saveWizard()" indicators-position="top">
+                <wz-step wz-title="pool" canexit="validationStepPool">
+                    <form name="wizardFormPool" id="wizardFormPool" novalidate class="form-horizontal">
+                        <div class="modal-body">
+                            <hr>
+
+                            <div class="form-group">
+
+                                <input class="hidden" id="envPool" name="envPool" ng-model="manager.selectedResource.pool.environment"
+                                       value="{{manager.selectedResource.pool.environment=manager.selectedResource.virtualhost.environment}}" />
+
+                                <input class="hidden" id="projPool" name="projPool" ng-model="manager.selectedResource.pool.project"
+                                       value="{{manager.selectedResource.pool.project=manager.selectedResource.virtualhost.project}}" />
+
+                                <label class="col-sm-3 control-label" for="namePool">Name</label>
+
+                                <div class="col-sm-8">
+                                    <input id="namePool" name="namePool" ng-model="manager.selectedResource.pool.name" type="text"
+                                           class="form-control input-md" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-controller="BalancePolicyController">
+                                <label class="col-sm-3 control-label">BalancePolicy</label>
+
+                                <div class="col-sm-8">
+                                    <ui-select ng-model="manager.selectedResource.pool.balancePolicy" required>
+                                        <ui-select-match placeholder="Select one balancepolicy">
+                                            <span ng-bind="$select.selected.name"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="balancepolicy.selfLink as balancepolicy in (manager.balancepolicy
+          | filter: { name: '!Default' }
+          | filter: { name: $select.search }) track by balancepolicy.id">
+                                            <div ng-bind-html="balancepolicy.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="hcTCP">&nbsp;</label>
+
+                                <div class="col-sm-8">
+                                    <label>
+                                        <input type="checkbox" ng-model="manager.selectedResource.pool.hcTCP" id="hcTCP"
+                                               disable-valid-styling="true">
+                                        Healthcheck TCP Only?
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.pool.hcTCP">
+                                <label class="col-sm-3 control-label" for="properties.hcPath">HealthChecker Path</label>
+
+                                <div class="col-sm-8">
+                                    <input id="properties.hcPath" name="properties.hcPath"
+                                           ng-model="manager.selectedResource.pool.properties.hcPath" type="text"
+                                           ng-pattern="/^\//" ng-pattern-err-type="badHCPath"
+                                           class="form-control input-md" required>
+                                    <span class="help-block">Example: /healthcheck.html</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.pool.hcTCP">
+                                <label class="col-sm-3 control-label" for="properties.hcStatusCode">HealthChecker Status</label>
+
+                                <div class="col-sm-8">
+                                    <input id="properties.hcStatusCode" name="properties.hcStatusCode"
+                                           ng-model="manager.selectedResource.pool.properties.hcStatusCode" type="text"
+                                           class="form-control input-md" required>
+                                    <span class="help-block">Example: 200</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.pool.hcTCP">
+                                <label class="col-sm-3 control-label" for="properties.hcHost">HealthChecker Host</label>
+
+                                <div class="col-sm-8">
+                                    <input id="properties.hcHost" name="properties.hcHost"
+                                           ng-model="manager.selectedResource.pool.properties.hcHost" type="text"
+                                           class="form-control input-md">
+                                    <span class="help-block">Example: localhost.com (Default don't send header host)</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.pool.hcTCP">
+                                <label class="col-sm-3 control-label" for="properties.hcBody">HealthChecker Body</label>
+
+                                <div class="col-sm-8">
+                                    <input id="properties.hcBody" name="properties.hcBody"
+                                           ng-model="manager.selectedResource.pool.properties.hcBody" type="text"
+                                           class="form-control input-md">
+                                    <span class="help-block">Example: WORKING (Default don't check response body)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" wz-next value="Next" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </wz-step>
+
+                <wz-step wz-title="target" canexit="validationStepTarget">
+                    <form name="wizardFormTarget" id="wizardFormTarget" novalidate class="form-horizontal">
+                        <div class="modal-body">
+                            <hr>
+
+                            <div class="form-group">
+
+                                <input class="hidden" id="envTarget" name="envTarget" ng-model="manager.selectedResource.target.environment"
+                                       value="{{manager.selectedResource.target.environment=manager.selectedResource.virtualhost.environment}}" />
+
+                                <input class="hidden" id="projTarget" name="projTarget" ng-model="manager.selectedResource.target.project"
+                                       value="{{manager.selectedResource.target.project=manager.selectedResource.virtualhost.project}}" />
+
+                                <label class="col-sm-3 control-label" for="nameTarget">Name</label>
+
+                                <div class="col-sm-8">
+                                    <input id="nameTarget" name="nameTarget" ng-model="manager.selectedResource.target.name" type="text"
+                                           class="form-control input-md" placeholder="http://127.0.0.1:80"
+                                           ng-pattern="/^(http:\/\/)(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(([1-9]\d{0,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5]))$/"
+                                           ng-pattern-err-type="badTarget"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" wz-previous value="Back" class="btn btn-default" />
+                            <input type="submit" wz-next value="Next" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </wz-step>
+
+                <wz-step wz-title="virtualhost" canexit="validationStepVirtualHost">
+                    <form name="wizardFormVirtualHost" id="wizardFormVirtualHost" novalidate class="form-horizontal">
+                        <div class="modal-body">
+                            <hr>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="nameVH">Name</label>
+
+                                <div class="col-sm-8">
+                                    <input id="nameVH" name="nameVH" ng-model="manager.selectedResource.virtualhost.name" type="text"
+                                           class="form-control input-md" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="aliases">Aliases</label>
+
+                                <div class="col-sm-8">
+
+                                    <input id="aliases" name="aliases" ng-list
+                                           ng-model="manager.selectedResource.virtualhost.aliases" type="text"
+                                           class="form-control input-md"
+                                           disable-valid-styling="true">
+                                    <span class="help-block">Use commas to separate your alias.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="allows">Allows</label>
+                                <div class="col-sm-8">
+
+                                    <input id="allows" name="allows" ng-model="manager.selectedResource.virtualhost.properties.allows" type="text"
+                                           class="form-control input-md" ng-pattern="regex_virtualhost_allows" ng-pattern-err-type="badAllows"
+                                           disable-valid-styling="true">
+                                    <span class="help-block">Use commas to separate IPs.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Project</label>
+
+                                <div class="col-sm-8">
+                                    <ui-select ng-model="manager.selectedResource.virtualhost.project" required>
+                                        <ui-select-match placeholder="Select one project">
+                                            <span ng-bind="$select.selected.name"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="project.selfLink as project in (manager.project
+          | filter: { name: $select.search }) track by project.id"
+                                                           refresh="manager.loadListResources('project', $select.search)"
+                                                           refresh-delay="500"
+                                                           minimum-input-length="2">
+                                            <div ng-bind-html="project.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-controller="EnvironmentController">
+                                <label class="col-sm-3 control-label">Environment</label>
+
+                                <div class="col-sm-8">
+                                    <ui-select ng-model="manager.selectedResource.virtualhost.environment" required>
+                                        <ui-select-match placeholder="Select one environment">
+                                            <span ng-bind="$select.selected.name"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="environment.selfLink as environment in (manager.environment
+          | filter: { name: '!Null Environment' }
+          | filter: { name: $select.search }) track by environment.id">
+                                            <div ng-bind-html="environment.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" wz-previous value="Back" class="btn btn-default" />
+                            <input type="submit" wz-next value="Next" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </wz-step>
+
+                <wz-step wz-title="rule" canexit="validationStepRule">
+                    <form name="wizardFormRule" id="wizardFormRule" novalidate class="form-horizontal">
+                        <div class="modal-body">
+                            <hr>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="nameRule">Name</label>
+
+                                <div class="col-sm-8">
+                                    <input id="nameRule" name="nameRule" ng-model="manager.selectedResource.rule.name" type="text"
+                                           class="form-control input-md" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="globalRule">&nbsp;</label>
+
+                                <div class="col-sm-8">
+                                    <label>
+                                        <input type="checkbox" ng-model="manager.selectedResource.rule.global" id="globalRule"
+                                               disable-valid-styling="true">
+                                        Global rule?
+                                    </label>
+                                    <span class="help-block">Be careful when you select this option this rule will be global and visible to all.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-controller="RuleTypeController">
+                                <label class="col-sm-3 control-label">RuleType</label>
+
+                                <div class="col-sm-8">
+                                    <ui-select ng-model="manager.selectedResource.rule.ruleType" required>
+                                        <ui-select-match placeholder="Select one ruletype">
+                                            <span ng-bind="$select.selected.name"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="ruletype.selfLink as ruletype in (manager.ruletype
+          | filter: $select.search) track by ruletype.id">
+                                            <div ng-bind-html="ruletype.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="properties.match">Rule Match</label>
+
+                                <div class="col-sm-8">
+                                    <input id="properties.match" name="properties.match"
+                                           ng-model="manager.selectedResource.rule.properties.match" type="text"
+                                           class="form-control input-md" required>
+                                    <span class="help-block">Example: /home</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" wz-previous value="Back" class="btn btn-default" />
+                            <input type="submit" wz-next value="Next" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </wz-step>
+
+                <wz-step wz-title="resume">
+                    <div class="modal-body">
+                        <hr>
+                        <pre>{{ manager.selectedResource | json }}</pre>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" wz-reset value="Start Again" class="btn btn-danger pull-left" />
+                        <input type="button" wz-previous value="Back" class="btn btn-default" />
+                        <input type="button" wz-next value="Create it!" class="btn btn-primary" />
+                    </div>
+                </wz-step>
+            </wizard>
+        </div>
+    </div>
+</div>

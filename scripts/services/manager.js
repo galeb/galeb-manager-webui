@@ -314,6 +314,15 @@ angular.module('galebWebui')
 				});
 				self.selectedResource = tmpVirtualHost;
 			});
+		},
+		'createWizard': function (key, resource) {
+			var d = $q.defer();
+			Manager.save({'path': key}, resource, function (data, headers) {
+				d.resolve(headers('Location'));
+			}, function (error) {
+				d.reject(error);
+			});
+			return d.promise;
 		}
 
 	};

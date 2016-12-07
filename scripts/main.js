@@ -14,7 +14,8 @@ angular.module('galebWebui', [
 	'ui.sortable',
 	'angular-md5',
 	'ngSanitize',
-	'ui.select'
+	'ui.select',
+	'mgo-angular-wizard'
 ]).config(function ($stateProvider, $urlRouterProvider, $httpProvider, $resourceProvider, laddaProvider,
 	SpringDataRestInterceptorProvider, toastrConfig) {
 
