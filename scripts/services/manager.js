@@ -111,7 +111,7 @@ angular.module('galebWebui')
 							});
 						});
 
-						resource['nameStats'] = resource.name.replace(/\./g,'_');
+						resource['nameStats'] = resource.name.replace(/\./g,'_').replace(/-(blue|green)/g,'');
 						resource['aliasStats'] = {};
 						angular.forEach(resource.aliases, function(item) {
 							resource['aliasStats'][item] = item.replace(/\./g,'_');

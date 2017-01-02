@@ -11,7 +11,8 @@ angular.module('galebWebui')
     $scope.manager.searchText = '';
     $scope.manager.loadResources();
 
-    $scope.manager.statsUrl = config.statsUrl;
+    $scope.manager.statsVirtualhostUrl = config.statsVirtualhostUrl;
+    $scope.manager.statsFarmUrl = config.statsFarmUrl;
     $scope.manager.logUrl = config.logUrl;
     $scope.manager.logEnv = config.logEnv;
 

@@ -34,6 +34,13 @@
 			<td>{{resource.providerObj.name}}</td>
 			<td>{{resource.environmentObj.name}}</td>
 			<td class="text-center">
+				<a ng-href="{{manager.statsFarmUrl}}{{resource.nameStats}}"
+				   data-toggle="tooltip" title="See metrics of your farm"
+				   data-placement="bottom" bs-tooltip
+				   target="_blank" class="btn btn-default btn-sm">
+					<i class="fa fa-bar-chart fa-fw"></i>
+				</a>
+				&nbsp;
 				<ng-include src="'views/common/buttons.table.html'"></ng-include>
 				&nbsp;
 				<button class="btn btn-warning btn-sm" ladda="manager.isReloading" data-spinner-size="20"
