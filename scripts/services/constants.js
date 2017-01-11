@@ -5,7 +5,7 @@ angular.module('galebWebui')
   'statusGaleb': 'http://status-galeb.localhost/',
   'statusIaaS': 'http://status-iaas.localhost/',
   'logUrl': 'http://logs.localhost/',
-  'logEnv': 'dev',
+  'logEnv': ['dev','prod'],
   'alertTeam': 'Galeb',
   'alertMail': 'contact@galeb.io'
 });
