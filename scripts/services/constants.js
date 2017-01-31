@@ -6,7 +6,13 @@ angular.module('galebWebui')
   'statusGaleb': 'http://status-galeb.localhost/',
   'statusIaaS': 'http://status-iaas.localhost/',
   'logUrl': 'http://logs.localhost/',
-  'logEnv': 'dev-be',
+  'logEnv': "['dev']",
   'alertTeam': 'Galeb',
-  'alertMail': 'contact@galeb.io'
+  'alertMail': 'contact@galeb.io',
+  'statusColor': {
+    'OK': ' text-success',
+    'ERROR': ' text-danger',
+    'UNKNOWN': ' ',
+    'PENDING': ' text-warning',
+  }
 });

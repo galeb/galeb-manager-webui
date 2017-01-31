@@ -23,7 +23,7 @@
 		<tr ng-repeat="resource in manager.resources">
 			<td class="text-center">{{resource.id}}</td>
 			<td class="text-center">
-				<ng-include src="'views/common/status.table.html'"></ng-include>
+				<gw-status status="{{ resource._status }}"></gw-status>
 			</td>
 			<td>{{resource.name}}</td>
 			<td>{{resource.balancePolicyTypeObj.name}}</td>
