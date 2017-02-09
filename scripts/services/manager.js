@@ -111,7 +111,12 @@ angular.module('galebWebui')
 							});
 						});
 
-						resource['nameStats'] = resource.name.replace(/\./g,'_').replace(/-(blue|green)/g,'');
+						console.log(self.apiPath);
+						if (self.apiPath == 'farm') {
+							resource['nameStats'] = resource.domain.split('.')[0];
+						} else {
+							resource['nameStats'] = resource.name.replace(/\./g, '_');
+						}
 						resource['aliasStats'] = {};
 						angular.forEach(resource.aliases, function(item) {
 							resource['aliasStats'][item] = item.replace(/\./g,'_');
