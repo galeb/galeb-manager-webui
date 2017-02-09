@@ -5,8 +5,8 @@ angular.module('galebWebui')
   'statsFarmUrl': 'http://stats-farm.localhost/',
   'statusGaleb': 'http://status-galeb.localhost/',
   'statusIaaS': 'http://status-iaas.localhost/',
-  'logUrl': 'http://logs.localhost/',
-  'logEnv': "['dev']",
+  'logUrlProd': 'http://logs-prod.localhost/',
+  'logUrlDev': 'http://logs-dev.localhost/',
   'alertTeam': 'Galeb',
   'alertMail': 'contact@galeb.io',
   "statusColor": {

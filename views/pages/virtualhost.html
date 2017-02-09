@@ -64,22 +64,22 @@
             <td class="text-center">{{resource.projectObj.name}}</td>
             <td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-right">
-                <a ng-href="{{manager.logUrl}}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
+                <a ng-href="{{manager.statsVirtualhostUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
+                   data-toggle="tooltip" title="See metrics of your virtualhost"
+                   data-placement="bottom" bs-tooltip
+                   target="_blank" class="btn btn-default btn-sm">
+                    <i class="fa fa-bar-chart fa-fw"></i>
+                </a>
+                <a ng-href="{{resource.environmentObj.name.toLowerCase().indexOf('dev') === -1 ? manager.logUrlProd : manager.logUrlDev }}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
                    data-toggle="tooltip" title="See access log of your virtualhost"
                    data-placement="bottom" bs-tooltip
-                   ng-if="manager.logEnv == '' || manager.logEnv.indexOf(resource.environmentObj.name) !== -1">
+                   ng-if="resource.environmentObj.name.toLowerCase().indexOf('qa2') === -1">
                     <i class="fa fa-file-text-o fa-fw"></i>
                 </a>
                 <a ng-click="showReportModal(resource.id)"
                    data-toggle="tooltip" title="See complete report of your virtualhost"
                    data-placement="bottom" bs-tooltip class="btn btn-default btn-sm">
                     <i class="fa fa-eye fa-fw"></i>
-                </a>
-                <a ng-href="{{manager.statsVirtualhostUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
-                   data-toggle="tooltip" title="See metrics of your virtualhost"
-                   data-placement="bottom" bs-tooltip
-                   target="_blank" class="btn btn-default btn-sm">
-                    <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
                 &nbsp;&nbsp;
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
