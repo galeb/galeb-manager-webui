@@ -3,6 +3,7 @@ angular.module('galebWebui')
   'apiUrl': 'http://localhost',
   'statsVirtualhostUrl': 'http://stats-virtualhost.localhost/',
   'statsFarmUrl': 'http://stats-farm.localhost/',
+  'statsUrlEnv': "['dev']",
   'statusGaleb': 'http://status-galeb.localhost/',
   'statusIaaS': 'http://status-iaas.localhost/',
   'logUrlProd': 'http://logs-prod.localhost/',
