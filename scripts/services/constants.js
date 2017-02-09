@@ -1,13 +1,13 @@
 angular.module('galebWebui')
 .constant('config', {
-  'apiUrl': 'http://localhost',
-  'statsVirtualhostUrl': 'http://stats-virtualhost.localhost/',
-  'statsFarmUrl': 'http://stats-farm.localhost/',
-  'statsUrlEnv': "['dev']",
-  'statusGaleb': 'http://status-galeb.localhost/',
-  'statusIaaS': 'http://status-iaas.localhost/',
-  'logUrlProd': 'http://logs-prod.localhost/',
-  'logUrlDev': 'http://logs-dev.localhost/',
+  'apiUrl': 'api-url',
+  'statsVirtualhostUrl': 'stats-virtualhost',
+  'statsFarmUrl': 'stats-farm',
+  'statsUrlEnv': "['env']",
+  'statusGaleb': 'status-galeb',
+  'statusIaaS': 'status-iaas',
+  'logUrlProd': 'logs-prod',
+  'logUrlDev': 'logs-dev',
   'alertTeam': 'Galeb',
   'alertMail': 'contact@galeb.io',
   "statusColor": {
