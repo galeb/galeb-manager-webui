@@ -28,6 +28,10 @@ angular.module('galebWebui')
       $scope.manager.doSort(sortType);
     };
 
+    $scope.replace = function(element) {
+        return element.replace(/\,/g, "<br>");
+    }
+
     $scope.showManagerModal = function (resource) {
       $scope.mode = 'Create';
       $scope.manager.selectedResource = {};

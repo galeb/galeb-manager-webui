@@ -30,7 +30,7 @@
 			</td>
 			<td>{{resource.name}}</td>
 			<td>{{resource.domain}}</td>
-			<td>{{resource.api}}</td>
+			<td ng-bind-html="replace(resource.api)"></td>
 			<td>{{resource.providerObj.name}}</td>
 			<td>{{resource.environmentObj.name}}</td>
 			<td class="text-center">
