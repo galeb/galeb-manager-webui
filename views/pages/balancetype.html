@@ -14,7 +14,7 @@
 		<thead>
 		<tr>
 			<th class="col-05 text-center">#</th>
-			<th class="col-05">Status</th>
+			<th class="col-05 text-center">Sync</th>
 			<th class="col-8">Name</th>
 			<th class="col-1">&nbsp;</th>
 		</tr>
@@ -22,7 +22,7 @@
 		<tr ng-repeat="resource in manager.resources">
 			<td class="text-center">{{resource.id}}</td>
 			<td class="text-center">
-				<gw-status status="{{ resource._status }}"></gw-status>
+				<gw-sync status="{{ resource._status }}"></gw-sync>
 			</td>
 			<td>{{resource.name}}</td>
 			<td class="text-center">

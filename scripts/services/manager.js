@@ -283,7 +283,7 @@ angular.module('galebWebui')
 							var arrTargets = [];
 							pool._resources('targets').get(function (targets) {
 								angular.forEach(targets._embeddedItems, function(target) {
-									tmpTarget = {'id': target.id, 'name': target.name, 'status': target._status};
+									tmpTarget = {'id': target.id, 'name': target.name, 'status': target._status, 'healthy': target._healthy};
 									arrTargets.push(tmpTarget);
 								});
 							});

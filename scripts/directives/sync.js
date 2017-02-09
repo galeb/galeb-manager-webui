@@ -1,13 +1,13 @@
 angular.module('galebWebui')
-.directive('gwStatus', function(config) {
+.directive('gwSync', function(config) {
     return {
         restrict: 'AE',
-        templateUrl: 'views/common/status.html',
+        templateUrl: 'views/common/sync.html',
         scope: {
             status: '@'
         },
         link: function(scope, el, attr) {
-            scope.statusColor = config.statusColor;
+            scope.syncColor = config.statusColor;
         },
     }
 });

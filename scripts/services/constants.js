@@ -9,10 +9,12 @@ angular.module('galebWebui')
   'logEnv': "['dev']",
   'alertTeam': 'Galeb',
   'alertMail': 'contact@galeb.io',
-  'statusColor': {
+  "statusColor": {
     'OK': ' text-success',
     'ERROR': ' text-danger',
-    'UNKNOWN': ' ',
+    'UNKNOWN': ' fa-minus text-default',
     'PENDING': ' text-warning',
+    'HEALTHY': ' fa-check text-success',
+    'DEAD': ' fa-close text-danger',
   }
 });

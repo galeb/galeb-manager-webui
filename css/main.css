@@ -51,6 +51,9 @@ body {
 .table .col-2 {
     width: 20%;
 }
+.table .col-2-5 {
+    width: 25%;
+}
 .table .col-3 {
     width: 30%;
 }
@@ -298,3 +301,4 @@ ul.tree>li:first-child::after {
     display: inline-block;
     white-space: nowrap;
 }
+.text-default{color:#666666}

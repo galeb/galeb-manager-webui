@@ -12,37 +12,39 @@
                     <li id="report-first-item">
                         <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                            data-title="ID: {{ manager.selectedResource.id }} - {{ manager.selectedResource.name }}"
-                           data-content="Status: <b>{{manager.selectedResource.status}}</b>
+                           data-content="Sync: <b>{{manager.selectedResource.status}}</b>
                            <br>Environment: <b>{{manager.selectedResource.environment}}</b>
                            <br>{{manager.selectedResource.tooltip}}">
-                            <gw-status status="{{ manager.selectedResource.status }}"></gw-status>
+                            <gw-sync status="{{ manager.selectedResource.status }}"></gw-sync>
                             &nbsp;{{ manager.selectedResource.name }}
                         </a>
                         <ul>
                             <li ng-repeat="rule in manager.selectedResource.rules">
                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                    data-title="ID: {{ rule.id }} - {{ rule.name }}"
-                                   data-content="Status: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">
-                                    <gw-status status="{{ rule.status }}"></gw-status>
+                                   data-content="Sync: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">
+                                    <gw-sync status="{{ rule.status }}"></gw-sync>
                                     &nbsp;{{ rule.match }}
                                 </a>
                                 <ul>
                                     <li>
                                         <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                            data-title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}"
-                                           data-content="Status: <b>{{ rule.pool.status }}</b>
+                                           data-content="Sync: <b>{{ rule.pool.status }}</b>
                                            <br>Environment: <b>{{rule.pool.environment}}</b>
                                            <br>{{ rule.pool.tooltip }}">
-                                            <gw-status status="{{ rule.pool.status }}"></gw-status>
+                                            <gw-sync status="{{ rule.pool.status }}"></gw-sync>
                                             &nbsp;{{ rule.pool.name }}
                                         </a>
                                         <ul>
                                             <li ng-repeat="target in rule.pool.targets">
                                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                                    data-title="ID: {{ target.id }} - {{ target.name }}"
-                                                   data-content="Status: <b>{{target.status}}</b>">
-                                                    <gw-status status="{{ target.status }}"></gw-status>
-                                                    &nbsp;{{ target.name }}
+                                                   data-content="Sync: <b>{{target.status}}</b>
+                                                   <br>Health: <b>{{ target.healthy }}</b>">
+                                                    <gw-sync status="{{ target.status }}"></gw-sync>
+                                                    &nbsp;{{ target.name }}&nbsp;
+                                                    <gw-health status="{{ target.healthy }}"></gw-health>
                                                 </a>
                                             </li>
                                         </ul>
