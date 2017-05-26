@@ -200,7 +200,7 @@ angular.module('galebWebui', [
 		$rootScope.hasTeam = AuthService.isLoggedIn() ? AuthService.hasTeam() : true;
 		$rootScope.alertTeam = config.alertTeam;
 		$rootScope.alertMail = config.alertMail;
-		$rootScope.links_monitors = config.links_monitors;
+		$rootScope.links_monitors = eval(config.links_monitors);
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 			$rootScope.currentState = toState.name;
