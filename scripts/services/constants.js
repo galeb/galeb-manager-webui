@@ -18,5 +18,5 @@ angular.module('galebWebui')
     'HEALTHY': ' fa-check text-success',
     'DEAD': ' fa-close text-danger',
   },
-  'links_monitors': 'hash-links-monitors'
+  "links_monitors": "hash-links-monitors"
 });
