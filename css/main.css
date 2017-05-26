@@ -197,6 +197,11 @@ body {
     padding: 0;
     margin: -5px;
 }
+.small {
+    font-size: 17px;
+    padding: 0;
+    margin: -2px;
+}
 .btn-success {
     margin-left: 100px;
 }
