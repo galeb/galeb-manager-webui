@@ -10,13 +10,14 @@ angular.module('galebWebui')
   'logUrlDev': 'logs-dev',
   'alertTeam': 'Galeb',
   'alertMail': 'contact@galeb.io',
-  "statusColor": {
+  "syncColor": {
     'OK': ' text-success',
     'ERROR': ' text-danger',
-    'UNKNOWN': ' fa-minus text-default',
-    'PENDING': ' text-warning',
-    'HEALTHY': ' fa-check text-success',
-    'DEAD': ' fa-close text-danger',
+    'PENDING': ' text-warning'
+  },
+  "healthColor": {
+      'OK': ' fa-check text-success',
+      'UNKNOWN': ' fa-close text-danger'
   },
   "links_monitors": "hash-links-monitors"
 });

@@ -8,7 +8,7 @@ angular.module('galebWebui')
             message: '@',
         },
         link: function(scope, el, attr) {
-            scope.healthColor = config.statusColor;
+            scope.healthColor = config.healthColor;
         },
     }
 });

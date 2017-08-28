@@ -7,7 +7,7 @@ angular.module('galebWebui')
             status: '@'
         },
         link: function(scope, el, attr) {
-            scope.syncColor = config.statusColor;
+            scope.syncColor = config.syncColor;
         },
     }
 });
