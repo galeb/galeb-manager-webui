@@ -57,8 +57,20 @@ body {
 .table .col-3 {
     width: 30%;
 }
+.table .col-3-5 {
+    width: 35%;
+}
 .table .col-4 {
     width: 40%;
+}
+.table .col-4-5 {
+    width: 45%;
+}
+.table .col-5-5 {
+    width: 55%;
+}
+.table .col-8-5 {
+    width: 85%;
 }
 .table tr td {
     vertical-align: middle;

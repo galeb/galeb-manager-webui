@@ -46,7 +46,7 @@
 				<gw-sync status="{{ resource._status }}"></gw-sync>
             </td>
 			<td class="text-center">
-				<gw-health status="{{ resource._healthy }}"></gw-health>
+				<gw-health status="{{ resource.properties.healthy }}" message="{{ resource.properties.status_detailed }}"></gw-health>
 			</td>
 			<td>
 				{{resource.name}}

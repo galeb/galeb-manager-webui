@@ -14,8 +14,7 @@
 		<thead>
 		<tr>
 			<th class="col-05 text-center">#</th>
-			<th class="col-05 text-center">Sync</th>
-			<th class="col-4">Name</th>
+			<th class="col-4-5">Name</th>
 			<th class="col-2">Driver</th>
 			<th class="col-2">Provisiong</th>
 			<th class="col-1">&nbsp;</th>
@@ -23,9 +22,6 @@
 		</thead>
 		<tr ng-repeat="resource in manager.resources">
 			<td class="text-center">{{resource.id}}</td>
-			<td class="text-center">
-				<gw-sync status="{{ resource._status }}"></gw-sync>
-			</td>
 			<td>{{resource.name}}</td>
 			<td>{{resource.driver}}</td>
 			<td>{{resource.provisioning}}</td>
