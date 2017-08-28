@@ -284,10 +284,23 @@ angular.module('galebWebui')
 								tmpPool.environment = envPOOL.name;
 							});
 
+							pool._resources('balancePolicy').get(function (envBALANCE) {
+								tmpPool.balance = envBALANCE.name;
+							});
+
 							var arrTargets = [];
 							pool._resources('targets').get(function (targets) {
 								angular.forEach(targets._embeddedItems, function(target) {
-									tmpTarget = {'id': target.id, 'name': target.name, 'status': target._status, 'healthy': target._healthy};
+									tmpTarget = {
+										'id': target.id,
+										'name': target.name,
+										'status': target._status,
+										'healthy': target.properties.healthy,
+										'status_detailed': target.properties.status_detailed
+									};
+									if (target.properties.status_detailed != 'OK') {
+										tmpTarget.detailed = "<br>Details: <b>" + target.properties.status_detailed  + "</b>"
+									}
 									arrTargets.push(tmpTarget);
 								});
 							});

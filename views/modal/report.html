@@ -32,6 +32,7 @@
                                            data-title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}"
                                            data-content="Sync: <b>{{ rule.pool.status }}</b>
                                            <br>Environment: <b>{{rule.pool.environment}}</b>
+                                           <br>Balance Policy: <b>{{rule.pool.balance}}</b>
                                            <br>{{ rule.pool.tooltip }}">
                                             <gw-sync status="{{ rule.pool.status }}"></gw-sync>
                                             &nbsp;{{ rule.pool.name }}
@@ -41,10 +42,10 @@
                                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
                                                    data-title="ID: {{ target.id }} - {{ target.name }}"
                                                    data-content="Sync: <b>{{target.status}}</b>
-                                                   <br>Health: <b>{{ target.healthy }}</b>">
-                                                    <gw-sync status="{{ target.status }}"></gw-sync>
-                                                    &nbsp;{{ target.name }}&nbsp;
-                                                    <gw-health status="{{ target.healthy }}"></gw-health>
+                                                   <br>Health: <b>{{ target.healthy }}</b>
+                                                   {{ target.detailed }}">
+                                                    <gw-health status="{{ target.healthy }}" message="{{ target.status_detailed }}"></gw-health>
+                                                    &nbsp;{{ target.name }}
                                                 </a>
                                             </li>
                                         </ul>
