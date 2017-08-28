@@ -16,8 +16,9 @@ angular.module('galebWebui')
     'PENDING': ' text-warning'
   },
   "healthColor": {
-      'OK': ' fa-check text-success',
-      'UNKNOWN': ' fa-close text-danger'
+    'OK': ' fa-check text-success',
+    'UNKNOWN': ' fa-close text-danger',
+    'FAIL': ' fa-close text-danger'
   },
   "links_monitors": "hash-links-monitors"
 });
