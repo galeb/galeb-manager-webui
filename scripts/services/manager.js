@@ -111,7 +111,6 @@ angular.module('galebWebui')
 							});
 						});
 
-						console.log(self.apiPath);
 						if (self.apiPath == 'farm') {
 							resource['nameStats'] = resource.domain.split('.')[0];
 						} else {
