@@ -1,2 +1,2 @@
 <i class="fa {{ healthColor[status] }}" data-toggle="tooltip"
-   title="{{ status }}" data-placement="bottom" bs-tooltip></i>
+   title="{{ message == 'OK' ? status : message }}" data-placement="bottom" bs-tooltip></i>

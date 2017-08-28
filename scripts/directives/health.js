@@ -4,7 +4,8 @@ angular.module('galebWebui')
         restrict: 'AE',
         templateUrl: 'views/common/health.html',
         scope: {
-            status: '@'
+            status: '@',
+            message: '@',
         },
         link: function(scope, el, attr) {
             scope.healthColor = config.statusColor;
