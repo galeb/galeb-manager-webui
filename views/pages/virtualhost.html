@@ -71,7 +71,7 @@
                    ng-if="manager.statsUrlEnv.indexOf(resource.environmentObj.name.toLowerCase()) === -1">
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
-                <a ng-href="{{resource.environmentObj.name.toLowerCase().indexOf('dev') === -1 ? manager.logUrlProd : manager.logUrlDev }}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
+                <a ng-href="{{resource.environmentObj.name.toLowerCase().indexOf('dev') === -1 ? resource.environmentObj.name.toLowerCase().indexOf('be') === -1 ? manager.logUrlProdFE : manager.logUrlProdBE : manager.logUrlDev }}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
                    data-toggle="tooltip" title="See access log of your virtualhost"
                    data-placement="bottom" bs-tooltip
                    ng-if="resource.environmentObj.name.toLowerCase().indexOf('qa2') === -1">
