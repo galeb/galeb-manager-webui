@@ -194,7 +194,6 @@ angular.module('galebWebui', [
 			errorMessages['badAllows'] = 'This field must be IPv4. Eg: 192.168.0.1,127.0.0.48/30';
 		});
 
-		$rootScope.statusGaleb = config.statusGaleb;
 		$rootScope.statusIaaS = config.statusIaaS;
 		$rootScope.dateNow = new Date();
 		$rootScope.hasTeam = AuthService.isLoggedIn() ? AuthService.hasTeam() : true;
