@@ -15,7 +15,7 @@
                            data-content="Sync: <b>{{manager.selectedResource.status}}</b>
                            <br>Environment: <b>{{manager.selectedResource.environment}}</b>
                            <br>{{manager.selectedResource.tooltip}}
-                           <br>Rule(s): <b>{{manager.selectedResource.rules.count}}</b>">
+                           <br>Rule(s): <b>{{manager.selectedResource.rules.length}}</b>">
                             <gw-sync status="{{ manager.selectedResource.status }}"></gw-sync>
                             &nbsp;{{ manager.selectedResource.name }}
                         </a>
@@ -35,7 +35,7 @@
                                            <br>Environment: <b>{{rule.pool.environment}}</b>
                                            <br>Balance Policy: <b>{{rule.pool.balance}}</b>
                                            <br>{{ rule.pool.tooltip }}
-                                           <br>Target(s): <b>{{rule.pool.targets.count}}</b>">
+                                           <br>Target(s): <b>{{rule.pool.targets.length}}</b>">
                                             <gw-sync status="{{ rule.pool.status }}"></gw-sync>
                                             &nbsp;{{ rule.pool.name }}
                                         </a>
