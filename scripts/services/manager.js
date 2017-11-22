@@ -81,12 +81,14 @@ angular.module('galebWebui')
 									var tmpArr = [];
 									var tmpArrLinks = [];
 									var tmpTargetList = [];
+									var tmpPoolList = [];
 									angular.forEach(subItem._embeddedItems, function(item) {
 										if (resource.rulesOrdered) {
 											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global, 'selfLink': item._links.self.href};
 
 											if (link == 'rules') {
 												item._resources('pool').get(function (poolItem) {
+													tmpPoolList.push('var-pools=POOL_' + poolItem.name);
 													poolItem._resources('targets').get(function (targetItem) {
 														angular.forEach(targetItem._embeddedItems, function(tempTargetItem) {
 															tmpTargetList.push(tempTargetItem.name.replace('http://','').replace(/[\.:]/g,'_'));
@@ -103,22 +105,23 @@ angular.module('galebWebui')
 									resource[link + 'Obj'] = tmpArr;
 									resource[link] = tmpArrLinks;
 									resource['targetListStats'] = tmpTargetList;
+									resource['poolListStats'] = tmpPoolList;
 								} else {
 									tmpObj = {'id': subItem.id, 'name': subItem.name, 'href': subItem._links.self.href, 'selfLink': subItem._links.self.href};
 									resource[link + 'Obj'] = tmpObj;
-									resource[link] = subItem._links.self.href
+									resource[link] = subItem._links.self.href;
+								}
+								if (self.apiPath === 'farm' && link === 'environment') {
+									resource['nameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
 								}
 							});
 						});
 
-						if (self.apiPath == 'farm') {
-							resource['nameStats'] = resource.domain.split('.')[0];
-						} else {
-							resource['nameStats'] = resource.name.replace(/\./g, '_');
-						}
+						resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
+
 						resource['aliasStats'] = {};
 						angular.forEach(resource.aliases, function(item) {
-							resource['aliasStats'][item] = item.replace(/\./g,'_');
+							resource['aliasStats'][item] = item.replace(/\./g,'_').toLowerCase();
 						});
 						self.resources.push(resource);
 					});
