@@ -54,7 +54,7 @@
                         <li ng-repeat="(key, value) in resource.aliasStats">
                             <i class="fa fa-level-up fa-rotate-90"></i> &nbsp;&nbsp;{{key}}
                             <a ng-href="{{manager.statsVirtualhostUrl}}var-vh={{value}}&{{ resource.poolListStats.join('&') }}&var-targets={{ resource.targetListStats.join(',') }}"
-                               target="_blank">
+                               target="_blank" ng-if="manager.statsUrlEnv.indexOf(resource.environmentObj.name.toLowerCase()) === -1">
                                 <i class="fa fa-bar-chart fa-fw"></i>
                             </a>
                         </li>
