@@ -53,7 +53,7 @@
                     <ul class="list-unstyled">
                         <li ng-repeat="(key, value) in resource.aliasStats">
                             <i class="fa fa-level-up fa-rotate-90"></i> &nbsp;&nbsp;{{key}}
-                            <a ng-href="{{manager.statsVirtualhostUrl}}{{value}}&targets={{ resource.targetListStats.join(',') }}"
+                            <a ng-href="{{manager.statsVirtualhostUrl}}var-vh={{value}}&{{ resource.poolListStats.join('&') }}&var-targets={{ resource.targetListStats.join(',') }}"
                                target="_blank">
                                 <i class="fa fa-bar-chart fa-fw"></i>
                             </a>
@@ -64,7 +64,7 @@
             <td class="text-center">{{resource.projectObj.name}}</td>
             <td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-right">
-                <a ng-href="{{manager.statsVirtualhostUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
+                <a ng-href="{{manager.statsVirtualhostUrl}}var-vh={{resource.nameStats}}&{{ resource.poolListStats.join('&') }}&var-targets={{ resource.targetListStats.join(',') }}"
                    data-toggle="tooltip" title="See metrics of your virtualhost"
                    data-placement="bottom" bs-tooltip
                    target="_blank" class="btn btn-default btn-sm"
