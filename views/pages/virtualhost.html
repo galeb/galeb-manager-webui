@@ -64,7 +64,7 @@
             <td class="text-center">{{resource.projectObj.name}}</td>
             <td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-right">
-                <a ng-href="{{manager.statsVirtualhostUrl}}var-virtualhost={{resource.nameStats}}&var-env={{resource.environmentObj.name.replace(/-/g,'_').toLowerCase()}}"
+                <a ng-href="{{manager.statsVirtualhostUrl}}var-virtualhost={{resource.nameStats}}&var-env={{resource.environmentNameStats}}"
                    data-toggle="tooltip" title="See metrics of your virtualhost"
                    data-placement="bottom" bs-tooltip
                    target="_blank" class="btn btn-default btn-sm"
