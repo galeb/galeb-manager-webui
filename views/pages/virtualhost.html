@@ -53,8 +53,8 @@
                     <ul class="list-unstyled">
                         <li ng-repeat="(key, value) in resource.aliasStats">
                             <i class="fa fa-level-up fa-rotate-90"></i> &nbsp;&nbsp;{{key}}
-                            <a ng-href="{{manager.statsVirtualhostUrl}}var-vh={{value}}&{{ resource.poolListStats.join('&') }}&var-targets={{ resource.targetListStats.join(',') }}"
-                               target="_blank" ng-if="manager.statsUrlEnv.indexOf(resource.environmentObj.name.toLowerCase()) === -1 && resource.poolListStats.length > 0 && resource.targetListStats.length > 0">
+                            <a ng-href="{{manager.statsVirtualhostUrl}}var-virtualhost={{resource.nameStats}}&var-env={{resource.environmentNameStats}}"
+                               target="_blank" ng-if="manager.statsUrlEnv.indexOf(resource.environmentObj.name.toLowerCase()) != -1 && resource.environmentNameStats != ''">
                                 <i class="fa fa-bar-chart fa-fw"></i>
                             </a>
                         </li>
@@ -68,7 +68,7 @@
                    data-toggle="tooltip" title="See metrics of your virtualhost"
                    data-placement="bottom" bs-tooltip
                    target="_blank" class="btn btn-default btn-sm"
-                   ng-if="manager.statsUrlEnv.indexOf(resource.environmentObj.name.toLowerCase()) != -1">
+                   ng-if="manager.statsUrlEnv.indexOf(resource.environmentObj.name.toLowerCase()) != -1 && resource.environmentNameStats != ''">
                     <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
                 <a ng-href="{{resource.environmentObj.name.toLowerCase().indexOf('dev') === -1 ? resource.environmentObj.name.toLowerCase().indexOf('be') === -1 ? manager.logUrlProdFE : manager.logUrlProdBE : manager.logUrlDev }}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
