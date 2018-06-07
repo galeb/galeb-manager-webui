@@ -114,6 +114,9 @@ angular.module('galebWebui')
 								if (self.apiPath === 'farm' && link === 'environment') {
 									resource['nameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
 								}
+								if (self.apiPath === 'virtualhost') {
+									resource['environmentNameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
+								}
 							});
 						});
 
