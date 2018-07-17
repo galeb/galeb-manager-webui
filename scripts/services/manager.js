@@ -7,8 +7,6 @@ angular.module('galebWebui')
 		'isLoading': false,
 		'isSaving': false,
 		'isDeleting': false,
-		'isReloading': false,
-		'isUnlocking': false,
 		'isSearching': false,
 		'selectedResource': null,
 		'resources': [],
@@ -111,7 +109,7 @@ angular.module('galebWebui')
 									resource[link + 'Obj'] = tmpObj;
 									resource[link] = subItem._links.self.href;
 								}
-								if (self.apiPath === 'farm' && link === 'environment') {
+								if (link === 'environment') {
 									resource['nameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
 								}
 								if (self.apiPath === 'virtualhost') {
@@ -122,10 +120,6 @@ angular.module('galebWebui')
 
 						resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
 
-						resource['aliasStats'] = {};
-						angular.forEach(resource.aliases, function(item) {
-							resource['aliasStats'][item] = item.replace(/\./g,'_').toLowerCase();
-						});
 						self.resources.push(resource);
 					});
 
@@ -218,30 +212,6 @@ angular.module('galebWebui')
 			});
 			return d.promise;
 		},
-		'reloadFarm': function (resource) {
-			var d = $q.defer();
-			self.isReloading = true;
-			Manager.get({'path': 'reload', 'id': resource.id}, function () {
-				toastr.success(resource.name, 'Reloaded');
-				d.resolve();
-			}, function (error) {
-				toastr.error(error.status + ' - ' + error.statusText, self.errorMsg);
-			});
-			self.isReloading = false;
-			return d.promise;
-		},
-		'unlockFarm': function (resource) {
-			var d = $q.defer();
-			self.isUnlocking = true;
-			Manager.get({'path': 'unlock', 'id': resource.id}, function () {
-				toastr.success(resource.name, 'Unlocked');
-				d.resolve();
-			}, function (error) {
-				toastr.error(error.status + ' - ' + error.statusText, 'Something was wrong');
-			});
-			self.isUnlocking = false;
-			return d.promise;
-		},
 		'showConflict': function () {
 			switch (self.apiPath) {
 				case 'pool':
@@ -259,10 +229,6 @@ angular.module('galebWebui')
 				tmpVirtualHost.name = response.name;
 				tmpVirtualHost.status = response._status;
 				tmpVirtualHost.rulesOrdered = response.rulesOrdered;
-
-				if (response.aliases.length > 0) {
-					tmpVirtualHost.tooltip = "Aliases:<br><b>" + response.aliases.join("<br>") + "</b>";
-				}
 
 				response._resources('environment').get(function (envVH) {
 					tmpVirtualHost.environment = envVH.name;

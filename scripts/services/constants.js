@@ -1,6 +1,6 @@
 angular.module('galebWebui')
 .constant('config', {
-  'apiUrl': 'api-url',
+  'apiUrl': 'http://localhost:80',
   'statsVirtualhostUrl': 'stats-virtualhost',
   'statsFarmUrl': 'stats-farm',
   'statsUrlEnv': "['env']",

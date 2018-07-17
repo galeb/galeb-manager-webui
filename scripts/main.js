@@ -39,8 +39,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'virtualhost' },
-				apiLinks: function() { return 'environment-project-rules-ruleDefault' },
-				apiForce: function() { return {'project': 'project', 'rules': 'rules'} }
+				apiLinks: function() { return 'virtualhostgroup-environments-project' },
+				apiForce: function() { return {'project': 'project', 'environments': 'environment'} }
 			}
 		})
 		.state('rule', {
@@ -49,8 +49,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'rule' },
-				apiLinks: function() { return 'pool-ruleType-parents' },
-				apiForce: function() { return {'pool': 'pool', 'parents': 'virtualhost'} }
+				apiLinks: function() { return 'pools' },
+				apiForce: function() { return {'pools': 'pool'} }
 			}
 		})
 		.state('pool', {
@@ -79,8 +79,8 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'project' },
-				apiLinks: function() { return 'teams' },
-				apiForce: function() { return {'teams': 'team'} }
+				apiLinks: function() { return '' },
+				apiForce: function() { return '' }
 			}
 		})
 		.state('team', {
@@ -89,7 +89,7 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'team' },
-				apiLinks: function() { return 'accounts' },
+				apiLinks: function() { return '' },
 				apiForce: function() { return '' }
 			}
 		})
@@ -101,26 +101,6 @@ angular.module('galebWebui', [
 				apiPath: function() { return 'account' },
 				apiLinks: function() { return 'teams' },
 				apiForce: function() { return {'teams': 'team'} }
-			}
-		})
-		.state('ruletype', {
-			url: "/ruletype",
-			templateUrl: 'views/pages/ruletype.html',
-			controller: 'ManagerController',
-			resolve: {
-				apiPath: function() { return 'ruletype' },
-				apiLinks: function() { return '' },
-				apiForce: function() { return '' }
-			}
-		})
-		.state('balancetype', {
-			url: "/balancetype",
-			templateUrl: 'views/pages/balancetype.html',
-			controller: 'ManagerController',
-			resolve: {
-				apiPath: function() { return 'balancepolicytype' },
-				apiLinks: function() { return '' },
-				apiForce: function() { return '' }
 			}
 		})
 		.state('environment', {
@@ -139,27 +119,7 @@ angular.module('galebWebui', [
 			controller: 'ManagerController',
 			resolve: {
 				apiPath: function() { return 'balancepolicy' },
-				apiLinks: function() { return 'balancePolicyType' },
-				apiForce: function() { return '' }
-			}
-		})
-		.state('provider', {
-			url: "/provider",
-			templateUrl: 'views/pages/provider.html',
-			controller: 'ManagerController',
-			resolve: {
-				apiPath: function() { return 'provider' },
 				apiLinks: function() { return '' },
-				apiForce: function() { return '' }
-			}
-		})
-		.state('farm', {
-			url: "/farm",
-			templateUrl: 'views/pages/farm.html',
-			controller: 'ManagerController',
-			resolve: {
-				apiPath: function() { return 'farm' },
-				apiLinks: function() { return 'provider-environment' },
 				apiForce: function() { return '' }
 			}
 		});
