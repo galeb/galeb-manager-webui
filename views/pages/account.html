@@ -2,11 +2,6 @@
 	<div class="col-lg-12">
 		<h3 class="page-header">
 			Account
-			<div class="pull-right" ng-if="isAdmin()">
-				<button type="button" class="btn btn-success" ng-click="showManagerModal()">
-					Create
-				</button>
-			</div>
 
 			<div class="pull-right">
 				<form name="form-search" class="form-inline form-search" ng-submit="doSearch()" novalidate>
@@ -26,29 +21,19 @@
 	</div>
 
 	<table class="table table-hover"
-		   ng-hide="manager.resource.length == 0"
+		   ng-hide="manager.resource.length == 0 && manager.isLoading"
 		   infinite-scroll="loadMore()"
 		   infinite-scroll-immediate-check="false"
 		   infinite-scroll-disabled="manager.isLoading">
 		<thead>
 		<tr>
 			<th class="col-05 text-center">#</th>
-			<th class="col-2">Name</th>
-			<th class="col-2">E-mail</th>
-			<th class="col-2">Roles</th>
-			<th class="col-2-5">Teams</th>
-			<th class="col-1">&nbsp;</th>
+			<th class="col-8-5">Name</th>
 		</tr>
 		</thead>
 		<tr ng-repeat="resource in manager.resources">
 			<td class="text-center">{{resource.id}}</td>
 		    <td>{{resource.name}}</td>
-            <td>{{resource.email}}</td>
-            <td>{{resource.roles}}</td>
-		    <td><span ng-repeat="team in resource.teamsObj">{{team.name}}, </span></td>
-			<td class="text-center">
-				<ng-include src="'views/common/buttons.table.html'" ng-if="isAdmin()"></ng-include>
-			</td>
 		</tr>
 	</table>
 
