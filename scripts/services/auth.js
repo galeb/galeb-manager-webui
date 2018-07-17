@@ -36,6 +36,8 @@ angular.module('galebWebui')
       }, function(response) {
         if (response.status === 401) {
           self.errorMsg = 'Please enter the correct username and password!';
+        } else if (response.status === 0) {
+            self.errorMsg = 'There was a problem to connect with Galeb API!';
         } else if (response.status === -1) {
           self.errorMsg = 'There was a problem with Galeb API, please contact administrator!';
         }
