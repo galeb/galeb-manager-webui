@@ -20,5 +20,5 @@ angular.module('galebWebui')
     'UNKNOWN': ' fa-close text-danger',
     'FAIL': ' fa-close text-danger'
   },
-  "links_monitors": "hash-links-monitors"
+  "links_monitors": ['hash-links-monitors']
 });
