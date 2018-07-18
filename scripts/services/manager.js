@@ -120,6 +120,16 @@ angular.module('galebWebui')
 
 						resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
 
+                        var statusInfo = {'color': 'text-success', 'text': 'OK'};
+                        angular.forEach(resource.status, function(el) {
+							if (el === 'PENDING') {
+                                statusInfo = {'color': 'text-warning', 'text': 'PENDING'};
+							} else if (el === 'DELETED') {
+                                statusInfo = {'color': 'text-info', 'text': 'DELETED'};
+							}
+						});
+                        resource['statusInfo'] = statusInfo;
+
 						self.resources.push(resource);
 					});
 

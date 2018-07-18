@@ -30,28 +30,6 @@ angular.module('galebWebui')
       $scope.manager.doSort(sortType);
     };
 
-    $scope.checkStatus = function (statusMap) {
-        var returnColor = 'text-success';
-        angular.forEach(statusMap, function(element) {
-            if (element == 'PENDING') {
-                returnColor = 'text-warning';
-            } else if (element == 'DELETED') {
-                returnColor = '';
-            }
-        });
-        return returnColor;
-    };
-
-    $scope.checkStatusEnv = function (statusMap) {
-        var returnColor = 'text-success';
-        if (statusMap[0] == 'PENDING') {
-            returnColor = 'text-warning';
-        } else if (statusMap[0] == 'DELETED') {
-            returnColor = '';
-        }
-        return returnColor;
-    };
-
     $scope.showManagerModal = function (resource) {
       $scope.mode = 'Create';
       $scope.manager.selectedResource = {};
