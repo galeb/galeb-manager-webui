@@ -90,7 +90,7 @@ angular.module('galebWebui', [
                     return 'target'
                 },
                 apiLinks: function () {
-                    return 'pool'
+                    return 'pool-healthStatus'
                 },
                 apiForce: function () {
                     return {'pool': 'pool'}
