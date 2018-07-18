@@ -1,0 +1,12 @@
+<div class="form-group" ng-controller="MethodsController">
+    <label class="col-sm-3 control-label">HealthChecker Method</label>
+
+    <div class="col-sm-8">
+        <ui-select ng-model="manager.selectedResource.methods" close-on-select="false">
+            <ui-select-match placeholder="Select methods...">{{ $item }}</ui-select-match>
+            <ui-select-choices repeat="method in (manager.methods | filter: $select.search)">
+                <div ng-bind-html="method | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>

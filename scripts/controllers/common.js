@@ -3,27 +3,15 @@ angular.module('galebWebui')
 	$scope.manager = ManagerService;
 	$scope.manager.roles = ['ROLE_USER', 'ROLE_ADMIN'];
 })
-.controller('DriverController', function ($scope, ManagerService) {
+.controller('MethodsController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
-	$scope.manager.driver = ['GalebV32'];
+	$scope.manager.methods = ['GET', 'POST', 'OPTIONS', 'PUT', 'HEAD', 'DELETE', 'CONNECT', 'TRACE', 'PATCH'];
 })
 .controller('EnvironmentController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
 	$scope.manager.loadListResources('environment');
 })
-.controller('RuleTypeController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-	$scope.manager.loadListResources('ruletype');
-})
-.controller('ProviderController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-	$scope.manager.loadListResources('provider');
-})
 .controller('BalancePolicyController', function ($scope, ManagerService) {
 	$scope.manager = ManagerService;
 	$scope.manager.loadListResources('balancepolicy');
-})
-.controller('BalanceTypeController', function ($scope, ManagerService) {
-	$scope.manager = ManagerService;
-	$scope.manager.loadListResources('balancepolicytype');
 });
