@@ -10,11 +10,6 @@ angular.module('galebWebui')
   'logUrlDev': 'logs-dev',
   'alertTeam': 'Galeb',
   'alertMail': 'contact@galeb.io',
-  "syncColor": {
-    'OK': ' text-success',
-    'ERROR': ' text-danger',
-    'PENDING': ' text-warning'
-  },
   "healthColor": {
     'OK': ' fa-check text-success',
     'UNKNOWN': ' fa-close text-danger',
