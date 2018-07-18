@@ -22,7 +22,7 @@
         <tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <ng-include src="'views/common/status.table.html'"></ng-include>
+                <i class="fa fa-circle" ng-class="checkStatus(resource.status)"></i>
             </td>
             <td>{{resource.name}}</td>
             <td class="text-center">
