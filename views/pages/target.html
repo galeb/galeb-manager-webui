@@ -16,25 +16,18 @@
             <th class="col-05 text-center">#</th>
             <th class="col-05 text-center text-center">Sync</th>
 			<th class="col-05 text-center text-center">Health</th>
-			<th class="col-3">
+			<th class="col-4-5">
 				Name
 				<div class="sortables" ng-if="!manager.isSearching">
 					<span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
 					<span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
 				</div>
 			</th>
-			<th class="col-2-5 text-center">
+			<th class="col-3 text-center">
 				Pool
 				<div class="sortables" ng-if="!manager.isSearching">
 					<span ng-click="doSort('parent.name,asc')" class="fa fa-sort-asc"></span>
 					<span ng-click="doSort('parent.name,desc')" class="fa fa-sort-desc"></span>
-				</div>
-			</th>
-			<th class="col-2 text-center">
-				Project
-				<div class="sortables" ng-if="!manager.isSearching">
-					<span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
-					<span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
 				</div>
 			</th>
             <th class="col-1">&nbsp;</th>
@@ -43,7 +36,7 @@
 		<tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-				<gw-sync status="{{ resource._status }}"></gw-sync>
+				<gw-sync status="{{ resource.status }}"></gw-sync>
             </td>
 			<td class="text-center">
 				<gw-health status="{{ resource.properties.healthy }}" message="{{ resource.properties.status_detailed }}"></gw-health>
@@ -53,8 +46,7 @@
 				<span class="label label-primary" ng-if="resource.description == 'blue'">BLUE</span>
 				<span class="label label-success" ng-if="resource.description == 'green'">GREEN</span>
 			</td>
-			<td class="text-center">{{resource.parentObj.name}}</td>
-			<td class="text-center">{{resource.projectObj.name}}</td>
+			<td class="text-center">{{resource.poolObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
 			</td>
