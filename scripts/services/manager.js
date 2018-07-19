@@ -72,29 +72,20 @@ angular.module('galebWebui')
 
 				ManagerSelected.get(params, function (response) {
 					angular.forEach(response._embeddedItems, function(resource) {
+						var healthInfoText = [];
+                        var healthInfo = {'color': 'fa-minus', 'text': healthInfoText};
 						angular.forEach(self.apiLinks, function(link) {
 							resource._resources(link).get(function (subItem) {
 								var tmpObj = [];
 								if (subItem._embeddedItems) {
 									var tmpArr = [];
 									var tmpArrLinks = [];
-									var tmpTargetList = [];
-									var tmpPoolList = [];
 									angular.forEach(subItem._embeddedItems, function(item) {
 										if (resource.rulesOrdered) {
 											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global, 'selfLink': item._links.self.href};
-
-											if (link == 'rules') {
-												item._resources('pool').get(function (poolItem) {
-													tmpPoolList.push('var-pools=POOL_' + poolItem.name);
-													poolItem._resources('targets').get(function (targetItem) {
-														angular.forEach(targetItem._embeddedItems, function(tempTargetItem) {
-															tmpTargetList.push(tempTargetItem.name.replace('http://','').replace(/[\.:]/g,'_'));
-														});
-													});
-												});
-											}
-										} else {
+										} else if (link === 'healthStatus') {
+                                            tmpObj = {'id':item.id,'status':item.status,'status_detailed':item.status_detailed,'source':item.source};
+                                        } else {
 											tmpObj = {'id': item.id, 'name': item.name, 'href': item._links.self.href, 'selfLink': item._links.self.href};
 										}
 										tmpArr.push(tmpObj);
@@ -102,8 +93,20 @@ angular.module('galebWebui')
 									});
 									resource[link + 'Obj'] = tmpArr;
 									resource[link] = tmpArrLinks;
-									resource['targetListStats'] = tmpTargetList;
-									resource['poolListStats'] = tmpPoolList;
+
+                                    if (self.apiPath === 'target') {
+                                        angular.forEach(tmpArr, function(element) {
+                                            if (element.status === 'HEALTHY') {
+                                                healthInfo.color = 'fa-check text-success';
+											} else if (element.status === 'FAIL') {
+                                            	healthInfo.color = 'fa-close text-danger';
+											}
+                                            healthInfoText.push("<b>" + element.source + "</b>: " + (element.status === 'HEALTHY' ? element.status : element.status_detailed));
+                                        });
+                                        if (tmpArr.length === 0) {
+                                            healthInfoText.push('UNKNOWN');
+										}
+                                    }
 								} else {
 									tmpObj = {'id': subItem.id, 'name': subItem.name, 'href': subItem._links.self.href, 'selfLink': subItem._links.self.href};
 									resource[link + 'Obj'] = tmpObj;
@@ -114,11 +117,10 @@ angular.module('galebWebui')
 								}
 								if (self.apiPath === 'virtualhost') {
 									resource['environmentNameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
+                                    resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
 								}
 							});
 						});
-
-						resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
 
                         var statusInfo = {'color': 'text-success', 'text': 'OK'};
                         angular.forEach(resource.status, function(el) {
@@ -129,6 +131,8 @@ angular.module('galebWebui')
 							}
 						});
                         resource['statusInfo'] = statusInfo;
+
+                        resource['healthInfo'] = healthInfo;
 
 						self.resources.push(resource);
 					});

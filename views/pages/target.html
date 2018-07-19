@@ -40,7 +40,8 @@
 				   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
             </td>
 			<td class="text-center">
-				<gw-health status="{{ resource.properties.healthy }}" message="{{ resource.properties.status_detailed }}"></gw-health>
+				<i class="fa {{ resource.healthInfo.color }}" data-toggle="tooltip"
+				   title="{{ resource.healthInfo.text.join('<br>') }}" data-html="true" data-placement="right" bs-tooltip></i>
 			</td>
 			<td>
 				{{resource.name}}
