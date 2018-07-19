@@ -157,7 +157,7 @@ angular.module('galebWebui')
 			};
 
 			ManagerDashboard.get(params, function (response) {
-				self[apiPath].size = response.page.totalElements;
+				self[apiPath].size = response.page.total_elements;
 			});
 		},
 		'loadListResources': function (apiPath, itemName = '') {
