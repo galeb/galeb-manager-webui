@@ -22,7 +22,8 @@
         <tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <i class="fa fa-circle" ng-class="checkStatus(resource.status)"></i>
+                <i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
+                   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
             </td>
             <td>{{resource.name}}</td>
             <td class="text-center">
