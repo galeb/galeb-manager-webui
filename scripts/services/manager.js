@@ -108,15 +108,15 @@ angular.module('galebWebui')
 										}
                                     }
 								} else {
-									tmpObj = {'id': subItem.id, 'name': subItem.name, 'href': subItem._links.self.href, 'selfLink': subItem._links.self.href};
+									if (link === 'virtualhostgroup') {
+                                        tmpObj = {'id': subItem.id, 'name': resource.name, 'href': subItem._links.self.href, 'selfLink': subItem._links.self.href};
+                                    } else {
+                                        tmpObj = {'id': subItem.id, 'name': subItem.name, 'href': subItem._links.self.href, 'selfLink': subItem._links.self.href};
+									}
 									resource[link + 'Obj'] = tmpObj;
 									resource[link] = subItem._links.self.href;
 								}
-								if (link === 'environment') {
-									resource['nameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
-								}
 								if (self.apiPath === 'virtualhost') {
-									resource['environmentNameStats'] = resource.environmentObj.name.replace(/-/g,'_').toLowerCase();
                                     resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
 								}
 							});
@@ -134,6 +134,7 @@ angular.module('galebWebui')
 
                         resource['healthInfo'] = healthInfo;
 
+                        resource['_links'] = '';
 						self.resources.push(resource);
 					});
 
@@ -172,8 +173,16 @@ angular.module('galebWebui')
 
 			ManagerSelected.get(params, function (response) {
 				angular.forEach(response._embeddedItems, function(data) {
-					tmpObj = {'id': data.id, 'name': data.name, 'href': data._links.self.href, 'selfLink': data._links.self.href};
-					self[apiPath].push(tmpObj);
+                    if (apiPath == 'virtualhost') {
+                        data._resources('virtualhostgroup').get(function (vhg) {
+                            tmpObj = {'id': data.id, 'name': data.name, 'href': vhg._links.self.href, 'selfLink': vhg._links.self.href};
+                            console.log(tmpObj);
+                            self[apiPath].push(tmpObj);
+                        });
+                    } else {
+                        tmpObj = {'id': data.id, 'name': data.name, 'href': data._links.self.href, 'selfLink': data._links.self.href};
+                        self[apiPath].push(tmpObj);
+                    }
 				});
 			});
 		},

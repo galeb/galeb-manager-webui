@@ -323,4 +323,13 @@ ul.tree>li:first-child::after {
 .tooltip-inner {
     max-width: none;
     text-align: left;
+    white-space: nowrap;
+}
+.env span {
+    font-size: 13px;
+}
+.env ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0;
+    margin: 0;
 }
