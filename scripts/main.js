@@ -58,10 +58,10 @@ angular.module('galebWebui', [
                     return 'rule'
                 },
                 apiLinks: function () {
-                    return ''
+                    return 'pools-project'
                 },
                 apiForce: function () {
-                    return {'pool': 'pool'}
+                    return {'pools': 'pool', 'project': 'project'}
                 }
             }
         })

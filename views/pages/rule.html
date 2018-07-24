@@ -16,22 +16,31 @@
             <th class="col-05 text-center">#</th>
             <th class="col-05 text-center">Sync</th>
             <th class="col-3">Name</th>
-            <th class="col-2 text-center">Virtualhosts</th>
+            <th class="col-1 text-center">Match</th>
+            <th class="col-2 text-center">Project</th>
             <th class="col-2 text-center">Pool</th>
-            <th class="col-1 text-center">Type</th>
             <th class="col-1">&nbsp;</th>
         </tr>
         </thead>
         <tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <gw-sync status="{{ resource._status }}"></gw-sync>
+                <i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
+                   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
             </td>
-            <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span>
+            <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span></td>
+            <td class="text-center">{{resource.matching}}</td>
+            <td class="text-center">{{resource.projectObj.name}}</td>
+            <td class="text-center pools" ng-if="resource.poolsObj.length < 3">
+                <ul>
+                    <li ng-repeat="pool in resource.poolsObj | orderBy:'name'">
+                        <span class="label label-default">{{pool.name}}</span>
+                    </li>
+                </ul>
             </td>
-            <td class="text-center">{{resource.parentsObj.length}}</td>
-            <td class="text-center">{{resource.poolObj.name}}</td>
-            <td class="text-center">{{resource.ruleTypeObj.name}}</td>
+            <td class="text-center pools" ng-if="resource.poolsObj.length > 2">
+                {{resource.poolsObj.length}}
+            </td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
             </td>

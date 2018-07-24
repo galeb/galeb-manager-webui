@@ -122,9 +122,10 @@ angular.module('galebWebui')
 							});
 						});
 
-                        var statusInfo = {'color': 'text-success', 'text': 'OK'};
                         angular.forEach(resource.status, function(el) {
-							if (el === 'PENDING') {
+							if (el === 'OK') {
+                                statusInfo = {'color': 'text-success', 'text': 'OK'};
+                            } else if (el === 'PENDING') {
                                 statusInfo = {'color': 'text-warning', 'text': 'PENDING'};
 							} else if (el === 'DELETED') {
                                 statusInfo = {'color': 'text-info', 'text': 'DELETED'};

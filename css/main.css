@@ -325,10 +325,10 @@ ul.tree>li:first-child::after {
     text-align: left;
     white-space: nowrap;
 }
-.env span {
+.env span, .pools span {
     font-size: 13px;
 }
-.env ul {
+.env ul, .pools ul {
     list-style: none; /* Remove list bullets */
     padding: 0;
     margin: 0;
