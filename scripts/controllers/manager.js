@@ -103,4 +103,8 @@ angular.module('galebWebui')
     });
   };
 
+    $scope.cleanVirtualHostGroup = function () {
+        $scope.manager.selectedResource.virtualhostgroup = "";
+    };
+
 });
