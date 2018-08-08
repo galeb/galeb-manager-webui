@@ -2,7 +2,7 @@ angular.module('galebWebui')
 .controller('ManagerController', function (
   $scope, $modal, ManagerService, $filter, apiPath, apiLinks, apiForce, SweetAlert, config) {
 
-    $scope.regex_virtualhost_allows = "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){1}([\\,]\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){0,}";
+    $scope.regex_pool_allow = "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){1}([\\,]\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){0,}";
 
     $scope.apiLinks = apiLinks ? apiLinks.split("-") : [];
 
