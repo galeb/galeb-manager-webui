@@ -43,7 +43,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuEnv">
                         <li ng-repeat="env in manager.environment | filter: { name: '!Null Environment' }">
-                            <a ng-click="showRuleOrderedModal(resource.id, env.id, env.name)">{{ env.name }}</a>
+                            <a ng-click="showRuleOrderedModal(resource.id, env.id, env.name)" class="orderlink">{{ env.name }}</a>
                         </li>
                     </ul>
                 </div>

@@ -341,3 +341,6 @@ ul.tree>li:first-child::after {
     padding: 0;
     margin: 0;
 }
+.orderlink:hover {
+    cursor: pointer;
+}
