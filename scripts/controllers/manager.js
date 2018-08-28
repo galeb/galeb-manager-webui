@@ -1,6 +1,6 @@
 angular.module('galebWebui')
 .controller('ManagerController', function (
-  $scope, $modal, ManagerService, $filter, apiPath, apiLinks, apiForce, SweetAlert, config) {
+  $scope, $modal, ManagerService, $filter, apiPath, apiLinks, apiForce, SweetAlert, config, toastr) {
 
     $scope.regex_pool_allow = "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){1}([\\,]\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){0,}";
 
@@ -106,5 +106,78 @@ angular.module('galebWebui')
     $scope.cleanVirtualHostGroup = function () {
         $scope.manager.selectedResource.virtualhostgroup = "";
     };
+
+    $scope.showRuleOrderedModal = function (virtualhostgroup, envID, envName) {
+        $scope.manager.selectedResource = {};
+
+        if (virtualhostgroup && envID && envName) {
+            var returnLoadRO = $scope.manager.loadRuleOredered(virtualhostgroup, envID, envName);
+            returnLoadRO.then(function (arrayRules) {
+                tmpRules = $filter('orderBy')(arrayRules, 'order');
+                $scope.manager.selectedResource.arrayRuleOrder = tmpRules;
+            });
+
+            $scope.sortableOptions = {
+                placeholder: "placeholder",
+                stop: function() {
+                    angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function(value, index) {
+                        value.order = index + 1;
+                    });
+                }
+            };
+        }
+
+        $scope.ruleOrderedModal = $modal({
+            scope: $scope,
+            templateUrl: 'views/modal/ruleordered.html',
+            show: true
+        });
+    };
+
+    $scope.addRuleOrdered = function () {
+        var returnRule = $scope.manager.loadRuleInformation($scope.manager.orderForm.rule);
+
+        returnRule.then(function (ruleInfo) {
+           return $scope.manager.loadEnvironmentInformation($scope.manager.selectedResource.environment_id, ruleInfo);
+        }).then(function (envInfo) {
+            var currentOrder = Math.max.apply(Math, $scope.manager.selectedResource.arrayRuleOrder.map(function (item) {
+                return item.order;
+            }));
+            envInfo['order'] = currentOrder + 1;
+            var ruleExist = $scope.manager.selectedResource.arrayRuleOrder.filter(item => item.ruleInfo.id === envInfo.ruleInfo.id);
+            if (ruleExist.length == 0) {
+                $scope.manager.selectedResource.arrayRuleOrder.push(envInfo);
+            } else {
+                toastr.error("Rule already exist in order list", "Error");
+            }
+            $scope.manager.orderForm = {};
+
+        });
+    };
+
+    $scope.removeRuleOrdered = function (index) {
+        var itemToRemove = $scope.manager.selectedResource.arrayRuleOrder.splice(index, 1);
+        if (itemToRemove[0].id) {
+            $scope.manager.selectedResource.arrayRuleRemove.push(itemToRemove[0]);
+        }
+    };
+
+    $scope.saveRuleOrdered = function () {
+        angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function(value) {
+            value.virtualhostgroup = $scope.manager.selectedResource.virtualhostgroup;
+            if (value.id) {
+                $scope.manager.updateRuleOrder(value);
+            } else {
+                $scope.manager.createRuleOrder(value);
+            }
+        });
+
+        angular.forEach($scope.manager.selectedResource.arrayRuleRemove, function(value) {
+            value.virtualhostgroup = $scope.manager.selectedResource.virtualhostgroup;
+            $scope.manager.removeRuleOrder(value);
+        });
+
+        $scope.ruleOrderedModal.hide();
+    }
 
 });

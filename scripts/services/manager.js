@@ -1,5 +1,5 @@
 angular.module('galebWebui')
-.service('ManagerService', function (Manager, ManagerSearch, ManagerSearchWithSize, ManagerDashboard, $q, toastr, $filter) {
+.service('ManagerService', function (Manager, ManagerSearch, ManagerSearchWithSize, ManagerGenericSearch, ManagerDashboard, $q, toastr, $filter, config) {
 
 	var self = {
 		'page': 0,
@@ -74,6 +74,7 @@ angular.module('galebWebui')
 					angular.forEach(response._embeddedItems, function(resource) {
 						var healthInfoText = [];
                         var healthInfo = {'color': 'fa-minus', 'text': healthInfoText};
+                        var statusInfo = {'color': '', 'text': 'UNKNOWN'};
 						angular.forEach(self.apiLinks, function(link) {
 							resource._resources(link).get(function (subItem) {
 								var tmpObj = [];
@@ -81,9 +82,7 @@ angular.module('galebWebui')
 									var tmpArr = [];
 									var tmpArrLinks = [];
 									angular.forEach(subItem._embeddedItems, function(item) {
-										if (resource.rulesOrdered) {
-											tmpObj = {'id':item.id,'name':item.name,'match':item.properties.match,'global':item.global, 'selfLink': item._links.self.href};
-										} else if (link === 'healthStatus') {
+										if (link === 'healthStatus') {
                                             tmpObj = {'id':item.id,'status':item.status,'status_detailed':item.status_detailed,'source':item.source};
                                         } else {
 											tmpObj = {'id': item.id, 'name': item.name, 'href': item._links.self.href, 'selfLink': item._links.self.href};
@@ -174,10 +173,9 @@ angular.module('galebWebui')
 
 			ManagerSelected.get(params, function (response) {
 				angular.forEach(response._embeddedItems, function(data) {
-                    if (apiPath == 'virtualhost') {
+                    if (apiPath === 'virtualhost') {
                         data._resources('virtualhostgroup').get(function (vhg) {
                             tmpObj = {'id': data.id, 'name': data.name, 'href': vhg._links.self.href, 'selfLink': vhg._links.self.href};
-                            console.log(tmpObj);
                             self[apiPath].push(tmpObj);
                         });
                     } else {
@@ -336,7 +334,104 @@ angular.module('galebWebui')
 				d.reject(error);
 			});
 			return d.promise;
-		}
+		},
+        'loadRuleOredered': function (vhgID, envID, envName) {
+            var params = {'path': 'ruleordered', 'searchPath': 'findByVirtualhostgroupIdAndEnvironmentId', 'query': 'vhgid=' + vhgID + '&envid=' + envID};
+            var arrRules = [];
+            var d = $q.defer();
+
+            self.selectedResource = {'virtualhostgroup': config.apiUrl + '/virtualhostgroup/' + vhgID};
+            self.selectedResource.environment = config.apiUrl + '/environment/' + envID;
+            self.selectedResource.environment_id = envID;
+            self.selectedResource.environment_name = envName;
+            self.selectedResource.arrayRuleRemove = [];
+            self.selectedResource.arrayRuleOrder = [];
+
+            ManagerGenericSearch.get(params, function (response) {
+				angular.forEach(response._embeddedItems, function(ruleOrderItem) {
+					ruleOrderItem._resources('rule').get(function (ruleInfo) {
+                        ruleOrderItem._resources('environment').get(function (envInfo) {
+                            if (envInfo.id === envID) {
+                                tmpRuleOrderItem = {
+                                    'id': ruleOrderItem.id,
+                                    'order': ruleOrderItem.order,
+                                    'rule': ruleInfo._links.self.href,
+                                    'environment': envInfo._links.self.href,
+                                    'ruleInfo': {
+                                        'id': ruleInfo.id,
+                                        'name': ruleInfo.name,
+                                        'matching': ruleInfo.matching
+                                    }
+                                };
+                                arrRules.push(tmpRuleOrderItem);
+                                if (arrRules.length === response._embeddedItems.length) {
+                                    d.resolve(arrRules);
+								}
+                            }
+						});
+					});
+				});
+            });
+            return d.promise;
+        },
+		'loadRuleInformation': function(ruleId) {
+            var params = {'path': 'rule', 'id': ruleId};
+            var d = $q.defer();
+
+            Manager.get(params, function (response) {
+                var tmpInfo = {
+                    'rule': response._links.self.href,
+                    'ruleInfo': {
+                        'id': response.id,
+                        'name': response.name,
+                        'matching': response.matching
+                    }
+                };
+                d.resolve(tmpInfo);
+            });
+            return d.promise;
+		},
+        'loadEnvironmentInformation': function(envId, ruleInfo) {
+            var params = {'path': 'environment', 'id': envId};
+            var d = $q.defer();
+
+            Manager.get(params, function (response) {
+                ruleInfo['environment'] = response._links.self.href;
+                ruleInfo['environment_name'] = response.name;
+                d.resolve(ruleInfo);
+            });
+            return d.promise;
+        },
+        'updateRuleOrder': function (resource) {
+            var d = $q.defer();
+            Manager.update({'path': 'ruleordered', 'id': resource.id}, resource).$promise.then(function () {
+                toastr.success(resource.name, 'Updated');
+                d.resolve();
+            }, function (error) {
+                d.reject('Error trying update rule ordered.');
+            });
+            return d.promise;
+        },
+        'removeRuleOrder': function (resource) {
+            var d = $q.defer();
+            Manager.delete({'path': 'ruleordered', 'id': resource.id}, resource).$promise.then(function () {
+                toastr.success(resource.name, 'Deleted');
+                d.resolve();
+            }, function (error) {
+				d.reject('Error tryging delete rule ordered.');
+            });
+            return d.promise;
+        },
+        'createRuleOrder': function (resource) {
+            var d = $q.defer();
+            Manager.save({'path': 'ruleordered'}, resource).$promise.then(function () {
+                toastr.success(resource.name, 'Created');
+                d.resolve();
+            }, function (error) {
+                d.reject('Error tryging create rule ordered.')
+            });
+            return d.promise;
+        },
 
 	};
 

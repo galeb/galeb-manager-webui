@@ -1,0 +1,67 @@
+<div id="ruleOrderedModal" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        ng-click="ruleOrderedModal.hide()">&times;</button>
+                <h4 class="modal-title">{{mode}} Rule Ordered - Environment: <b>{{ manager.selectedResource.environment_name }}</b></h4>
+            </div>
+            <form name="managerForm" ng-submit="addRuleOrdered()" novalidate class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Rule</label>
+
+                        <div class="col-sm-6">
+                            <ui-select ng-model="manager.orderForm.rule" required>
+                                <ui-select-match placeholder="Select one rule">
+                                    <span ng-bind="$select.selected.name"></span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="rule.id as rule in (manager.rule
+      | filter: { name: $select.search }) track by rule.id"
+                                                   refresh="manager.loadListResources('rule', $select.search)"
+                                                   refresh-delay="500"
+                                                   minimum-input-length="3">
+                                    <div ng-bind-html="rule.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button type="submit" id="add" name="add" class="btn btn-primary">Add Rule</button>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </form>
+            <form name="managerForm" ng-submit="saveRuleOrdered()" novalidate class="form-horizontal">
+                <div class="modal-body">
+                    <h5>Order
+                        <small>Drag rules to arrange</small>
+                    </h5>
+                    <div class="alert alert-warning" role="alert" ng-if="!manager.selectedResource.arrayRuleOrder.length">There are no rules associated</div>
+                    <ul class="sortable-list" ui-sortable="sortableOptions"
+                        ng-model="manager.selectedResource.arrayRuleOrder">
+                        <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
+                            <div>
+                                <b>{{ rule.ruleInfo.name }}</b>
+                                <br>
+                                Order: {{ rule.order }} - ID: {{ rule.ruleInfo.id  }} - Matching: {{ rule.ruleInfo.matching }}
+                            </div>
+                            <div>
+                                <a ng-click="removeRuleOrdered($index)" class="btn btn-danger btn-xs">
+                                    Remove <i class="fa fa-close"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="save" name="save" ladda="manager.isSaving" class="btn btn-primary">Save
+                    </button>
+                    <button class="btn btn-default" type="button" ng-click="ruleOrderedModal.hide()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

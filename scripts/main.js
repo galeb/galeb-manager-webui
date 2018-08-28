@@ -45,7 +45,23 @@ angular.module('galebWebui', [
                     return 'virtualhostgroup-environments-project'
                 },
                 apiForce: function () {
-                    return {'project': 'project', 'environments': 'environment', 'virtualhostgroup': 'virtualhost'}
+                    return {'project': 'project', 'environments': 'environment', 'virtualhostgroup': 'virtualhostgroup'}
+                }
+            }
+        })
+        .state('ruleordered', {
+            url: "/ruleordered",
+            templateUrl: 'views/pages/ruleordered.html',
+            controller: 'ManagerController',
+            resolve: {
+                apiPath: function () {
+                    return 'virtualhostgroup'
+                },
+                apiLinks: function () {
+                    return 'virtualhosts'
+                },
+                apiForce: function () {
+                    return {}
                 }
             }
         })

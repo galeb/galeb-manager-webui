@@ -1,0 +1,62 @@
+<div class="row" ng-controller="EnvironmentController">
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            Rule Ordered
+
+            <div class="pull-right">
+                <form name="form-search" class="form-inline form-search" ng-submit="doSearch()" novalidate>
+                    <div class="form-group">
+                        <input type="text"
+                               class="form-control"
+                               id="searchText"
+                               ng-model="manager.searchText"
+                               placeholder="Search name.."
+                               disable-invalid-styling="true"
+                        />
+                    </div>
+                    <button type="submit" class="btn btn-default btn-sm">OK</button>
+                </form>
+            </div>
+        </h3>
+    </div>
+    <table class="table table-hover"
+           ng-hide="manager.resources.length == 0 && manager.isLoading"
+           infinite-scroll="loadMore()"
+           infinite-scroll-immediate-check="false"
+           infinite-scroll-disabled="manager.isLoading">
+        <thead>
+        <tr>
+            <th class="col-05 text-center">#</th>
+            <th class="col-6">VirtualHost's</th>
+            <th class="col-2">&nbsp;</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="resource in manager.resources">
+            <td class="text-center">{{resource.id}}</td>
+            <td>
+                <span ng-repeat="vh in resource.virtualhostsObj | orderBy:'name'">{{ vh.name }} </span>
+            </td>
+            <td class="text-right">
+                <div class="btn-group">
+                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdownMenuEnv" aria-expanded="true">
+                        Change Order <i class="fa fa-random fa-fw"></i> <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuEnv">
+                        <li ng-repeat="env in manager.environment | filter: { name: '!Null Environment' }">
+                            <a ng-click="showRuleOrderedModal(resource.id, env.id, env.name)">{{ env.name }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div ng-show="manager.resources.length == 0 && manager.isLoading">
+        <div class="alert alert-info">
+            <p class="text-center">No results found for search term '{{ search }}'</p>
+        </div>
+    </div>
+
+    <gw-spinner is-loading="manager.isLoading"
+                message="Loading..."></gw-spinner>
+</div>

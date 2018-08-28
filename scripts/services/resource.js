@@ -14,4 +14,7 @@ angular.module('galebWebui')
 })
 .factory("ManagerDashboard", function ($resource, config) {
   return $resource(config.apiUrl + "/:path/?page=0&size=1", {path: '@path'});
+})
+.factory("ManagerGenericSearch", function ($resource, config) {
+    return $resource(config.apiUrl + "/:path/search/:searchPath?:query", {path: '@path', searchPath: '@searchPath', query: '@query'});
 });
