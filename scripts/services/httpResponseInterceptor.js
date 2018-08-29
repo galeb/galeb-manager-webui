@@ -2,9 +2,9 @@ angular.module('galebWebui')
 .factory('httpResponseInterceptor', function($q, $location, $localStorage, $window) {
   return {
     'request': function (config) {
-      config.headers = config.headers || {};
-      if ($localStorage.token) {
-        config.headers['x-auth-token'] = $localStorage.token;
+      config.headers = config.headers;
+      if ($localStorage.token && $localStorage.account) {
+        config.headers['Authorization'] = 'Basic ' + btoa($localStorage.account + ":" + $localStorage.token);
       }
       return config;
     },
