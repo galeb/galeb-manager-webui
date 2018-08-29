@@ -214,7 +214,6 @@ angular.module('galebWebui', [
 
     $resourceProvider.defaults.stripTrailingSlashes = false;
 
-    // $httpProvider.defaults.headers.common.Authorization = 'Basic ';
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
