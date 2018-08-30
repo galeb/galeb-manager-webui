@@ -2,14 +2,12 @@ angular.module('galebWebui')
 .constant('config', {
   'apiUrl': 'http://localhost:80',
   'statsVirtualhostUrl': 'stats-virtualhost',
-  'statsFarmUrl': 'stats-farm',
+  'statsEnvUrl': 'stats-env',
   'statsUrlEnv': "['env']",
   'statusIaaS': 'status-iaas',
   'logUrlProdBE': 'logs-prod-be',
   'logUrlProdFE': 'logs-prod-fe',
   'logUrlDev': 'logs-dev',
-  'alertTeam': 'Galeb',
-  'alertMail': 'contact@galeb.io',
   "healthColor": {
     'OK': ' fa-check text-success',
     'UNKNOWN': ' fa-close text-danger',
