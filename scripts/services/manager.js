@@ -117,6 +117,8 @@ angular.module('galebWebui')
 								}
 								if (self.apiPath === 'virtualhost') {
                                     resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
+								} else if (self.apiPath === 'environment') {
+									resource['nameStats'] = resource.name.replace(/-/g, '_').toLowerCase();
 								}
 							});
 						});
