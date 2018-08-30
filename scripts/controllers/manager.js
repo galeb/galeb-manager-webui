@@ -12,7 +12,7 @@ angular.module('galebWebui')
     $scope.manager.loadResources();
 
     $scope.manager.statsVirtualhostUrl = config.statsVirtualhostUrl;
-    $scope.manager.statsFarmUrl = config.statsFarmUrl;
+    $scope.manager.statsUrlEnv = config.statsUrlEnv;
     $scope.manager.logUrlProdBE = config.logUrlProdBE;
     $scope.manager.logUrlProdFE = config.logUrlProdFE;
     $scope.manager.logUrlDev = config.logUrlDev;
