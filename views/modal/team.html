@@ -10,7 +10,21 @@
       <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
         <div class="modal-body">
           <ng-include src="'views/common/header.modal.html'"></ng-include>
-
+          <div class="form-group">
+            <label class="col-sm-3 control-label">VirtualHosts</label>
+          
+            <div class="col-sm-8">
+              <ui-select ng-model="manager.selectedResource.accounts" close-on-select="false" multiple>
+                <ui-select-match placeholder="Select accounts...">{{ $item.name }}</ui-select-match>
+                <ui-select-choices repeat="accounts.selfLink as account in manager.accounts | filter: { name: $select.search }"
+                refresh="manager.loadListResources('accounts', $select.search)"
+                refresh-delay="500"
+                minimum-input-length="3">
+                  <div ng-bind-html="account.name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
           <ng-include src="'views/common/footer.modal.html'"></ng-include>
         </div>
         <div class="modal-footer">
