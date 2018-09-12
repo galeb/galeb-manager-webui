@@ -45,7 +45,7 @@
 		    <td ng-if="resource.accountsObj.length <= 5"><span ng-repeat="account in resource.accountsObj">{{account.name}}, </span></td>
 			<td class="text-center">
 				<button class="btn btn-default btn-sm"
-						ng-click="showManagerModal(resource)" ng-if="isAdmin()">
+						ng-click="showManagerModal(resource)">
 					<i class="fa fa-pencil"></i>
 				</button>
 				<button class="btn btn-danger btn-sm"
