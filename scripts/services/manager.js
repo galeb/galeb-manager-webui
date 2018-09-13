@@ -171,19 +171,16 @@ angular.module('galebWebui')
 				'search': itemName
 			};
 
+	
+
+
+			ManagerSelected = itemName == '' ? ManagerSearch :  ManagerSearchWithSize;
+
 			if(apiPath == 'account'){
-				 params = {'path': apiPath, 'searchPath': 'findByUserName', 'query': 'userName=' + itemName};
-				 params = {}
-
-			}
-
-
-			self.selectedResource = {'account': config.apiUrl + '/findByUserName/' + itemName};
-
-
-
-			ManagerSelected = itemName == '' ? ManagerSearch : ManagerSearchWithSize;
-
+				ManagerSelected = ManagerGenericSearch;
+				params = {'path': apiPath, 'searchPath': 'findByUserName', 'query': 'userName=' + itemName + '&size=10'};
+			 }
+			 
 			ManagerSelected.get(params, function (response) {
 				angular.forEach(response._embeddedItems, function(data) {
                     if (apiPath === 'virtualhost') {
