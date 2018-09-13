@@ -11,11 +11,11 @@
         <div class="modal-body">
           <ng-include src="'views/common/header.modal.html'"></ng-include>
           <div class="form-group">
-            <label class="col-sm-3 control-label">VirtualHosts</label>
+            <label class="col-sm-3 control-label">Accounts</label>
           
             <div class="col-sm-8">
               <ui-select ng-model="manager.selectedResource.account" close-on-select="false" multiple>
-                <ui-select-match placeholder="Select account...">{{ $item.name }}</ui-select-match>
+                <ui-select-match placeholder="Select account...">{{ $item.username }}</ui-select-match>
                 <ui-select-choices repeat="account.selfLink as account in manager.account | filter: { name: $select.search }"
                 refresh="manager.loadListResources('account', $select.search)"
                 refresh-delay="500"
