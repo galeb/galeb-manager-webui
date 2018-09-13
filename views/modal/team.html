@@ -14,9 +14,9 @@
             <label class="col-sm-3 control-label">Accounts</label>
           
             <div class="col-sm-8">
-              <ui-select ng-model="manager.selectedResource.account" close-on-select="false" multiple>
+              <ui-select ng-model="manager.selectedResource.accounts" close-on-select="false" multiple>
                 <ui-select-match placeholder="Select account...">{{ $item.username }}</ui-select-match>
-                <ui-select-choices repeat="account.selfLink as account in manager.account | filter: { name: $select.search }"
+                <ui-select-choices repeat="accounts.selfLink as account in manager.account | filter: { username: $select.search }"
                 refresh="manager.loadListResources('account', $select.search)"
                 refresh-delay="500"
                 minimum-input-length="3">
