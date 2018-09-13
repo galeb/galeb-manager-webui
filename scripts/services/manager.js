@@ -171,6 +171,17 @@ angular.module('galebWebui')
 				'search': itemName
 			};
 
+			if(apiPath == 'account'){
+				 params = {'path': apiPath, 'searchPath': 'findByUserName', 'query': 'userName=' + itemName};
+				 params = {}
+
+			}
+
+
+			self.selectedResource = {'account': config.apiUrl + '/findByUserName/' + itemName};
+
+
+
 			ManagerSelected = itemName == '' ? ManagerSearch : ManagerSearchWithSize;
 
 			ManagerSelected.get(params, function (response) {
