@@ -178,7 +178,7 @@ angular.module('galebWebui')
 
 			if(apiPath == 'account'){
 				ManagerSelected = ManagerGenericSearch;
-				params = {'path': apiPath, 'searchPath': 'findByUserName', 'query': 'userName=' + itemName + '&size=10'};
+				params = {'path': apiPath, 'searchPath': 'findByuserName', 'query': 'username=' + itemName + '&size=10'};
 			 }
 			 
 			ManagerSelected.get(params, function (response) {
