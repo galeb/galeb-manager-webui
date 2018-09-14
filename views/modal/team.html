@@ -23,6 +23,9 @@
                   <div ng-bind-html="account.username | highlight: $select.search"></div>
                 </ui-select-choices>
               </ui-select>
+              <div class="col-sm-8" style="color: red">
+                "You must insert at least one username to create a Team"
+              </div>
             </div>
           </div>
           <ng-include src="'views/common/footer.modal.html'"></ng-include>

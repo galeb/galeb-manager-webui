@@ -122,10 +122,10 @@ angular.module('galebWebui', [
                     return 'project'
                 },
                 apiLinks: function () {
-                    return ''
+                    return 'teams'
                 },
                 apiForce: function () {
-                    return ''
+                    return {'teams': 'team'}
                 }
             }
         })
