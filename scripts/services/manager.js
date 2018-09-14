@@ -84,7 +84,9 @@ angular.module('galebWebui')
 									angular.forEach(subItem._embeddedItems, function(item) {
 										if (link === 'healthStatus') {
                                             tmpObj = {'id':item.id,'status':item.status,'status_detailed':item.status_detailed,'source':item.source};
-                                        } else {
+                                        } else if (link === 'accounts') {
+											tmpObj = {'id': item.id, 'username': item.username, 'href': item._links.self.href, 'selfLink': item._links.self.href};
+										} else {
 											tmpObj = {'id': item.id, 'name': item.name, 'href': item._links.self.href, 'selfLink': item._links.self.href};
 										}
 										tmpArr.push(tmpObj);
@@ -171,16 +173,13 @@ angular.module('galebWebui')
 				'search': itemName
 			};
 
-	
-
-
 			ManagerSelected = itemName == '' ? ManagerSearch :  ManagerSearchWithSize;
-
+	
 			if(apiPath == 'account'){
 				ManagerSelected = ManagerGenericSearch;
-				params = {'path': apiPath, 'searchPath': 'findByuserName', 'query': 'username=' + itemName + '&size=10'};
+				params = {'path': apiPath, 'searchPath': 'findByUsernameContaining', 'query': 'username=' + itemName + '&size=10'};
 			 }
-			 
+
 			ManagerSelected.get(params, function (response) {
 				angular.forEach(response._embeddedItems, function(data) {
                     if (apiPath === 'virtualhost') {
@@ -188,6 +187,9 @@ angular.module('galebWebui')
                             tmpObj = {'id': data.id, 'name': data.name, 'href': vhg._links.self.href, 'selfLink': vhg._links.self.href};
                             self[apiPath].push(tmpObj);
                         });
+                    } else if (apiPath === 'account') {
+						tmpObj = {'id': data.id, 'username': data.username, 'href': data._links.self.href, 'selfLink': data._links.self.href};
+						self[apiPath].push(tmpObj);
                     } else {
                         tmpObj = {'id': data.id, 'name': data.name, 'href': data._links.self.href, 'selfLink': data._links.self.href};
                         self[apiPath].push(tmpObj);
@@ -205,10 +207,13 @@ angular.module('galebWebui')
 				d.resolve();
 			}, function (error) {
 				self.isSaving = false;
-				if (error.status == 409) {
-					error.data.statusText = self.showConflict();
+				if (error && error.data){
+					if (error.status == 409) {
+						error.data.statusText = self.showConflict();
+					}
+					toastr.error(error.status + ' - ' + error.data.statusText, self.errorMsg);
 				}
-				toastr.error(error.status + ' - ' + error.data.statusText, self.errorMsg);
+				toastr.error("Unexpected error - method: updateResource ");
 			});
 			return d.promise;
 		},

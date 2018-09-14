@@ -138,10 +138,10 @@ angular.module('galebWebui', [
                     return 'team'
                 },
                 apiLinks: function () {
-                    return ''
+                    return 'accounts'
                 },
                 apiForce: function () {
-                    return ''
+                    return {'accounts': 'account'}
                 }
             }
         })
