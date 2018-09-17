@@ -140,9 +140,12 @@ angular.module('galebWebui')
         returnRule.then(function (ruleInfo) {
            return $scope.manager.loadEnvironmentInformation($scope.manager.selectedResource.environment_id, ruleInfo);
         }).then(function (envInfo) {
-            var currentOrder = Math.max.apply(Math, $scope.manager.selectedResource.arrayRuleOrder.map(function (item) {
+          var currentOrder = 0;
+          if($scope.manager.selectedResource.arrayRuleOrder.length > 0){
+            currentOrder = Math.max.apply(Math, $scope.manager.selectedResource.arrayRuleOrder.map(function (item) {
                 return item.order;
             }));
+          }
             envInfo['order'] = currentOrder + 1;
             var ruleExist = $scope.manager.selectedResource.arrayRuleOrder.filter(item => item.ruleInfo.id === envInfo.ruleInfo.id);
             if (ruleExist.length == 0) {
