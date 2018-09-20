@@ -22,7 +22,7 @@ angular.module('galebWebui')
       }).then(function(response) {
         if (response.data) {
           $localStorage.token = response.data.token;
-          $localStorage.account = response.data.account;
+          $localStorage.username = response.data.username;
           $localStorage.admin = response.data.admin;
           $localStorage.email = response.data.email;
           self.isLogging = false;
@@ -57,10 +57,8 @@ angular.module('galebWebui')
       }
     },
     'isAdmin': function() { return $localStorage.admin ? true : false; },
-    'account': function() { return $localStorage.account; },
-    'email': function() { return $localStorage.email; },
-    'hasTeam': function() { return $localStorage.hasTeam; }
-
+    'username': function() { return $localStorage.username; },
+    'email': function() { return $localStorage.email; }
   };
 
   return self;
