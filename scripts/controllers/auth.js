@@ -14,7 +14,7 @@ angular.module('galebWebui')
     return $scope.auth.isAdmin();
   }
 
-  $scope.currentUser = $scope.auth.account();
+  $scope.currentUser = $scope.auth.username();
   $scope.email = $scope.auth.email();
 
   $scope.login = function() {
