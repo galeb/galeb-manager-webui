@@ -3,7 +3,7 @@ angular.module('galebWebui')
   return {
     'request': function (config) {
       config.headers = config.headers;
-      if ($localStorage.token && $localStorage.account) {
+      if ($localStorage.token && $localStorage.username) {
         config.headers['Authorization'] = 'Basic ' + btoa($localStorage.account + ":" + $localStorage.token);
       }
       return config;
