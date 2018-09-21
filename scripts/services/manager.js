@@ -70,8 +70,11 @@ angular.module('galebWebui')
 					ManagerSelected = Manager;
 				}
 
+		
 				if (self.apiPath == 'account') {
 					ManagerSelected = ManagerGenericSearch;
+					params = {'path': self.apiPath, 'searchPath': 'findByUsernameContaining', 'query': 'username=' + self.searchText + '&size=10'};
+
 				} 
 
 				ManagerSelected.get(params, function (response) {
@@ -125,7 +128,11 @@ angular.module('galebWebui')
                                     resource['nameStats'] = resource.name.replace(/\./g, '_').toLowerCase();
 								} else if (self.apiPath === 'environment') {
 									resource['nameStats'] = resource.name.replace(/-/g, '_').toLowerCase();
-								}
+								}else if (apiPath === 'account') {
+									tmpObj = {'id': data.id, 'username': data.username, 'href': data._links.self.href, 'selfLink': data._links.self.href};
+									self[apiPath].push(tmpObj);
+								} 
+
 							});
 						});
 
