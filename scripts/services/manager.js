@@ -70,6 +70,10 @@ angular.module('galebWebui')
 					ManagerSelected = Manager;
 				}
 
+				if (self.apiPath == 'account') {
+					ManagerSelected = ManagerGenericSearch;
+				} 
+
 				ManagerSelected.get(params, function (response) {
 					angular.forEach(response._embeddedItems, function(resource) {
 						var healthInfoText = [];
