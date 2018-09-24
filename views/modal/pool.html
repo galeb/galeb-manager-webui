@@ -21,6 +21,19 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="globalPool">&nbsp;</label>
+
+            <div class="col-sm-8">
+              <label>
+                <input type="checkbox" ng-model="manager.selectedResource.global" id="globalPool"
+                       disable-valid-styling="true">
+                Global pool?
+              </label>
+              <span class="help-block">Be careful when you select this option this pool will be global and visible to all.</span>
+            </div>
+          </div>
+
           <ng-include src="'views/common/list/project.html'"></ng-include>
 
           <ng-include src="'views/common/list/environment.html'"></ng-include>
