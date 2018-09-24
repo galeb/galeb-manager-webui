@@ -12,7 +12,7 @@ angular.module('galebWebui')
       if (response.status === -1) {
         $localStorage.$reset();
         $location.path('login');
-      } else if (response.status === 401 || response.status === 403) {
+      } else if (response.status === 401) {
         $localStorage.$reset();
         $location.path('logout');
         $window.location.reload();

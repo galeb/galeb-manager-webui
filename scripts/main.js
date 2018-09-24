@@ -61,7 +61,7 @@ angular.module('galebWebui', [
                     return 'virtualhosts'
                 },
                 apiForce: function () {
-                    return {}
+                    return {'virtualhostgroup':'virtualhostgroup'}
                 }
             }
         })
