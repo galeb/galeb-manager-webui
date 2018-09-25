@@ -45,7 +45,7 @@ angular.module('galebWebui', [
                     return 'virtualhostgroup-environments-project'
                 },
                 apiForce: function () {
-                    return {'project': 'project', 'environments': 'environment', 'virtualhostgroup': 'virtualhostgroup'}
+                    return {'project': 'project', 'environments': 'environment', 'virtualhostgroup': 'virtualhost'}
                 }
             }
         })
