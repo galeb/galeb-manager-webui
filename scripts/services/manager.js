@@ -75,6 +75,9 @@ angular.module('galebWebui')
 					ManagerSelected = ManagerGenericSearch;
 					params = {'path': self.apiPath, 'searchPath': 'findByUsernameContaining', 'query': 'username=' + self.searchText + '&size=10'};
 
+				} else if(self.apiPath === "virtualhostgroup" && self.searchText != ''){
+					ManagerSelected = ManagerGenericSearch;
+					params = {'path': 'virtualhostgroup', 'searchPath': 'findByVirtualhosts_NameContaining', 'query': 'name=' + self.searchText + '&size=10'};
 				} 
 
 				ManagerSelected.get(params, function (response) {

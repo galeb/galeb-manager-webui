@@ -1,8 +1,7 @@
-<div class="form-group">
+<div class="form-group" ng-if="mode == 'Edit'">
   <label class="col-sm-3 control-label">VirtualHost Group</label>
 
   <div class="col-sm-8">
-    <div class="input-group">
       <ui-select ng-model="manager.selectedResource.virtualhostgroup">
         <ui-select-match placeholder="Select one virtualhost group">
           <span ng-bind="$select.selected.name"></span>
@@ -15,13 +14,6 @@
           <div ng-bind-html="virtualhost.name | highlight: $select.search"></div>
         </ui-select-choices>
       </ui-select>
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-danger form-control ui-select-toggle"
-          ng-click="cleanVirtualHostGroup()">
-            <i class="fa fa-trash-o"></i>
-        </button>
-      </span>
-    </div>
-    <span class="help-block">Leave blank to create your virtualhost group.</span>
+    <span class="help-block" style="color:red;">Leave blank to create your virtualhost group. If you change Virtualhostgroup, and the previous Virtualhostgroup is not being used, it will be deleted.</span>
   </div>
 </div>
