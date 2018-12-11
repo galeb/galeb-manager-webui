@@ -294,7 +294,7 @@ ul.tree>li:first-child::after {
 
 .tree li a {
     background: #EFEFEF;
-    padding:10px 20px;
+    padding:10px 20px 10px 15px;
     border-radius: 5px;
     text-decoration: none;
     color: #333;
@@ -302,6 +302,18 @@ ul.tree>li:first-child::after {
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
+}
+
+.tree li a.target {
+    background: none;
+    padding:0;
+    color: #333;
+    text-decoration: underline;
+}
+
+.tree li a.target:hover {
+    background: none;
+    color: #2196f3;
 }
 
 .tree li a:hover, .tree li a:hover+ul li a,
@@ -319,13 +331,22 @@ ul.tree>li:first-child::after {
 }
 
 .tree i.fa.fa-circle {
-    font-size: 8px;
+    font-size:9px;
+}
+.tree i.fa.fa-envs {
+    font-size:11px;
 }
 
 .popover {
     display: inline-block;
     white-space: nowrap;
+    max-width: none;
 }
+.popover hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .text-default{color:#666666}
 
 .tooltip-inner {
