@@ -272,84 +272,153 @@ angular.module('galebWebui')
 			var params = {'path': 'virtualhost', 'id': id};
 			var tmpVirtualHost = {};
 
-			Manager.get(params, function (response) {
-				tmpVirtualHost.id = response.id;
-				tmpVirtualHost.name = response.name;
-				tmpVirtualHost.status = response._status;
-				tmpVirtualHost.rulesOrdered = response.rulesOrdered;
+            Manager.get(params, function (response) {
+                tmpVirtualHost.id = response.id;
+                tmpVirtualHost.name = response.name;
+                tmpVirtualHost.last_modified_by = response._last_modified_by;
+                tmpVirtualHost.last_modified_at = response._last_modified_at;
+                tmpVirtualHost.color = '';
 
-				response._resources('environment').get(function (envVH) {
-					tmpVirtualHost.environment = envVH.name;
-				});
+                response._resources('environments').get(function (envVH) {
+                    var arrEnv = [];
+                    angular.forEach(envVH._embeddedItems, function(env) {
+                        var sync = '';
+                        if (response.status[env.id] === 'OK') {
+                            sync = 'text-success';
+                            tmpVirtualHost.color = 'text-success';
+                        } else if (response.status[env.id] === 'PENDING') {
+                            sync = 'text-warning';
+                            tmpVirtualHost.color = 'text-warning';
+                        } else if (response.status[env.id] === 'DELETED') {
+                            sync = 'text-info';
+                            tmpVirtualHost.color = 'text-info';
+                        }
+                        arrEnv.push("&nbsp;&nbsp;&nbsp;<b>" + env.name + "</b> &nbsp;<i class='fa fa-circle fa-envs " + sync + "'></i>");
+                    });
+                    tmpVirtualHost.environment = arrEnv.join("<br>");
+                });
 
-				response._resources('rules').get(function (rules) {
-					var arrRules = [];
-					angular.forEach(rules._embeddedItems, function(rule) {
-						var tmpPool = {};
-						rule._resources('pool').get(function (pool) {
-							tmpPool.id = pool.id;
-							tmpPool.name = pool.name;
-							tmpPool.status = pool._status;
+                response._resources('virtualhostgroup').get(function (vhGroup) {
+                    vhGroup._resources('rulesordered').get(function (rulesOrdered) {
+                        var arrRules = [];
+                        angular.forEach(rulesOrdered._embeddedItems, function(rulesOrdered_rule) {
+                            rulesOrdered_rule._resources('rule').get(function (ruleInfo) {
+                                var tmpRule = {};
+                                ruleInfo._resources('self').get(function (rule) {
+                                    var arrPools = [];
+                                    ruleInfo._resources('pools').get(function (pools) {
+                                        angular.forEach(pools._embeddedItems, function(poolInfo) {
+                                            poolInfo._resources('self').get(function (pool) {
+                                                var tmpPool = {};
+                                                tmpPool.id = pool.id;
+                                                tmpPool.name = pool.name;
+                                                tmpPool.last_modified_by = pool._last_modified_by;
+                                                tmpPool.last_modified_at = pool._last_modified_at;
 
-							hcPool = "HealthCheck TCP";
-							if (pool.properties.hcPath) {
-								hcPool = "HealthCheck HTTP <br> Path: <b>" + pool.properties.hcPath
-									+ "</b><br> StatusCode: <b>" + pool.properties.hcStatusCode
-									+ "</b><br> Host: <b>" + pool.properties.hcHost
-									+ "</b><br> Body: <b>" + pool.properties.hcBody + "</b>";
-							}
-							tmpPool.tooltip = hcPool;
+                                                tmpPool.hc_path = pool.hc_path;
+                                                tmpPool.hc_http_status_code = pool.hc_http_status_code;
+                                                tmpPool.hc_host = pool.hc_host;
+                                                tmpPool.hc_http_method = pool.hc_http_method;
+                                                tmpPool.hc_body = pool.hc_body;
+                                                tmpPool.color = '';
 
-							pool._resources('environment').get(function (envPOOL) {
-								tmpPool.environment = envPOOL.name;
-							});
+                                                var envPoolId;
+                                                pool._resources('environment').get(function (envPOOL) {
+                                                    tmpPool.environment = envPOOL.name;
+                                                    envPoolId = envPOOL.id;
 
-							pool._resources('balancePolicy').get(function (envBALANCE) {
-								tmpPool.balance = envBALANCE.name;
-							});
+                                                    if (pool.status[envPoolId] === 'OK') {
+                                                        tmpPool.color = 'text-success';
+                                                    } else if (pool.status[envPoolId] === 'PENDING') {
+                                                        tmpPool.color = 'text-warning';
+                                                    } else if (pool.status[envPoolId] === 'DELETED') {
+                                                        tmpPool.color = 'text-info';
+                                                    }
+                                                });
 
-							var arrTargets = [];
-							pool._resources('targets').get(function (targets) {
-								angular.forEach(targets._embeddedItems, function(target) {
-									tmpTarget = {
-										'id': target.id,
-										'name': target.name,
-										'status': target._status,
-										'healthy': target.properties.healthy,
-										'status_detailed': target.properties.status_detailed
-									};
-									if (target.properties.status_detailed != 'OK') {
-										tmpTarget.detailed = "<br>Details: <b>" + target.properties.status_detailed  + "</b>"
-									}
-									arrTargets.push(tmpTarget);
-								});
-							});
-							tmpPool.targets = arrTargets;
-						});
+                                                pool._resources('balancepolicy').get(function (envBALANCE) {
+                                                    tmpPool.balance = envBALANCE.name;
+                                                });
 
-						tmpRule = {
-							'id': rule.id,
-							'name': rule.name,
-							'match': rule.properties.match,
-							'global': rule.global,
-							'status': rule._status,
-							'pool': tmpPool
-						};
+                                                var arrTargets = [];
+                                                pool._resources('targets').get(function (targets) {
+                                                    angular.forEach(targets._embeddedItems, function (targetInfo) {
+                                                        var tmpTarget = {};
+                                                        var arrHS = [];
+                                                        targetInfo._resources('healthStatus').get(function (healthstatusInfo) {
+                                                            angular.forEach(healthstatusInfo._embeddedItems, function (healthstatus) {
+                                                                var tmpHS = {};
+                                                                tmpHS.id = healthstatus.id;
+                                                                tmpHS.status_detailed = healthstatus.status_detailed;
+                                                                tmpHS.source = healthstatus.source;
+                                                                tmpHS.last_modified_at = healthstatus._last_modified_at;
+                                                                tmpHS.icon = healthstatus.status === 'HEALTHY' ? 'fa-check text-success' : 'fa-close text-danger';
 
-						tmpVirtualHost.rulesOrdered.some(function(item) {
-							if (item.ruleId == rule.id) {
-								tmpRule.ruleOrder = item.ruleOrder;
-								return true;
-							} else {
-								tmpRule.ruleOrder = 999999;
-							}
-						});
-						arrRules.push(tmpRule);
-					});
+                                                                if (healthstatus.status === 'HEALTHY') {
+                                                                    tmpHS.info = "<br>Status: <b>" + healthstatus.status + "</b>";
+                                                                } else {
+                                                                    tmpHS.info = "<br>Status: <b>" + healthstatus.status + "</b><br>Status Detailed: <b>" + healthstatus.status_detailed + "</b>";
+                                                                }
+                                                                arrHS.push(tmpHS);
+                                                            });
 
-					tmpVirtualHost.rules = $filter('orderBy')(arrRules, 'ruleOrder');
-				});
-				self.selectedResource = tmpVirtualHost;
+                                                        });
+                                                        targetInfo._resources('self').get(function (target) {
+                                                            tmpTarget.id = target.id;
+                                                            tmpTarget.name = target.name;
+                                                            tmpTarget.status = target.status;
+                                                            tmpTarget.last_modified_by = target._last_modified_by;
+                                                            tmpTarget.last_modified_at = target._last_modified_at;
+                                                            tmpTarget.healthStatus = arrHS;
+                                                            tmpTarget.color = '';
+
+                                                            if (target.status[envPoolId] === 'OK') {
+                                                                tmpTarget.color = 'text-success';
+                                                            } else if (target.status[envPoolId] === 'PENDING') {
+                                                                tmpTarget.color = 'text-warning';
+                                                            } else if (target.status[envPoolId] === 'DELETED') {
+                                                                tmpTarget.color = 'text-info';
+                                                            }
+                                                            arrTargets.push(tmpTarget);
+                                                        });
+                                                    });
+                                                });
+                                                tmpPool.targets = arrTargets;
+                                                arrPools.push(tmpPool);
+                                            });
+                                        });
+                                    });
+
+                                    tmpRule.id = rule.id;
+                                    tmpRule.name = rule.name;
+                                    tmpRule.color = '';
+                                    tmpRule.last_modified_by = rule._last_modified_by;
+                                    tmpRule.last_modified_at = rule._last_modified_at;
+                                    tmpRule.order = rulesOrdered_rule.order;
+                                    tmpRule.match = rule.matching;
+                                    tmpRule.global = rule.global;
+                                    tmpRule.pools = arrPools;
+
+                                    rulesOrdered_rule._resources('environment').get(function (envRuleOredered) {
+                                        tmpRule.environment = envRuleOredered.name;
+
+                                        if (rule.status[envRuleOredered.id] === 'OK') {
+                                            tmpRule.color = 'text-success';
+                                        } else if (rule.status[envRuleOredered.id] === 'PENDING') {
+                                            tmpRule.color = 'text-warning';
+                                        } else if (rule.status[envRuleOredered.id] === 'DELETED') {
+                                            tmpRule.color = 'text-info';
+                                        }
+                                    });
+
+                                    arrRules.push(tmpRule);
+                                });
+                            });
+                        });
+                        tmpVirtualHost.rules = arrRules;
+                    });
+                });
+                self.selectedResource = tmpVirtualHost;
 			});
 		},
 		'createWizard': function (key, resource) {
