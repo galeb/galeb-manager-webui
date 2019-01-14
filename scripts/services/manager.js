@@ -92,12 +92,14 @@ angular.module('galebWebui')
 									var tmpArr = [];
 									var tmpArrLinks = [];
 									angular.forEach(subItem._embeddedItems, function(item) {
+                                        var nameParsed = '';
 										if (link === 'healthStatus') {
                                             tmpObj = {'id':item.id,'status':item.status,'status_detailed':item.status_detailed,'source':item.source};
                                         } else if (link === 'accounts') {
 											tmpObj = {'id': item.id, 'username': item.username, 'href': item._links.self.href, 'selfLink': item._links.self.href};
 										} else {
-											tmpObj = {'id': item.id, 'name': item.name, 'href': item._links.self.href, 'selfLink': item._links.self.href};
+											nameParsed = item.name.replace(/-/g, '_').toLowerCase();
+											tmpObj = {'id': item.id, 'name': item.name, 'nameParsed': nameParsed, 'href': item._links.self.href, 'selfLink': item._links.self.href};
 										}
 										tmpArr.push(tmpObj);
 										tmpArrLinks.push(item._links.self.href);

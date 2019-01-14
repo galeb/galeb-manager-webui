@@ -51,7 +51,7 @@
                         <i class="fa fa-bar-chart fa-fw"></i> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li ng-repeat="env in resource.environmentsObj | orderBy:'name'">
-                            <a ng-href="{{manager.statsVirtualhostUrl}}var-virtualhost={{resource.nameStats}}&var-env={{env.name}}"
+                            <a ng-href="{{manager.statsVirtualhostUrl}}var-virtualhost={{resource.nameStats}}&var-env={{env.nameParsed}}&var-envid={{env.id}}"
                                target="_blank">
                                 {{ env.name }}
                             </a>
