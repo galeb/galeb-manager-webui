@@ -1,164 +1,160 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en" ng-app="galebWebui">
-<head>
-    <title>Galeb Manager Webui</title>
 
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>Galeb Manager Webui</title>
 
-    <link href="scripts/libs/bootstrap/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link href="css/paper.css"
-          rel="stylesheet">
-    <link href="scripts/libs/bootstrap-additions/dist/bootstrap-additions.min.css"
-          rel="stylesheet">
-    <link href="scripts/libs/angular-toastr/dist/angular-toastr.min.css"
-          rel="stylesheet">
-    <link href="scripts/libs/ladda/dist/ladda-themeless.min.css"
-          rel="stylesheet">
-    <link href="scripts/libs/font-awesome/css/font-awesome.min.css"
-          rel="stylesheet">
-    <link href="scripts/libs/sweetalert/dist/sweetalert.css"
-          rel="stylesheet">
-    <link href="scripts/libs/angular-ui-select/dist/select.min.css"
-          rel="stylesheet">
-    <link href="css/main.css"
-          rel="stylesheet">
-</head>
+                <link rel="icon" type="image/png" href="img/favicon.png">
 
-<body state="{{currentState}}">
-<div ng-controller="AuthController">
-    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="isAuthenticated()">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand"
-                   ui-sref="dashboard">
-                    <img src="img/GalebManager-logo-admin.png"
-                         alt="Galeb Manager"/>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li ui-sref-active="active">
-                        <a ui-sref="dashboard"><i class="fa fa-home"></i></a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="pool">Pool</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="target">Target</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="virtualhost">VirtualHost</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="rule">Rule</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="project">Project</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="team">Team</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="account">Account</a>
-                    </li>
-                    <li class="dropdown" ui-sref-active="active" ng-if="isAdmin()">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin
-                            <i class="fa fa-caret-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="farm">Farm</a></li>
-                            <li><a ui-sref="provider">Provider</a></li>
-                            <li class="divider"></li>
-                            <li><a ui-sref="balancepolicy">BalancePolicy</a></li>
-                            <li><a ui-sref="environment">Environment</a></li>
-                            <li class="divider"></li>
-                            <li><a ui-sref="ruletype">RuleType</a></li>
-                            <li><a ui-sref="balancetype">BalanceType</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" ui-sref-active="active">
-                        <a class="dropdown-toggle dropdown-gravatar" data-toggle="dropdown" role="button"
-                           aria-expanded="false">
-                            <gw-gravatar name="{{ currentUser }}" height="30" width="30"
-                                         email="{{ email }}"></gw-gravatar>
-                            <i class="fa fa-caret-down"></i>
+                <link href="scripts/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+                <link href="css/paper.css" rel="stylesheet">
+                <link href="scripts/libs/bootstrap-additions/dist/bootstrap-additions.min.css" rel="stylesheet">
+                <link href="scripts/libs/angular-toastr/dist/angular-toastr.min.css" rel="stylesheet">
+                <link href="scripts/libs/ladda/dist/ladda-themeless.min.css" rel="stylesheet">
+                <link href="scripts/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+                <link href="scripts/libs/sweetalert/dist/sweetalert.css" rel="stylesheet">
+                <link href="scripts/libs/angular-ui-select/dist/select.min.css" rel="stylesheet">
+                <link href="css/main.css" rel="stylesheet">
+            </head>
+
+    <body state="{{currentState}}">
+        <div ng-controller="AuthController">
+            <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="isAuthenticated()">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" ui-sref="dashboard">
+                            <img src="img/GalebManager-logo-admin.png" alt="Galeb Manager" />
                         </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Hello, <b>{{currentUser}}</b></li>
-                            <li class="divider"></li>
-                            <li><a ui-sref="logout">Logout</a></li>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li ui-sref-active="active">
+                                <a ui-sref="dashboard"><i class="fa fa-home"></i></a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="pool">Pool</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="target">Target</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="virtualhost">VirtualHost</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="rule">Rule</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="project">Project</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="team">Team</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="account">Account</a>
+                            </li>
+                            <li class="dropdown" ui-sref-active="active" ng-if="isAdmin()">
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-expanded="false">Admin
+                                    <i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a ui-sref="farm">Farm</a></li>
+                                    <li><a ui-sref="provider">Provider</a></li>
+                                    <li class="divider"></li>
+                                    <li><a ui-sref="balancepolicy">BalancePolicy</a></li>
+                                    <li><a ui-sref="environment">Environment</a></li>
+                                    <li class="divider"></li>
+                                    <li><a ui-sref="ruletype">RuleType</a></li>
+                                    <li><a ui-sref="balancetype">BalanceType</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown" ui-sref-active="active">
+                                <a class="dropdown-toggle dropdown-gravatar" data-toggle="dropdown" role="button"
+                                    aria-expanded="false">
+                                    <gw-gravatar name="{{ currentUser }}" height="30" width="30" email="{{ email }}">
+                                    </gw-gravatar>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">Hello, <b>{{currentUser}}</b></li>
+                                    <li class="divider"></li>
+                                    <li><a ui-sref="logout">Logout</a></li>
+                                </ul>
+                            </li>
                         </ul>
-                    </li>
-                </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container main-content">
+
+            <toaster-container></toaster-container>
+
+            <div class="push">
+
+                <div class="alert alert-dismissible alert-danger text-center" ng-if="!hasTeam">
+                    <strong>You are not associated with a team.</strong> Contact the team {{ alertTeam }}: <a
+                        href="mailto:{{ alertMail }}" class="alert-link">{{ alertMail }}</a>.
+                </div>
+
+                <div ui-view>
+                </div>
+
             </div>
         </div>
-    </nav>
-</div>
 
-<div class="container main-content">
+        <footer class="footer">
+            <div class="container">
+                <div class="pull-left">Copyright &copy; Globo.com {{ dateNow | date:'yyyy' }}</div>
+                <div class="pull-right">
+                    <a href="{{ statusGaleb }}" target="_blank">Status Galeb</a>
+                    <a href="{{ statusIaaS }}" target="_blank">Status IaaS</a>
+                    A-Team <i class="fa fa-smile-o"></i>
+                </div>
+            </div>
+        </footer>
 
-    <toaster-container></toaster-container>
+        <script src="scripts/libs/jquery/dist/jquery.min.js"></script>
+        <script src="scripts/libs/jquery-ui/jquery-ui.min.js"></script>
+        <script src="scripts/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="scripts/libs/angular/angular.min.js"></script>
+        <script src="scripts/libs/angular-resource/angular-resource.min.js"></script>
+        <script src="scripts/libs/ngstorage/ngStorage.min.js"></script>
+        <script src="scripts/libs/angular-spring-data-rest/dist/angular-spring-data-rest.min.js"></script>
+        <script src="scripts/libs/angular-animate/angular-animate.min.js"></script>
+        <script src="scripts/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+        <script src="scripts/libs/spin.js/spin.js"></script>
+        <script src="scripts/libs/angular-spinner/angular-spinner.min.js"></script>
+        <script src="scripts/libs/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
+        <script src="scripts/libs/ladda/dist/ladda.min.js"></script>
+        <script src="scripts/libs/angular-ladda/dist/angular-ladda.min.js"></script>
+        <script src="scripts/libs/angular-strap/dist/angular-strap.min.js"></script>
+        <script src="scripts/libs/angular-strap/dist/angular-strap.tpl.min.js"></script>
+        <script src="scripts/libs/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+        <script src="scripts/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="scripts/libs/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="scripts/libs/ngSweetAlert/SweetAlert.min.js"></script>
+        <script src="scripts/libs/angular-ui-sortable/sortable.min.js"></script>
+        <script src="scripts/libs/angular-md5/angular-md5.min.js"></script>
+        <script src="scripts/libs/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="scripts/libs/angular-ui-select/dist/select.min.js"></script>
 
-    <div class="push">
+        <script src="scripts/main.js"></script>
+        <script src="scripts/services/httpResponseInterceptor.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/constants.js"></script>
+        <script src="scripts/services/resource.js"></script>
+        <script src="scripts/services/manager.js"></script>
+        <script src="scripts/controllers/auth.js"></script>
+        <script src="scripts/controllers/manager.js"></script>
+        <script src="scripts/controllers/common.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/directives/spinner.js"></script>
+        <script src="scripts/directives/gravatar.js"></script>
+        <script src="scripts/directives/status.js"></script>
+    </body>
 
-        <div class="alert alert-dismissible alert-danger text-center" ng-if="!hasTeam">
-            <strong>You are not associated with a team.</strong> Contact the team {{ alertTeam }}: <a href="mailto:{{ alertMail }}" class="alert-link">{{ alertMail }}</a>.
-        </div>
-
-        <div ui-view>
-        </div>
-
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <div class="pull-left">Copyright &copy; Globo.com {{ dateNow | date:'yyyy' }}</div>
-        <div class="pull-right">
-            <a href="{{ statusGaleb }}" target="_blank">Status Galeb</a>
-            <a href="{{ statusIaaS }}" target="_blank">Status IaaS</a>
-            A-Team <i class="fa fa-smile-o"></i>
-        </div>
-    </div>
-</footer>
-
-<script src="scripts/libs/jquery/dist/jquery.min.js"></script>
-<script src="scripts/libs/jquery-ui/jquery-ui.min.js"></script>
-<script src="scripts/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="scripts/libs/angular/angular.min.js"></script>
-<script src="scripts/libs/angular-resource/angular-resource.min.js"></script>
-<script src="scripts/libs/ngstorage/ngStorage.min.js"></script>
-<script src="scripts/libs/angular-spring-data-rest/dist/angular-spring-data-rest.min.js"></script>
-<script src="scripts/libs/angular-animate/angular-animate.min.js"></script>
-<script src="scripts/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
-<script src="scripts/libs/spin.js/spin.js"></script>
-<script src="scripts/libs/angular-spinner/angular-spinner.min.js"></script>
-<script src="scripts/libs/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
-<script src="scripts/libs/ladda/dist/ladda.min.js"></script>
-<script src="scripts/libs/angular-ladda/dist/angular-ladda.min.js"></script>
-<script src="scripts/libs/angular-strap/dist/angular-strap.min.js"></script>
-<script src="scripts/libs/angular-strap/dist/angular-strap.tpl.min.js"></script>
-<script src="scripts/libs/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
-<script src="scripts/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="scripts/libs/sweetalert/dist/sweetalert.min.js"></script>
-<script src="scripts/libs/ngSweetAlert/SweetAlert.min.js"></script>
-<script src="scripts/libs/angular-ui-sortable/sortable.min.js"></script>
-<script src="scripts/libs/angular-md5/angular-md5.min.js"></script>
-<script src="scripts/libs/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="scripts/libs/angular-ui-select/dist/select.min.js"></script>
-
-<script src="scripts/main.js"></script>
-<script src="scripts/services/httpResponseInterceptor.js"></script>
-<script src="scripts/services/auth.js"></script>
-<script src="scripts/services/constants.js"></script>
-<script src="scripts/services/resource.js"></script>
-<script src="scripts/services/manager.js"></script>
-<script src="scripts/controllers/auth.js"></script>
-<script src="scripts/controllers/manager.js"></script>
-<script src="scripts/controllers/common.js"></script>
-<script src="scripts/controllers/dashboard.js"></script>
-<script src="scripts/directives/spinner.js"></script>
-<script src="scripts/directives/gravatar.js"></script>
-<script src="scripts/directives/status.js"></script>
-</body>
 </html>
