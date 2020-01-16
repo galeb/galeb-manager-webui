@@ -1,0 +1,34 @@
+<div id="createModal" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        ng-click="managerModal.hide()">&times;</button>
+                <h4 class="modal-title">{{mode}} Role Group</h4>
+            </div>
+            <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
+                <div class="modal-body">
+                    <ng-include src="'views/common/header.modal.html'"></ng-include>
+
+                    <label class="col-sm-3 control-label" for="name">Roles</label>
+
+                    <div class="col-sm-8">
+                        <ul>
+                            <li ng-repeat="role in manager.selectedResource.roles">
+                                {{role}}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ng-include src="'views/common/footer.modal.html'"></ng-include>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="save" name="save" ladda="manager.isSaving" class="btn btn-primary">Save
+                    </button>
+                    <button class="btn btn-default" type="button" ng-click="managerModal.hide()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

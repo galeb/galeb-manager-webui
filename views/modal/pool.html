@@ -21,6 +21,19 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="globalPool">&nbsp;</label>
+
+            <div class="col-sm-8">
+              <label>
+                <input type="checkbox" ng-model="manager.selectedResource.global" id="globalPool"
+                       disable-valid-styling="true">
+                Global pool?
+              </label>
+              <span class="help-block">Be careful when you select this option this pool will be global and visible to all.</span>
+            </div>
+          </div>
+
           <ng-include src="'views/common/list/project.html'"></ng-include>
 
           <ng-include src="'views/common/list/environment.html'"></ng-include>
@@ -29,64 +42,77 @@
 
           <ng-include src="'views/common/list/balancepolicy.html'"></ng-include>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="allow">Allows</label>
+            <div class="col-sm-8">
+
+              <input id="allow" name="allow" ng-model="manager.selectedResource.allow" type="text"
+                     class="form-control input-md" ng-pattern="regex_pool_allow" ng-pattern-err-type="badAllow"
+                     disable-valid-styling="true">
+              <span class="help-block">Use commas to separate IPs.</span>
+            </div>
+          </div>
+
           <hr>
 
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="hcTCP">&nbsp;</label>
+            <label class="col-sm-3 control-label" for="hc_tcp_only">&nbsp;</label>
 
             <div class="col-sm-8">
               <label>
-                <input type="checkbox" ng-model="manager.selectedResource.hcTCP" id="hcTCP"
+                <input type="checkbox" ng-model="manager.selectedResource.hc_tcp_only" id="hc_tcp_only"
                        disable-valid-styling="true">
                 Healthcheck TCP Only?
               </label>
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
-            <label class="col-sm-3 control-label" for="properties.hcPath">HealthChecker Path</label>
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hc_tcp_only">
+            <label class="col-sm-3 control-label" for="hc_path">HealthChecker Path</label>
 
             <div class="col-sm-8">
-              <input id="properties.hcPath" name="properties.hcPath"
-              ng-model="manager.selectedResource.properties.hcPath" type="text"
+              <input id="hc_path" name="hc_path"
+              ng-model="manager.selectedResource.hc_path" type="text"
               ng-pattern="/^\//" ng-pattern-err-type="badHCPath"
               class="form-control input-md" required>
               <span class="help-block">Example: /healthcheck.html</span>
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
-            <label class="col-sm-3 control-label" for="properties.hcStatusCode">HealthChecker Status</label>
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hc_tcp_only">
+            <label class="col-sm-3 control-label" for="hc_http_status_code">HealthChecker Status</label>
 
             <div class="col-sm-8">
-              <input id="properties.hcStatusCode" name="properties.hcStatusCode"
-              ng-model="manager.selectedResource.properties.hcStatusCode" type="text"
+              <input id="hc_http_status_code" name="hc_http_status_code"
+              ng-model="manager.selectedResource.hc_http_status_code" type="text"
               class="form-control input-md" required>
               <span class="help-block">Example: 200</span>
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
-            <label class="col-sm-3 control-label" for="properties.hcHost">HealthChecker Host</label>
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hc_tcp_only">
+            <label class="col-sm-3 control-label" for="hc_host">HealthChecker Host</label>
 
             <div class="col-sm-8">
-              <input id="properties.hcHost" name="properties.hcHost"
-              ng-model="manager.selectedResource.properties.hcHost" type="text"
+              <input id="hc_host" name="hc_host"
+              ng-model="manager.selectedResource.hc_host" type="text"
               class="form-control input-md">
               <span class="help-block">Example: localhost.com (Default don't send header host)</span>
             </div>
           </div>
 
-          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hcTCP">
-            <label class="col-sm-3 control-label" for="properties.hcBody">HealthChecker Body</label>
+          <div class="form-group form-group-no-margin" ng-if="!manager.selectedResource.hc_tcp_only">
+            <label class="col-sm-3 control-label" for="hc_body">HealthChecker Body</label>
 
             <div class="col-sm-8">
-              <input id="properties.hcBody" name="properties.hcBody"
-              ng-model="manager.selectedResource.properties.hcBody" type="text"
+              <input id="hc_body" name="hc_body"
+              ng-model="manager.selectedResource.hc_body" type="text"
               class="form-control input-md">
               <span class="help-block">Example: WORKING (Default don't check response body)</span>
             </div>
           </div>
+
+          <ng-include src="'views/common/list/methods.html'" ng-if="!manager.selectedResource.hc_tcp_only"></ng-include>
 
           <ng-include src="'views/common/footer.modal.html'"></ng-include>
         </div>

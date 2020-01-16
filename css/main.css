@@ -51,11 +51,26 @@ body {
 .table .col-2 {
     width: 20%;
 }
+.table .col-2-5 {
+    width: 25%;
+}
 .table .col-3 {
     width: 30%;
 }
+.table .col-3-5 {
+    width: 35%;
+}
 .table .col-4 {
     width: 40%;
+}
+.table .col-4-5 {
+    width: 45%;
+}
+.table .col-5-5 {
+    width: 55%;
+}
+.table .col-8-5 {
+    width: 85%;
 }
 .table tr td {
     vertical-align: middle;
@@ -169,6 +184,14 @@ body {
     text-align: center;
     border-radius: 3px;
 }
+.sortable-item div {
+    display: inline-block;
+}
+.sortable-item div:last-child {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
 .sortable-item:before {
     content: "\f0c9";
     font-family: FontAwesome;
@@ -185,14 +208,19 @@ body {
 .placeholder {
     background-color: #f5f5f5;
     border: 1px dashed #CCC;
-    height: 50px;
-    margin-bottom: 5px;
+    height: 56px;
+    margin-bottom: 10px;
     border-radius: 3px;
 }
 .huge {
     font-size: 34px;
     padding: 0;
     margin: -5px;
+}
+.small {
+    font-size: 17px;
+    padding: 0;
+    margin: -2px;
 }
 .btn-success {
     margin-left: 100px;
@@ -266,7 +294,7 @@ ul.tree>li:first-child::after {
 
 .tree li a {
     background: #EFEFEF;
-    padding:10px 20px;
+    padding:10px 20px 10px 15px;
     border-radius: 5px;
     text-decoration: none;
     color: #333;
@@ -274,6 +302,18 @@ ul.tree>li:first-child::after {
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
+}
+
+.tree li a.target {
+    background: none;
+    padding:0;
+    color: #333;
+    text-decoration: underline;
+}
+
+.tree li a.target:hover {
+    background: none;
+    color: #2196f3;
 }
 
 .tree li a:hover, .tree li a:hover+ul li a,
@@ -291,10 +331,37 @@ ul.tree>li:first-child::after {
 }
 
 .tree i.fa.fa-circle {
-    font-size: 8px;
+    font-size:9px;
+}
+.tree i.fa.fa-envs {
+    font-size:11px;
 }
 
 .popover {
     display: inline-block;
     white-space: nowrap;
+    max-width: none;
+}
+.popover hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.text-default{color:#666666}
+
+.tooltip-inner {
+    max-width: none;
+    text-align: left;
+    white-space: nowrap;
+}
+.env span, .pools span {
+    font-size: 13px;
+}
+.env ul, .pools ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0;
+    margin: 0;
+}
+.orderlink:hover {
+    cursor: pointer;
 }

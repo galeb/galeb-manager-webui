@@ -22,10 +22,9 @@ angular.module('galebWebui')
       }).then(function(response) {
         if (response.data) {
           $localStorage.token = response.data.token;
-          $localStorage.account = response.data.account;
+          $localStorage.username = response.data.username;
           $localStorage.admin = response.data.admin;
           $localStorage.email = response.data.email;
-          $localStorage.hasTeam = response.data.hasTeam;
           self.isLogging = false;
           callback && callback(true);
         } else {
@@ -36,6 +35,8 @@ angular.module('galebWebui')
       }, function(response) {
         if (response.status === 401) {
           self.errorMsg = 'Please enter the correct username and password!';
+        } else if (response.status === 0) {
+            self.errorMsg = 'There was a problem to connect with Galeb API!';
         } else if (response.status === -1) {
           self.errorMsg = 'There was a problem with Galeb API, please contact administrator!';
         }
@@ -56,10 +57,8 @@ angular.module('galebWebui')
       }
     },
     'isAdmin': function() { return $localStorage.admin ? true : false; },
-    'account': function() { return $localStorage.account; },
-    'email': function() { return $localStorage.email; },
-    'hasTeam': function() { return $localStorage.hasTeam; }
-
+    'username': function() { return $localStorage.username; },
+    'email': function() { return $localStorage.email; }
   };
 
   return self;

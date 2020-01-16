@@ -1,11 +1,16 @@
 angular.module('galebWebui')
 .constant('config', {
-  'apiUrl': 'http://localhost',
-  'statsUrl': 'http://stats.localhost/',
-  'statusGaleb': 'http://status-galeb.localhost/',
-  'statusIaaS': 'http://status-iaas.localhost/',
-  'logUrl': 'http://logs.localhost/',
-  'logEnv': ['dev','prod'],
-  'alertTeam': 'Galeb',
-  'alertMail': 'contact@galeb.io'
+  'apiUrl': 'http://localhost:80',
+  'statsVirtualhostUrl': 'stats-virtualhost',
+  'statsEnvUrl': 'stats-env',
+  'statsUrlEnv': "['exclude-env']",
+  'logUrlProdBE': 'logs-prod-be',
+  'logUrlProdFE': 'logs-prod-fe',
+  'logUrlDev': 'logs-dev',
+  "healthColor": {
+    'OK': ' fa-check text-success',
+    'UNKNOWN': ' fa-close text-danger',
+    'FAIL': ' fa-close text-danger'
+  },
+  "links_monitors": ['hash-links-monitors']
 });

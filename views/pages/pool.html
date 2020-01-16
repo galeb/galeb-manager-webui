@@ -7,51 +7,34 @@
 	</div>
 
 	<table class="table table-hover"
-		   ng-hide="manager.resource.length == 0"
+		   ng-hide="manager.resource.length == 0 && manager.isLoading"
 		   infinite-scroll="loadMore()"
 		   infinite-scroll-immediate-check="false"
 		   infinite-scroll-disabled="manager.isLoading">
 		<thead>
-			<tr>
-                <th class="col-05 text-center">#</th>
-                <th class="col-05">Status</th>
-				<th class="col-3">
-					Name
-					<div class="sortables" ng-if="!manager.isSearching">
-						<span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
-						<span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
-					</div>
-				</th>
-				<th class="col-2 text-center">
-					Project
-					<div class="sortables" ng-if="!manager.isSearching">
-						<span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
-						<span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
-					</div>
-				</th>
-				<th class="col-1 text-center">BalancePolicy</th>
-				<th class="col-2 text-center">
-					Environment
-					<div class="sortables" ng-if="!manager.isSearching">
-						<span ng-click="doSort('environment.name,asc')" class="fa fa-sort-asc"></span>
-						<span ng-click="doSort('environment.name,desc')" class="fa fa-sort-desc"></span>
-					</div>
-				</th>
-                <th class="col-1">&nbsp;</th>
-			</tr>
+		<tr>
+			<th class="col-05 text-center">#</th>
+			<th class="col-05">Sync</th>
+			<th class="col-3">Name</th>
+			<th class="col-2 text-center">Project</th>
+			<th class="col-1 text-center">BalancePolicy</th>
+			<th class="col-2 text-center">Environment</th>
+			<th class="col-1">&nbsp;</th>
+		</tr>
 		</thead>
 		<tr ng-repeat="resource in manager.resources">
-            <td class="text-center">{{resource.id}}</td>
-            <td class="text-center">
-				<ng-include src="'views/common/status.table.html'"></ng-include>
-            </td>
-		    <td>{{resource.name}}</td>
+			<td class="text-center">{{resource.id}}</td>
+			<td class="text-center">
+				<i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
+				   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
+			</td>
+			<td>{{resource.name}}</td>
 			<td class="text-center">{{resource.projectObj.name}}</td>
-			<td class="text-center">{{resource.balancePolicyObj.name}}</td>
+			<td class="text-center">{{resource.balancepolicyObj.name}}</td>
 			<td class="text-center">{{resource.environmentObj.name}}</td>
-            <td class="text-center">
+			<td class="text-center">
 				<ng-include src="'views/common/buttons.table.html'"></ng-include>
-            </td>
+			</td>
 		</tr>
 	</table>
 

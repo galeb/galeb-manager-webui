@@ -7,50 +7,36 @@
 	</div>
 
 	<table class="table table-hover"
-		   ng-hide="manager.resource.length == 0"
+		   ng-hide="manager.resource.length == 0 && manager.isLoading"
 		   infinite-scroll="loadMore()"
 		   infinite-scroll-immediate-check="false"
 		   infinite-scroll-disabled="manager.isLoading">
 		<thead>
         <tr>
             <th class="col-05 text-center">#</th>
-            <th class="col-05">Status</th>
-			<th class="col-4">
-				Name
-				<div class="sortables" ng-if="!manager.isSearching">
-					<span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
-					<span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
-				</div>
-			</th>
-			<th class="col-2 text-center">
-				Pool
-				<div class="sortables" ng-if="!manager.isSearching">
-					<span ng-click="doSort('parent.name,asc')" class="fa fa-sort-asc"></span>
-					<span ng-click="doSort('parent.name,desc')" class="fa fa-sort-desc"></span>
-				</div>
-			</th>
-			<th class="col-2 text-center">
-				Project
-				<div class="sortables" ng-if="!manager.isSearching">
-					<span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
-					<span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
-				</div>
-			</th>
+            <th class="col-05 text-center text-center">Sync</th>
+			<th class="col-05 text-center text-center">Health</th>
+			<th class="col-4-5">Name</th>
+			<th class="col-3 text-center">Pool</th>
             <th class="col-1">&nbsp;</th>
         </tr>
 		</thead>
 		<tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <ng-include src="'views/common/status.table.html'"></ng-include>
+				<i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
+				   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
             </td>
+			<td class="text-center">
+				<i class="fa {{ resource.healthInfo.color }}" data-toggle="tooltip"
+				   title="{{ resource.healthInfo.text.join('<br>') }}" data-html="true" data-placement="right" bs-tooltip></i>
+			</td>
 			<td>
 				{{resource.name}}
 				<span class="label label-primary" ng-if="resource.description == 'blue'">BLUE</span>
 				<span class="label label-success" ng-if="resource.description == 'green'">GREEN</span>
 			</td>
-			<td class="text-center">{{resource.parentObj.name}}</td>
-			<td class="text-center">{{resource.projectObj.name}}</td>
+			<td class="text-center">{{resource.poolObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
 			</td>
