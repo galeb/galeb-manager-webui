@@ -1,8 +1,8 @@
 angular.module('galebWebui')
 .controller('ManagerController', function (
-  $scope, $modal, ManagerService, $filter, apiPath, apiLinks, apiForce, SweetAlert, config, toastr) {
+  $scope, $modal, ManagerService, $filter, apiPath, apiLinks, apiForce, SweetAlert, config, md5) {
 
-    $scope.regex_pool_allow = "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){1}([\\,]\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){0,}";
+    $scope.regex_virtualhost_allows = "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){1}([\\,]\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(\\/[\\d]{1,2}){0,1}){0,}";
 
     $scope.apiLinks = apiLinks ? apiLinks.split("-") : [];
 
@@ -11,12 +11,9 @@ angular.module('galebWebui')
     $scope.manager.searchText = '';
     $scope.manager.loadResources();
 
-    $scope.manager.statsVirtualhostUrl = config.statsVirtualhostUrl;
-    $scope.manager.statsUrlEnv = config.statsUrlEnv;
-    $scope.manager.logUrlProdBE = config.logUrlProdBE;
-    $scope.manager.logUrlProdFE = config.logUrlProdFE;
-    $scope.manager.logUrlDev = config.logUrlDev;
-    $scope.manager.statsUrlEnv = config.statsUrlEnv;
+    $scope.manager.statsUrl = config.statsUrl;
+    $scope.manager.logUrl = config.logUrl;
+    $scope.manager.logEnv = config.logEnv;
 
     $scope.loadMore = function () {
       $scope.manager.loadMore();
@@ -34,9 +31,39 @@ angular.module('galebWebui')
       $scope.mode = 'Create';
       $scope.manager.selectedResource = {};
 
+      $scope.manager.selectedResource.hcTCP = true;
+
       if (resource) {
         $scope.manager.selectedResource = resource;
         $scope.mode = 'Edit';
+
+        $scope.manager.selectedResource.hcTCP = !angular.isDefined($scope.manager.selectedResource.properties.hcPath) &&
+                                                !angular.isDefined($scope.manager.selectedResource.properties.hcStatusCode) &&
+                                                !angular.isDefined($scope.manager.selectedResource.properties.hcHost) &&
+                                                !angular.isDefined($scope.manager.selectedResource.properties.hcBody);
+
+        if ($scope.manager.selectedResource.rulesOrdered) {
+          $scope.sortableOptions = {
+            placeholder: "placeholder"
+          };
+          var tmpArray = [];
+          $scope.manager.selectedResource.arrayRuleOrder = [];
+
+          angular.forEach($scope.manager.selectedResource.rulesObj, function(element, i) {
+
+            $scope.manager.selectedResource.rulesOrdered.some(function(item) {
+              if (item.ruleId == element.id) {
+                element.ruleOrder = item.ruleOrder;
+                return true;
+              } else {
+                element.ruleOrder = 999999;
+              }
+            });
+            tmpArray.push(element);
+          });
+
+          $scope.manager.selectedResource.arrayRuleOrder = $filter('orderBy')(tmpArray, 'ruleOrder');
+        }
 
         angular.forEach(apiForce, function (value, key) {
           tmpObj = $scope.manager.selectedResource[key + 'Obj'];
@@ -57,7 +84,39 @@ angular.module('galebWebui')
     };
 
     $scope.saveResource = function () {
+      if ($scope.manager.apiPath === 'account') {
+        var passMD5 = md5.createHash($scope.manager.selectedResource.email + new Date() || '');
+        $scope.manager.selectedResource.password = passMD5;
+      }
       if ($scope.manager.selectedResource.id != null) {
+        if ($scope.manager.selectedResource.rulesOrdered) {
+          $scope.manager.selectedResource.rulesOrdered = [];
+          angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function (v, k) {
+            $scope.manager.selectedResource.rulesOrdered.push({'ruleId': v.id, 'ruleOrder': k});
+          });
+          if ($scope.manager.selectedResource.ruleDefault == "") {
+            $scope.manager.selectedResource.ruleDefault = null;
+          }
+        }
+        if ($scope.manager.apiPath === 'pool') {
+          if ($scope.manager.selectedResource.hcTCP) {
+            delete $scope.manager.selectedResource.properties.hcPath;
+            delete $scope.manager.selectedResource.properties.hcStatusCode;
+            delete $scope.manager.selectedResource.properties.hcHost;
+            delete $scope.manager.selectedResource.properties.hcBody;
+          }
+        }
+        if ($scope.manager.apiPath === 'virtualhost') {
+          if (!$scope.manager.selectedResource.properties.allows || $scope.manager.selectedResource.properties.allows == "") {
+            delete $scope.manager.selectedResource.properties.allows;
+          }
+        }
+        if ($scope.manager.apiPath === 'balancepolicy') {
+          if (!$scope.manager.selectedResource.properties.keyType || $scope.manager.selectedResource.properties.keyType == "") {
+            delete $scope.manager.selectedResource.properties.keyType;
+          }
+        }
+
         $scope.manager.updateResource($scope.manager.selectedResource).then(function () {
         $scope.managerModal.hide();
         });
@@ -89,6 +148,76 @@ angular.module('galebWebui')
       });
     };
 
+    $scope.cleanRuleDefault = function () {
+      $scope.manager.selectedResource.ruleDefault = "";
+    };
+
+    $scope.reloadFarm = function (resource) {
+      SweetAlert.swal({
+        title: "Are you sure?",
+        text: "This will remove all content of <b>" + resource.name + "</b><br> and will perform a reload!",
+        showCancelButton: true,
+        confirmButtonColor: "#e51c23",
+        confirmButtonText: "Yes, reload it!",
+        closeOnConfirm: false,
+        html: true
+      }, function(isConfirm) {
+        if (isConfirm) {
+          SweetAlert.swal({
+            title: "Are you really sure?",
+            text: "This is your last chance!",
+            showCancelButton: true,
+            confirmButtonColor: "#e51c23",
+            confirmButtonText: "Reload now!",
+            closeOnConfirm: true,
+            html: true
+          }, function(isConfirmToo) {
+            if (isConfirmToo) {
+              $scope.manager.selectedResource = {};
+
+              if (resource) {
+                $scope.manager.selectedResource = resource;
+              }
+              $scope.manager.reloadFarm($scope.manager.selectedResource);
+            }
+          });
+        }
+      });
+    };
+
+    $scope.unlockFarm = function (resource) {
+      SweetAlert.swal({
+        title: "Are you sure?",
+        text: "This will unlock <b>" + resource.name + "</b> and will perform a sync!",
+        showCancelButton: true,
+        confirmButtonColor: "#e51c23",
+        confirmButtonText: "Yes, unlock it!",
+        closeOnConfirm: false,
+        html: true
+      }, function(isConfirm) {
+        if (isConfirm) {
+          SweetAlert.swal({
+            title: "Are you really sure?",
+            text: "This is your last chance!",
+            showCancelButton: true,
+            confirmButtonColor: "#e51c23",
+            confirmButtonText: "Unlock now!",
+            closeOnConfirm: true,
+            html: true
+          }, function(isConfirmToo) {
+            if (isConfirmToo) {
+              $scope.manager.selectedResource = {};
+
+              if (resource) {
+                $scope.manager.selectedResource = resource;
+              }
+              $scope.manager.unlockFarm($scope.manager.selectedResource);
+            }
+          });
+        }
+      });
+    };
+
   $scope.showReportModal = function (virtualhost) {
     $scope.manager.selectedResource = {};
 
@@ -102,85 +231,5 @@ angular.module('galebWebui')
       show: true
     });
   };
-
-    $scope.cleanVirtualHostGroup = function () {
-        $scope.manager.selectedResource.virtualhostgroup = "";
-    };
-
-    $scope.showRuleOrderedModal = function (virtualhostgroup, envID, envName) {
-        $scope.manager.selectedResource = {};
-
-        if (virtualhostgroup && envID && envName) {
-            var returnLoadRO = $scope.manager.loadRuleOredered(virtualhostgroup, envID, envName);
-            returnLoadRO.then(function (arrayRules) {
-                tmpRules = $filter('orderBy')(arrayRules, 'order');
-                $scope.manager.selectedResource.arrayRuleOrder = tmpRules;
-            });
-
-            $scope.sortableOptions = {
-                placeholder: "placeholder",
-                stop: function() {
-                    angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function(value, index) {
-                        value.order = index + 1;
-                    });
-                }
-            };
-        }
-
-        $scope.ruleOrderedModal = $modal({
-            scope: $scope,
-            templateUrl: 'views/modal/ruleordered.html',
-            show: true
-        });
-    };
-
-    $scope.addRuleOrdered = function () {
-        var returnRule = $scope.manager.loadRuleInformation($scope.manager.orderForm.rule);
-
-        returnRule.then(function (ruleInfo) {
-           return $scope.manager.loadEnvironmentInformation($scope.manager.selectedResource.environment_id, ruleInfo);
-        }).then(function (envInfo) {
-          var currentOrder = 0;
-          if($scope.manager.selectedResource.arrayRuleOrder.length > 0){
-            currentOrder = Math.max.apply(Math, $scope.manager.selectedResource.arrayRuleOrder.map(function (item) {
-                return item.order;
-            }));
-          }
-            envInfo['order'] = currentOrder + 1;
-            var ruleExist = $scope.manager.selectedResource.arrayRuleOrder.filter(item => item.ruleInfo.id === envInfo.ruleInfo.id);
-            if (ruleExist.length == 0) {
-                $scope.manager.selectedResource.arrayRuleOrder.push(envInfo);
-            } else {
-                toastr.error("Rule already exist in order list", "Error");
-            }
-            $scope.manager.orderForm = {};
-
-        });
-    };
-
-    $scope.removeRuleOrdered = function (index) {
-        var itemToRemove = $scope.manager.selectedResource.arrayRuleOrder.splice(index, 1);
-        if (itemToRemove[0].id) {
-            $scope.manager.selectedResource.arrayRuleRemove.push(itemToRemove[0]);
-        }
-    };
-
-    $scope.saveRuleOrdered = function () {
-        angular.forEach($scope.manager.selectedResource.arrayRuleOrder, function(value) {
-            value.virtualhostgroup = $scope.manager.selectedResource.virtualhostgroup;
-            if (value.id) {
-                $scope.manager.updateRuleOrder(value);
-            } else {
-                $scope.manager.createRuleOrder(value);
-            }
-        });
-
-        angular.forEach($scope.manager.selectedResource.arrayRuleRemove, function(value) {
-            value.virtualhostgroup = $scope.manager.selectedResource.virtualhostgroup;
-            $scope.manager.removeRuleOrder(value);
-        });
-
-        $scope.ruleOrderedModal.hide();
-    }
 
 });

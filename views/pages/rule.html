@@ -7,40 +7,43 @@
     </div>
 
     <table class="table table-hover"
-           ng-hide="manager.resource.length == 0 && manager.isLoading"
+           ng-hide="manager.resource.length == 0"
            infinite-scroll="loadMore()"
            infinite-scroll-immediate-check="false"
            infinite-scroll-disabled="manager.isLoading">
         <thead>
         <tr>
             <th class="col-05 text-center">#</th>
-            <th class="col-05 text-center">Sync</th>
-            <th class="col-3">Name</th>
-            <th class="col-1 text-center">Match</th>
-            <th class="col-2 text-center">Project</th>
-            <th class="col-2 text-center">Pool</th>
+            <th class="col-05">Status</th>
+            <th class="col-3">
+                Name
+                <div class="sortables" ng-if="!manager.isSearching">
+                    <span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
+                </div>
+            </th>
+            <th class="col-2 text-center">Virtualhosts</th>
+            <th class="col-2 text-center">
+                Pool
+                <div class="sortables" ng-if="!manager.isSearching">
+                    <span ng-click="doSort('pool.name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('pool.name,desc')" class="fa fa-sort-desc"></span>
+                </div>
+            </th>
+            <th class="col-1 text-center">Type</th>
             <th class="col-1">&nbsp;</th>
         </tr>
         </thead>
         <tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
-                   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
+                <ng-include src="'views/common/status.table.html'"></ng-include>
             </td>
-            <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span></td>
-            <td class="text-center">{{resource.matching}}</td>
-            <td class="text-center">{{resource.projectObj.name}}</td>
-            <td class="text-center pools" ng-if="resource.poolsObj.length < 3">
-                <ul>
-                    <li ng-repeat="pool in resource.poolsObj | orderBy:'name'">
-                        <span class="label label-default">{{pool.name}}</span>
-                    </li>
-                </ul>
+            <td>{{resource.name}} <span class="label label-warning" ng-if="resource.global == true">Global rule!</span>
             </td>
-            <td class="text-center pools" ng-if="resource.poolsObj.length > 2">
-                {{resource.poolsObj.length}}
-            </td>
+            <td class="text-center">{{resource.parentsObj.length}}</td>
+            <td class="text-center">{{resource.poolObj.name}}</td>
+            <td class="text-center">{{resource.ruleTypeObj.name}}</td>
             <td class="text-center">
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
             </td>

@@ -2,7 +2,7 @@
 	<div class="col-lg-12">
 		<h3 class="page-header">
 			Team
-			<div class="pull-right">
+			<div class="pull-right" ng-if="isAdmin()">
 				<button type="button" class="btn btn-success" ng-click="showManagerModal()">
 					Create
 				</button>
@@ -26,26 +26,30 @@
 	</div>
 
 	<table class="table table-hover"
-		   ng-hide="manager.resource.length == 0 && manager.isLoading"
+		   ng-hide="manager.resource.length == 0"
 		   infinite-scroll="loadMore()"
 		   infinite-scroll-immediate-check="false"
 		   infinite-scroll-disabled="manager.isLoading">
 		<thead>
 		<tr>
 			<th class="col-05 text-center">#</th>
+			<th class="col-05">Status</th>
 			<th class="col-4">Name</th>
-			<th class="col-4-5">Accounts</th>
+			<th class="col-4">Accounts</th>
 			<th class="col-1">&nbsp;</th>
 		</tr>
 		</thead>
 		<tr ng-repeat="resource in manager.resources">
 			<td class="text-center">{{resource.id}}</td>
+			<td class="text-center">
+				<ng-include src="'views/common/status.table.html'"></ng-include>
+			</td>
 			<td>{{resource.name}}</td>
 			<td ng-if="!resource.accountsObj || resource.accountsObj.length > 5">{{resource.accountsObj.length}}</td>
-		    <td ng-if="resource.accountsObj.length <= 5"><span ng-repeat="account in resource.accountsObj">{{account.username}}, </span></td>
+		    <td ng-if="resource.accountsObj.length <= 5"><span ng-repeat="account in resource.accountsObj">{{account.name}}, </span></td>
 			<td class="text-center">
 				<button class="btn btn-default btn-sm"
-						ng-click="showManagerModal(resource)">
+						ng-click="showManagerModal(resource)" ng-if="isAdmin()">
 					<i class="fa fa-pencil"></i>
 				</button>
 				<button class="btn btn-danger btn-sm"

@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h3 class="page-header">
-			Project
+			BalanceType
 			<ng-include src="'views/common/header.list.html'"></ng-include>
 		</h3>
 	</div>
@@ -15,18 +15,16 @@
 		<tr>
 			<th class="col-05 text-center">#</th>
 			<th class="col-05">Status</th>
-			<th class="col-5">Name</th>
-			<th class="col-3">Teams</th>
+			<th class="col-8">Name</th>
 			<th class="col-1">&nbsp;</th>
 		</tr>
 		</thead>
 		<tr ng-repeat="resource in manager.resources">
 			<td class="text-center">{{resource.id}}</td>
-            <td class="text-center">
+			<td class="text-center">
 				<ng-include src="'views/common/status.table.html'"></ng-include>
-            </td>
-		    <td>{{resource.name}}</td>
-		    <td><span ng-repeat="team in resource.teamsObj">{{team.name}}, </span></td>
+			</td>
+			<td>{{resource.name}}</td>
 			<td class="text-center">
 				<ng-include src="'views/common/buttons.table.html'"></ng-include>
 			</td>

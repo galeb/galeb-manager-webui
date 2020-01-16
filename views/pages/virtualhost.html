@@ -7,22 +7,34 @@
     </div>
 
     <table class="table table-hover"
-           ng-hide="manager.resource.length == 0 && manager.isLoading"
+           ng-hide="manager.resource.length == 0"
            infinite-scroll="loadMore()"
            infinite-scroll-immediate-check="false"
            infinite-scroll-disabled="manager.isLoading">
         <thead>
         <tr>
             <th class="col-05 text-center">#</th>
-            <th class="col-05 text-center">Sync</th>
+            <th class="col-05">Status</th>
             <th class="col-3">
                 Name
+                <div class="sortables" ng-if="!manager.isSearching">
+                    <span ng-click="doSort('name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('name,desc')" class="fa fa-sort-desc"></span>
+                </div>
             </th>
             <th class="col-2 text-center">
                 Project
+                <div class="sortables" ng-if="!manager.isSearching">
+                    <span ng-click="doSort('project.name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('project.name,desc')" class="fa fa-sort-desc"></span>
+                </div>
             </th>
             <th class="col-2 text-center">
                 Environment
+                <div class="sortables" ng-if="!manager.isSearching">
+                    <span ng-click="doSort('environment.name,asc')" class="fa fa-sort-asc"></span>
+                    <span ng-click="doSort('environment.name,desc')" class="fa fa-sort-desc"></span>
+                </div>
             </th>
             <th class="col-2">&nbsp;</th>
         </tr>
@@ -30,52 +42,44 @@
         <tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
-                   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
+                <ng-include src="'views/common/status.table.html'"></ng-include>
             </td>
             <td>
                 {{resource.name}}
+                <a role="button" ng-if="resource.aliases.length" data-toggle="collapse" data-target="#collapse{{resource.id}}" aria-expanded="false" aria-controls="collapse{{resource.id}}" class="text-decoration:none;">
+                    <span class="label label-primary">Alias <i class="fa fa-caret-down"></i></span>
+                </a>
+                <div class="collapse" id="collapse{{resource.id}}" ng-if="resource.aliases.length">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="(key, value) in resource.aliasStats">
+                            <i class="fa fa-level-up fa-rotate-90"></i> &nbsp;&nbsp;{{key}}
+                            <a ng-href="{{manager.statsUrl}}{{value}}&targets={{ resource.targetListStats.join(',') }}"
+                               target="_blank">
+                                <i class="fa fa-bar-chart fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </td>
             <td class="text-center">{{resource.projectObj.name}}</td>
-            <td class="text-center env">
-                <ul>
-                    <li ng-repeat="env in resource.environmentsObj | orderBy:'name'">
-                        <span class="label label-default">{{env.name}}</span>
-                    </li>
-                </ul>
-            </td>
+            <td class="text-center">{{resource.environmentObj.name}}</td>
             <td class="text-right">
-                <div class="btn-group">
-                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip"
-                       title="See metrics of your virtualhost" data-placement="top" bs-tooltip>
-                        <i class="fa fa-bar-chart fa-fw"></i> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="env in resource.environmentsObj | orderBy:'name'">
-                            <a ng-href="{{manager.statsVirtualhostUrl}}var-virtualhost={{resource.nameStats}}&var-env={{env.nameParsed}}&var-envid={{env.id}}"
-                               target="_blank">
-                                {{ env.name }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="btn-group">
-                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" data-toggle="tooltip"
-                       title="See access log of your virtualhost" data-placement="top" bs-tooltip>
-                        <i class="fa fa-file-text-o fa-fw"></i> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="env in resource.environmentsObj | orderBy:'name'">
-                            <a ng-href="{{env.name.toLowerCase().indexOf('dev') === -1 ? env.name.toLowerCase().indexOf('be') === -1 ? manager.logUrlProdFE : manager.logUrlProdBE : manager.logUrlDev }}{{resource.name}}"
-                               target="_blank" ng-if="env.name.toLowerCase().indexOf('qa2') === -1">
-                                {{ env.name }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <a ng-href="{{manager.logUrl}}{{resource.name}}" target="_blank" class="btn btn-default btn-sm"
+                   data-toggle="tooltip" title="See access log of your virtualhost"
+                   data-placement="bottom" bs-tooltip
+                   ng-if="manager.logEnv == '' || manager.logEnv.indexOf(resource.environmentObj.name) !== -1">
+                    <i class="fa fa-file-text-o fa-fw"></i>
+                </a>
                 <a ng-click="showReportModal(resource.id)"
                    data-toggle="tooltip" title="See complete report of your virtualhost"
-                   data-placement="top" bs-tooltip class="btn btn-default btn-sm">
+                   data-placement="bottom" bs-tooltip class="btn btn-default btn-sm">
                     <i class="fa fa-eye fa-fw"></i>
+                </a>
+                <a ng-href="{{manager.statsUrl}}{{resource.nameStats}}&targets={{ resource.targetListStats.join(',') }}"
+                   data-toggle="tooltip" title="See metrics of your virtualhost"
+                   data-placement="bottom" bs-tooltip
+                   target="_blank" class="btn btn-default btn-sm">
+                    <i class="fa fa-bar-chart fa-fw"></i>
                 </a>
                 &nbsp;&nbsp;
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>

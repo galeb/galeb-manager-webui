@@ -22,19 +22,10 @@
         <tr ng-repeat="resource in manager.resources">
             <td class="text-center">{{resource.id}}</td>
             <td class="text-center">
-                <i class="fa fa-circle {{ resource.statusInfo.color }}" data-toggle="tooltip"
-                   title="{{ resource.statusInfo.text }}" data-placement="bottom" bs-tooltip></i>
+                <ng-include src="'views/common/status.table.html'"></ng-include>
             </td>
             <td>{{resource.name}}</td>
             <td class="text-center">
-                <a ng-href="{{manager.statsUrlEnv}}var-env={{ resource.nameStats }}"
-                   data-toggle="tooltip" title="See metrics of your environment"
-                   data-placement="bottom" bs-tooltip
-                   target="_blank" class="btn btn-default btn-sm"
-                   ng-if="manager.statsUrlEnv.indexOf(resource.name.toLowerCase()) === -1">
-                    <i class="fa fa-bar-chart fa-fw"></i>
-                </a>
-                &nbsp;
                 <ng-include src="'views/common/buttons.table.html'"></ng-include>
             </td>
         </tr>

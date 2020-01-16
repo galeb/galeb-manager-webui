@@ -11,70 +11,39 @@
                 <ul class="tree">
                     <li id="report-first-item">
                         <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
-                           data-content="ID: <b>{{ manager.selectedResource.id }}</b>
-                           <br>Name: <b>{{ manager.selectedResource.name }}</b>
-                           <br>Environment:
-                           <br>{{ manager.selectedResource.environment }}
-                           <br>Rule(s): <b>{{ manager.selectedResource.rules.length }}</b>
-                           <br>Modified By: <b>{{ manager.selectedResource.last_modified_by }}</b>
-                           <br>Modified At: <b>{{ manager.selectedResource.last_modified_at | date:'dd/MM/yyyy - HH:mm:ss' }}</b>">
-                           <i class="fa fa-circle {{ manager.selectedResource.color }}"></i>
+                           data-title="ID: {{ manager.selectedResource.id }} - {{ manager.selectedResource.name }}"
+                           data-content="Status: <b>{{manager.selectedResource.status}}</b>
+                           <br>Environment: <b>{{manager.selectedResource.environment}}</b>
+                           <br>{{manager.selectedResource.tooltip}}">
+                            <gw-status status="{{ manager.selectedResource.status }}"></gw-status>
                             &nbsp;{{ manager.selectedResource.name }}
                         </a>
                         <ul>
                             <li ng-repeat="rule in manager.selectedResource.rules">
                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
-                                   data-content="ID: <b>{{ rule.id }}</b>
-                                   <br>Name: <b>{{ rule.name }}</b>
-                                   <br>Global: <b>{{ rule.global }}</b>
-                                   <br>Environment: <b>{{ rule.environment }}</b>
-                                   <br>Modified By: <b>{{ rule.last_modified_by }}</b>
-                                   <br>Modified At: <b>{{ rule.last_modified_at | date:'dd/MM/yyyy - HH:mm:ss' }}</b>">
-                                   <i class="fa fa-circle {{ rule.color }}"></i>
+                                   data-title="ID: {{ rule.id }} - {{ rule.name }}"
+                                   data-content="Status: <b>{{rule.status}}</b> <br>Global: <b>{{rule.global}}</b>">
+                                    <gw-status status="{{ rule.status }}"></gw-status>
                                     &nbsp;{{ rule.match }}
                                 </a>
                                 <ul>
-                                    <li ng-repeat="pool in rule.pools">
+                                    <li>
                                         <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
-                                           data-content="ID: <b>{{ pool.id }}</b>
-                                           <br>Name: <b>{{ pool.name }}</b>
-                                           <br>Environment: <b>{{ pool.environment }}</b>
-                                           <br>Balance Policy: <b>{{ pool.balance }}</b>
-                                           <hr />
-                                           HealthCheck:
-                                           <br>&nbsp;&nbsp;&nbsp;Path: <b>{{ pool.hc_path }}</b>
-                                           <br>&nbsp;&nbsp;&nbsp;Status Code: <b>{{ pool.hc_http_status_code }}</b>
-                                           <br>&nbsp;&nbsp;&nbsp;Host: <b>{{ pool.hc_host }}</b>
-                                           <br>&nbsp;&nbsp;&nbsp;Method: <b>{{ pool.hc_http_method }}</b>
-                                           <br>&nbsp;&nbsp;&nbsp;Body: <b>{{ pool.hc_body }}</b>
-                                           <hr />
-                                           Target(s): <b>{{ pool.targets.length }}</b>
-                                           <br>Modified By: <b>{{ pool.last_modified_by }}</b>
-                                           <br>Modified At: <b>{{ pool.last_modified_at | date:'dd/MM/yyyy - HH:mm:ss' }}</b>">
-                                           <i class="fa fa-circle {{ pool.color }}"></i>
-                                            &nbsp;{{ pool.name }}
+                                           data-title="ID: {{ rule.pool.id }} - {{ rule.pool.name }}"
+                                           data-content="Status: <b>{{ rule.pool.status }}</b>
+                                           <br>Environment: <b>{{rule.pool.environment}}</b>
+                                           <br>{{ rule.pool.tooltip }}">
+                                            <gw-status status="{{ rule.pool.status }}"></gw-status>
+                                            &nbsp;{{ rule.pool.name }}
                                         </a>
                                         <ul>
-                                            <li ng-repeat="target in pool.targets">
+                                            <li ng-repeat="target in rule.pool.targets">
                                                 <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
-                                                   data-content="ID: <b>{{ target.id }}</b>
-                                                   <br>Name: <b><a href='{{ target.name }}' target='_blank' class='target'>{{ target.name }}</a></b>
-                                                   <br>Modified By: <b>{{ target.last_modified_by }}</b>
-                                                   <br>Modified At: <b>{{ target.last_modified_at | date:'dd/MM/yyyy - HH:mm:ss' }}</b>">
-                                                   <i class="fa fa-circle {{ target.color }}"></i>
+                                                   data-title="ID: {{ target.id }} - {{ target.name }}"
+                                                   data-content="Status: <b>{{target.status}}</b>">
+                                                    <gw-status status="{{ target.status }}"></gw-status>
                                                     &nbsp;{{ target.name }}
                                                 </a>
-                                                <ul>
-                                                    <li ng-repeat="hs in target.healthStatus">
-                                                        <a data-placement="right" data-auto-close="true" bs-popover data-html="true"
-                                                           data-content="ID: <b>{{ hs.id }}</b>
-                                                           {{ hs.info }}
-                                                           <br>Source: <b>{{ hs.source }}</b>
-                                                           <br>Modified At: <b>{{ hs.last_modified_at | date:'dd/MM/yyyy - HH:mm:ss' }}</b>">
-                                                            <i class="fa {{ hs.icon }}"></i>&nbsp;{{ hs.source }}
-                                                        </a>
-                                                    </li>
-                                                </ul>
                                             </li>
                                         </ul>
                                     </li>

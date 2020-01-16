@@ -1,0 +1,15 @@
+<div class="form-group" ng-controller="RuleTypeController">
+  <label class="col-sm-3 control-label">RuleType</label>
+
+  <div class="col-sm-8">
+    <ui-select ng-model="manager.selectedResource.ruleType" required>
+      <ui-select-match placeholder="Select one ruletype">
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="ruletype.selfLink as ruletype in (manager.ruletype
+      | filter: $select.search) track by ruletype.id">
+        <div ng-bind-html="ruletype.name | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+</div>

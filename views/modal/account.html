@@ -5,11 +5,23 @@
         <button type="button"
         class="close"
         ng-click="managerModal.hide()">&times;</button>
-        <h4 class="modal-title">{{mode}} Team</h4>
+        <h4 class="modal-title">{{mode}} Account</h4>
       </div>
       <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal" ng-show="isAdmin()">
         <div class="modal-body">
           <ng-include src="'views/common/header.modal.html'"></ng-include>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">E-mail</label>
+
+            <div class="col-sm-8">
+              <input id="email" name="email" ng-model="manager.selectedResource.email" type="email"
+              class="form-control input-md" required>
+            </div>
+          </div>
+
+          <ng-include src="'views/common/list/roles.html'"></ng-include>
+
+          <ng-include src="'views/common/list/team.html'"></ng-include>
 
           <ng-include src="'views/common/footer.modal.html'"></ng-include>
         </div>

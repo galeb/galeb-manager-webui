@@ -1,19 +1,15 @@
-<div class="form-group" ng-if="mode == 'Edit'">
-  <label class="col-sm-3 control-label">VirtualHost Group</label>
+<div class="form-group">
+  <label class="col-sm-3 control-label">VirtualHosts</label>
 
   <div class="col-sm-8">
-      <ui-select ng-model="manager.selectedResource.virtualhostgroup">
-        <ui-select-match placeholder="Select one virtualhost group">
-          <span ng-bind="$select.selected.name"></span>
-        </ui-select-match>
-        <ui-select-choices repeat="virtualhost.selfLink as virtualhost in manager.virtualhost
-        | filter: { name: $select.search }"
-                           refresh="manager.loadListResources('virtualhost', $select.search)"
-                           refresh-delay="500"
-                           minimum-input-length="3">
-          <div ng-bind-html="virtualhost.name | highlight: $select.search"></div>
-        </ui-select-choices>
-      </ui-select>
-    <span class="help-block" style="color:red;">Leave blank to create your virtualhost group. If you change Virtualhostgroup, and the previous Virtualhostgroup is not being used, it will be deleted.</span>
+    <ui-select ng-model="manager.selectedResource.parents" close-on-select="false" multiple>
+      <ui-select-match placeholder="Select virtualhosts...">{{ $item.name }}</ui-select-match>
+      <ui-select-choices repeat="virtualhost.selfLink as virtualhost in manager.virtualhost | filter: { name: $select.search }"
+      refresh="manager.loadListResources('virtualhost', $select.search)"
+      refresh-delay="500"
+      minimum-input-length="3">
+        <div ng-bind-html="virtualhost.name | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
   </div>
 </div>

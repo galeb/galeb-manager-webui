@@ -3,8 +3,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button"
-                class="close"
-                ng-click="managerModal.hide()">&times;</button>
+        class="close"
+        ng-click="managerModal.hide()">&times;</button>
         <h4 class="modal-title">{{mode}} VirtualHost</h4>
       </div>
       <form name="managerForm" ng-submit="saveResource()" novalidate class="form-horizontal">
@@ -20,22 +20,63 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="aliases">Aliases</label>
+
+            <div class="col-sm-8">
+
+              <input id="aliases" name="aliases" ng-list
+              ng-model="manager.selectedResource.aliases" type="text"
+              class="form-control input-md"
+              disable-valid-styling="true">
+              <span class="help-block">Use commas to separate your alias.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="allows">Allows</label>
+            <div class="col-sm-8">
+
+              <input id="allows" name="allows" ng-model="manager.selectedResource.properties.allows" type="text"
+                     class="form-control input-md" ng-pattern="regex_virtualhost_allows" ng-pattern-err-type="badAllows"
+                     disable-valid-styling="true">
+              <span class="help-block">Use commas to separate IPs.</span>
+            </div>
+          </div>
+
+          <ng-include src="'views/common/list/rule.html'" ng-if="manager.selectedResource.id && manager.selectedResource.arrayRuleOrder.length"></ng-include>
+
           <ng-include src="'views/common/list/project.html'"></ng-include>
 
-          <ng-include src="'views/common/list/environment_many.html'"></ng-include>
-
-          <ng-include src="'views/common/list/virtualhost.html'"></ng-include>
+          <ng-include src="'views/common/list/environment.html'"></ng-include>
 
           <ng-include src="'views/common/footer.modal.html'"></ng-include>
 
+          <div ng-if="manager.selectedResource.id">
+            <hr>
+
+            <h5>Rule's order
+              <small ng-if="manager.selectedResource.arrayRuleOrder.length">Drag rules to arrange</small>
+            </h5>
+            <div class="alert alert-warning" role="alert" ng-if="!manager.selectedResource.arrayRuleOrder.length">There are no rules associated</div>
+            <ul class="sortable-list" ui-sortable="sortableOptions"
+            ng-model="manager.selectedResource.arrayRuleOrder">
+            <li class="sortable-item" ng-repeat="rule in manager.selectedResource.arrayRuleOrder">
+              <b>{{ rule.name }}</b>
+              <br>
+              <span class="label label-warning" ng-show="rule.global">Global rule!</span> ID: {{
+                rule.id
+              }} - Match: {{ rule.match }}
+            </li>
+          </ul>
         </div>
-        <div class="modal-footer">
-          <button type="submit" id="save" name="save" ladda="manager.isSaving" class="btn btn-primary">Save
-          </button>
-          <button class="btn btn-default" type="button" ng-click="managerModal.hide()">Cancel</button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="save" name="save" ladda="manager.isSaving" class="btn btn-primary">Save
+        </button>
+        <button class="btn btn-default" type="button" ng-click="managerModal.hide()">Cancel</button>
+      </div>
+    </form>
   </div>
 </div>
-
+</div>

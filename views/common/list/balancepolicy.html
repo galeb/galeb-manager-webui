@@ -2,13 +2,13 @@
   <label class="col-sm-3 control-label">BalancePolicy</label>
 
   <div class="col-sm-8">
-    <ui-select ng-model="manager.selectedResource.balancepolicy" required>
+    <ui-select ng-model="manager.selectedResource.balancePolicy" required>
       <ui-select-match placeholder="Select one balancepolicy">
         <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices repeat="balancepolicy.selfLink as balancepolicy in (manager.balancepolicy
       | filter: { name: '!Default' }
-      | filter: { name: $select.search }) track by balancepolicy.name">
+      | filter: { name: $select.search }) track by balancepolicy.id">
         <div ng-bind-html="balancepolicy.name | highlight: $select.search"></div>
       </ui-select-choices>
     </ui-select>
