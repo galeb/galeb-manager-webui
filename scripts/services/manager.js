@@ -78,7 +78,14 @@ angular.module('galebWebui')
 				} else if(self.apiPath === "virtualhostgroup" && self.searchText != ''){
 					ManagerSelected = ManagerGenericSearch;
 					params = {'path': 'virtualhostgroup', 'searchPath': 'findByVirtualhosts_NameContaining', 'query': 'name=' + self.searchText + '&size=10' + '&page=' + self.page};
-				} 
+                } 
+                
+                if (self.searchText != '' && self.searchText.indexOf('^') == 0) {
+                    ManagerSelected = ManagerGenericSearch;
+                    params['searchPath'] = 'findByName';
+                    params['path'] = params.path;
+                    params['query'] = 'name=' + self.searchText.substring(1) + '&size=10' + '&page=' + self.page;
+                }                
 
 				ManagerSelected.get(params, function (response) {
 					angular.forEach(response._embeddedItems, function(resource) {
