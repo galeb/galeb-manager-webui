@@ -111,6 +111,9 @@ body {
     text-align: center;
     margin-top: 0;
 }
+.form-login .btn:focus {
+    outline:2.5px solid -webkit-focus-ring-color;
+}
 .form-search {
     max-width: 300px;
 }
