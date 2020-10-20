@@ -114,6 +114,9 @@ body {
 .form-search {
     max-width: 300px;
 }
+.form-login .btn:focus {
+    outline:2.5px solid -webkit-focus-ring-color;
+}
 .ui-select-multiple.ui-select-bootstrap {
     min-height: 37px;
     -webkit-box-shadow: inset 0 -1px 0 #ddd;
