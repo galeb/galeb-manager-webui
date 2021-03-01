@@ -16,8 +16,22 @@ $ bower install
 
 Using
 -----
+First you need to change the address of backend API in `constants.js` file, by default it's `http://localhost:80`.
 
-TODO
+To run local, we need a http-server, go to project root directory and run:
+>
+```bash
+$ npm install -g http-server
+$ http-server .
+```
+
+Make RPM
+-----
+>
+```bash
+$ export GALEB_VERSION=<insert here your version number>
+$ make dist
+```
 
 License
 -----
