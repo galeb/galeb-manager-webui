@@ -440,7 +440,7 @@ angular.module('galebWebui')
             return d.promise;
         },
         'loadRuleOredered': function (vhgID, envID, envName) {
-            var params = {'path': 'ruleordered', 'searchPath': 'findByVirtualhostgroupIdAndEnvironmentId', 'query': 'vhgid=' + vhgID + '&envid=' + envID + '&size=50'};
+            var params = {'path': 'ruleordered', 'searchPath': 'findByVirtualhostgroupIdAndEnvironmentId', 'query': 'vhgid=' + vhgID + '&envid=' + envID + '&size=1000'};
             var arrRules = [];
             var d = $q.defer();
 
